@@ -4,6 +4,35 @@
     "D:\\student_management_system\\schoolManagementSystem\\schoolManagementSystemAPI\\schoolManagementSystemAPI.csproj": {}
   },
   "projects": {
+    "D:\\student_management_system\\schoolManagementSystem\\eCommanLib\\eCommanLib.csproj": {
+      "restore": {
+        "projectUniqueName": "D:\\student_management_system\\schoolManagementSystem\\eCommanLib\\eCommanLib.csproj",
+        "projectName": "eCommanLib",
+        "projectPath": "D:\\student_management_system\\schoolManagementSystem\\eCommanLib\\eCommanLib.csproj"
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "D:\\student_management_system\\schoolManagementSystem\\eOperationlib\\eOperationlib.csproj": {
+      "restore": {
+        "projectUniqueName": "D:\\student_management_system\\schoolManagementSystem\\eOperationlib\\eOperationlib.csproj",
+        "projectName": "eOperationlib",
+        "projectPath": "D:\\student_management_system\\schoolManagementSystem\\eOperationlib\\eOperationlib.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "D:\\student_management_system\\schoolManagementSystem\\eCommanLib\\eCommanLib.csproj": {
+                "projectPath": "D:\\student_management_system\\schoolManagementSystem\\eCommanLib\\eCommanLib.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
     "D:\\student_management_system\\schoolManagementSystem\\schoolManagementSystemAPI\\schoolManagementSystemAPI.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -31,7 +60,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\student_management_system\\schoolManagementSystem\\eOperationlib\\eOperationlib.csproj": {
+                "projectPath": "D:\\student_management_system\\schoolManagementSystem\\eOperationlib\\eOperationlib.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

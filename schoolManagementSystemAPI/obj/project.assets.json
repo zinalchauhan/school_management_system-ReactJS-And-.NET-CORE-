@@ -75,6 +75,27 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "eCommanLib/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/eCommanLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/eCommanLib.dll": {}
+        }
+      },
+      "eOperationlib/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "eCommanLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/eOperationlib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/eOperationlib.dll": {}
+        }
       }
     }
   },
@@ -185,11 +206,22 @@
         "swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "eCommanLib/1.0.0": {
+      "type": "project",
+      "path": "../eCommanLib/eCommanLib.csproj",
+      "msbuildProject": "../eCommanLib/eCommanLib.csproj"
+    },
+    "eOperationlib/1.0.0": {
+      "type": "project",
+      "path": "../eOperationlib/eOperationlib.csproj",
+      "msbuildProject": "../eOperationlib/eOperationlib.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Swashbuckle.AspNetCore >= 5.6.3"
+      "Swashbuckle.AspNetCore >= 5.6.3",
+      "eOperationlib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -223,7 +255,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\student_management_system\\schoolManagementSystem\\eOperationlib\\eOperationlib.csproj": {
+              "projectPath": "D:\\student_management_system\\schoolManagementSystem\\eOperationlib\\eOperationlib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
