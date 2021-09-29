@@ -1,0 +1,101 @@
+F:\Study\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.csprojResolveAssemblyReference.cache
+F:\Study\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.dll
+F:\Study\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.pdb
+F:\Study\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.dll
+F:\Study\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.pdb
+F:\Study\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.dll
+F:\Study\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.pdb
+D:\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.dll
+D:\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.pdb
+D:\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.dll
+D:\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.pdb
+D:\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.csprojResolveAssemblyReference.cache
+D:\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.dll
+D:\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.pdb
+F:\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.dll
+F:\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.pdb
+F:\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.dll
+F:\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.pdb
+F:\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.csprojResolveAssemblyReference.cache
+F:\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.dll
+F:\Project\Project Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.pdb
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\surti_khana.sdf
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.dll
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eOperationlib.pdb
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.dll
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\bin\Debug\eCommanLib.pdb
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.csprojResolveAssemblyReference.cache
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.dll
+D:\Study\Project\Sem-7\surti-khana\surtikhana\eOperationlib\obj\Debug\eOperationlib.pdb
+G:\sem2project\textilesystem\eOperationlib\bin\Debug\eOperationlib.dll
+G:\sem2project\textilesystem\eOperationlib\bin\Debug\eOperationlib.pdb
+G:\sem2project\textilesystem\eOperationlib\bin\Debug\eCommanLib.dll
+G:\sem2project\textilesystem\eOperationlib\bin\Debug\eCommanLib.pdb
+G:\sem2project\textilesystem\eOperationlib\obj\Debug\eOperationlib.csprojResolveAssemblyReference.cache
+G:\sem2project\textilesystem\eOperationlib\obj\Debug\eOperationlib.dll
+G:\sem2project\textilesystem\eOperationlib\obj\Debug\eOperationlib.pdb
+C:\Users\MIRA\Documents\Visual Studio 2010\Projects\textilesystem\eOperationlib\bin\Debug\eOperationlib.dll
+C:\Users\MIRA\Documents\Visual Studio 2010\Projects\textilesystem\eOperationlib\bin\Debug\eOperationlib.pdb
+C:\Users\MIRA\Documents\Visual Studio 2010\Projects\textilesystem\eOperationlib\bin\Debug\eCommanLib.dll
+C:\Users\MIRA\Documents\Visual Studio 2010\Projects\textilesystem\eOperationlib\bin\Debug\eCommanLib.pdb
+C:\Users\MIRA\Documents\Visual Studio 2010\Projects\textilesystem\eOperationlib\obj\Debug\eOperationlib.csprojResolveAssemblyReference.cache
+C:\Users\MIRA\Documents\Visual Studio 2010\Projects\textilesystem\eOperationlib\obj\Debug\eOperationlib.dll
+C:\Users\MIRA\Documents\Visual Studio 2010\Projects\textilesystem\eOperationlib\obj\Debug\eOperationlib.pdb
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eOperationlib.dll
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eOperationlib.pdb
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.dll
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.pdb
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.dll.config
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.csprojAssemblyReference.cache
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.csproj.CopyComplete
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.dll
+D:\Study\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.pdb
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eOperationlib.dll
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eOperationlib.pdb
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.dll
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.pdb
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.dll.config
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.csprojAssemblyReference.cache
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.csproj.CopyComplete
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.dll
+D:\company\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.pdb
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eOperationlib.dll
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eOperationlib.pdb
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.dll
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.pdb
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\bin\Debug\eCommanLib.dll.config
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.csprojAssemblyReference.cache
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.csproj.CoreCompileInputs.cache
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.csproj.CopyComplete
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.dll
+E:\AA_sem7_asp.net_Project\Auction_Portal\eOperationlib\obj\Debug\eOperationlib.pdb
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\eOperationlib.dll.config
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\eOperationlib.dll
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\eOperationlib.pdb
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\eCommanLib.dll
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\System.Data.SqlClient.dll
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\eCommanLib.pdb
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\eCommanLib.dll.config
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\System.Data.SqlClient.xml
+D:\Metanoia\.net\DemoWebService\eOperationlib\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Metanoia\.net\DemoWebService\eOperationlib\obj\Debug\eOperationlib.csproj.AssemblyReference.cache
+D:\Metanoia\.net\DemoWebService\eOperationlib\obj\Debug\eOperationlib.csproj.CoreCompileInputs.cache
+D:\Metanoia\.net\DemoWebService\eOperationlib\obj\Debug\eOperationlib.csproj.CopyComplete
+D:\Metanoia\.net\DemoWebService\eOperationlib\obj\Debug\eOperationlib.dll
+D:\Metanoia\.net\DemoWebService\eOperationlib\obj\Debug\eOperationlib.pdb
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\eOperationlib.dll.config
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\eOperationlib.dll
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\eOperationlib.pdb
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\eCommanLib.dll
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\System.Data.SqlClient.dll
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\eCommanLib.pdb
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\eCommanLib.dll.config
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\System.Data.SqlClient.xml
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\obj\Debug\eOperationlib.csproj.AssemblyReference.cache
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\obj\Debug\eOperationlib.csproj.CoreCompileInputs.cache
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\obj\Debug\eOperationlib.csproj.CopyComplete
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\obj\Debug\eOperationlib.dll
+C:\Users\DELL\source\repos\DemoSolution\eOperationlib\obj\Debug\eOperationlib.pdb
