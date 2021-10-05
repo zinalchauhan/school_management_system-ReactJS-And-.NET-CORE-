@@ -93,7 +93,7 @@ public  class categoryMaster_tableDB : clsDB_Operation
 
                 obj.CategoryIdPk = (drRow["categoryIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["categoryIdPk"];
                 obj.CategoryName = (drRow["categoryName"].Equals(DBNull.Value)) ? "" : (string)drRow["categoryName"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
