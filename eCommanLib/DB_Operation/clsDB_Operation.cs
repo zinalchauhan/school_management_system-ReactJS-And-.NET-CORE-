@@ -39,7 +39,7 @@ public class clsDB_Operation
         {
 
             mdbCommand = new SqlCommand();
-            objConnection = new SqlConnection(@"Data Source=DESKTOP-IA6N616\SQLEXPRESS;Initial Catalog=Demo;Integrated Security=True");//"(SqlConnection)Session["HRSqlConnection"];
+            objConnection = new SqlConnection(@"Data Source=DESKTOP-IA6N616\SQLEXPRESS;Initial Catalog=schoolManagementSystem;Integrated Security=True");//"(SqlConnection)Session["HRSqlConnection"];
             OnStartConnection();
 
 

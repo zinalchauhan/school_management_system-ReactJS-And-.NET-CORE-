@@ -13,12 +13,12 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
         {
         }
 
-        public int OnInsert(studentMaster_tableEntities obj)
+        public int OnInsert(oldStudentMaster_tableEntities obj)
         {
             string strQ = "";
             try
             {
-                strQ = @"INSERT INTO [studentMaster]
+                strQ = @"INSERT INTO [oldStudentMaster]
                                    ([studentRollNo],[studentGrNo],[mediumIdFk],[classIdFk],[leaveYear],[studentFname],[studentMname],[studentLname],[studentImage],[studentDob],[studentGender],[studentEmail],[studentMobile],[fatherMobile],[studentAddres],[cityIdFk])
                              VALUES
                                    (@studentRollNo,@studentGrNo,@mediumIdFk,@classIdFk,@leaveYear,@studentFname,@studentMname,@studentLname,@studentImage,@studentDob,@studentGender,@studentEmail,@studentMobile,@fatherMobile,@studentAddress,@cityIdFk)";
@@ -29,18 +29,18 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                 AddParameter("@studentGrNo", SqlDbType.Int, 50, obj.StudentGrNo, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
                 AddParameter("@classIdFk", SqlDbType.Int, 50, obj.ClassIdFk, ParameterDirection.Input);
-                AddParameter("@leaveYear", SqlDbType.Int, 50, obj.CategoryIdFk, ParameterDirection.Input);
+                AddParameter("@leaveYear", SqlDbType.Int, 50, obj.LeaveYear, ParameterDirection.Input);
                 AddParameter("@studentFname", SqlDbType.VarChar, 50, obj.StudentFname, ParameterDirection.Input);
                 AddParameter("@studentMname", SqlDbType.VarChar, 50, obj.StudentMname, ParameterDirection.Input);
                 AddParameter("@studentLname", SqlDbType.VarChar, 50, obj.StudentLname, ParameterDirection.Input);
                 AddParameter("@studentImage", SqlDbType.VarChar, 50, obj.StudentImage, ParameterDirection.Input);
                 AddParameter("@studentDob", SqlDbType.VarChar, 50, obj.StudentDob, ParameterDirection.Input);
                 AddParameter("@studentGender", SqlDbType.VarChar, 50, obj.StudentGender, ParameterDirection.Input);
-                AddParameter("@studentEmail", SqlDbType.VarChar, 50, obj.CategoryIdFk, ParameterDirection.Input);
+                AddParameter("@studentEmail", SqlDbType.VarChar, 50, obj.StudentEmail, ParameterDirection.Input);
                 AddParameter("@studentMobile", SqlDbType.VarChar, 50, obj.StudentMobile, ParameterDirection.Input);
                 AddParameter("@fatherMobile", SqlDbType.VarChar, 50, obj.FatherMobile, ParameterDirection.Input);
-                AddParameter("@studentAddress", SqlDbType.VarChar, 50, obj.CategoryIdFk, ParameterDirection.Input);
-                AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CategoryIdFk, ParameterDirection.Input);
+                AddParameter("@studentAddress", SqlDbType.VarChar, 50, obj.StudentAddress, ParameterDirection.Input);
+                AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CityIdFk, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
             }
@@ -51,14 +51,14 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             }
         }
 
-        public int OnUpdate(studentMaster_tableEntities obj)
+        public int OnUpdate(oldStudentMaster_tableEntities obj)
         {
             string strQ = "";
             try
             {
 
 
-                strQ = @"UPDATE [studentMaster]
+                strQ = @"UPDATE [oldStudentMaster]
                              SET    [studentRollNo]=@studentRollNo,
                                     [studentGrNo]=@studentGrNo,
                                     [mediumIdFk]=@mediumIdFk,
@@ -83,18 +83,18 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                 AddParameter("@studentGrNo", SqlDbType.Int, 50, obj.StudentGrNo, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
                 AddParameter("@classIdFk", SqlDbType.Int, 50, obj.ClassIdFk, ParameterDirection.Input);
-                AddParameter("@leaveYear", SqlDbType.Int, 50, obj.CategoryIdFk, ParameterDirection.Input);
+                AddParameter("@leaveYear", SqlDbType.Int, 50, obj.LeaveYear, ParameterDirection.Input);
                 AddParameter("@studentFname", SqlDbType.VarChar, 50, obj.StudentFname, ParameterDirection.Input);
                 AddParameter("@studentMname", SqlDbType.VarChar, 50, obj.StudentMname, ParameterDirection.Input);
                 AddParameter("@studentLname", SqlDbType.VarChar, 50, obj.StudentLname, ParameterDirection.Input);
                 AddParameter("@studentImage", SqlDbType.VarChar, 50, obj.StudentImage, ParameterDirection.Input);
                 AddParameter("@studentDob", SqlDbType.VarChar, 50, obj.StudentDob, ParameterDirection.Input);
                 AddParameter("@studentGender", SqlDbType.VarChar, 50, obj.StudentGender, ParameterDirection.Input);
-                AddParameter("@studentEmail", SqlDbType.VarChar, 50, obj.CategoryIdFk, ParameterDirection.Input);
+                AddParameter("@studentEmail", SqlDbType.VarChar, 50, obj.StudentEmail, ParameterDirection.Input);
                 AddParameter("@studentMobile", SqlDbType.VarChar, 50, obj.StudentMobile, ParameterDirection.Input);
                 AddParameter("@fatherMobile", SqlDbType.VarChar, 50, obj.FatherMobile, ParameterDirection.Input);
-                AddParameter("@studentAddress", SqlDbType.VarChar, 50, obj.CategoryIdFk, ParameterDirection.Input);
-                AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CategoryIdFk, ParameterDirection.Input);
+                AddParameter("@studentAddress", SqlDbType.VarChar, 50, obj.StudentAddress, ParameterDirection.Input);
+                AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CityIdFk, ParameterDirection.Input);
                 AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
@@ -113,7 +113,7 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             string strQ = "";
             try
             {
-                strQ += @"UPDATE  [studentMaster]
+                strQ += @"UPDATE  [oldStudentMaster]
                             SET [isActive] =  0
                          WHERE [studentIdPk]=@studentIdPk";
 
@@ -127,7 +127,7 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             }
         }
 
-        private studentMaster_tableEntities BuildEntities(DataRow drRow)
+        private oldStudentMaster_tableEntities BuildEntities(DataRow drRow)
         {
 
             try
@@ -181,18 +181,18 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             }
         }
 
-        public studentMaster_tableEntities OnLastRecordInserted()
+        public oldStudentMaster_tableEntities OnLastRecordInserted()
         {
             Exception exForce;
             DataTable dtTable;
 
-            studentMaster_tableEntities obj = new studentMaster_tableEntities();
+            oldStudentMaster_tableEntities obj = new oldStudentMaster_tableEntities();
 
             string strQ = "";
 
             try
             {
-                strQ = @"SELECT IDENT_CURRENT('studentMaster') ";
+                strQ = @"SELECT IDENT_CURRENT('oldStudentMaster') ";
 
                 OnClearParameter();
 
@@ -221,19 +221,19 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             }
         }
 
-        public studentMaster_tableEntities OnGetData(int ID)
+        public oldStudentMaster_tableEntities OnGetData(int ID)
         {
             Exception exForce;
             DataTable dtTable;
 
-            studentMaster_tableEntities obj = new studentMaster_tableEntities();
+            oldStudentMaster_tableEntities obj = new oldStudentMaster_tableEntities();
 
             string strQ = "";
 
             try
             {
                 strQ = @"SELECT s.* , m.mediumName , st.standardName , d.divisionName , c.cityName , stt.stateName
-                            FROM [studentMaster] s 
+                            FROM [oldStudentMaster] s 
                             JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
                             JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk]
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
@@ -272,18 +272,18 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<studentMaster_tableEntities> OnGetListdt()
+        public List<oldStudentMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;
             DataTable dtTable;
-            List<studentMaster_tableEntities> oList = new List<studentMaster_tableEntities>();
+            List<oldStudentMaster_tableEntities> oList = new List<oldStudentMaster_tableEntities>();
             string strQ = "";
 
             try
             {
                 strQ = @"SELECT s.* , m.mediumName , st.standardName , d.divisionName , c.cityName , stt.stateName
-                            FROM [studentMaster] s 
+                            FROM [oldStudentMaster] s 
                             JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
                             JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk]
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
@@ -333,10 +333,10 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             {
 
                 OnClearParameter();
-                strQ = @"SELECT [studentMaster].studentIdPk
-                                   ,[studentMaster].studentName
-                                    FROM [studentMaster] 
-                                    WHERE [studentMaster].isActive = '1'";
+                strQ = @"SELECT [oldStudentMaster].studentIdPk
+                                   ,[oldStudentMaster].studentName
+                                    FROM [oldStudentMaster] 
+                                    WHERE [oldStudentMaster].isActive = '1'";
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];
 

@@ -108,9 +108,9 @@ public class cityMaster_tableDB : clsDB_Operation
             cityMaster_tableEntities obj = new cityMaster_tableEntities();
 
             obj.CityIdPk = (drRow["cityIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["cityIdPk"];
-            obj.CityName = (drRow["cityName"].Equals(DBNull.Value)) ? "" : (string)drRow["stateName"];
+            obj.CityName = (drRow["cityName"].Equals(DBNull.Value)) ? "" : (string)drRow["cityName"];
             obj.StateIdFk = (drRow["stateIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["stateIdFk"];
-            //obj.StateName = (drRow["JoiningDate"].Equals(DBNull.Value)) ? "" : (string)drRow["stateName"];
+            obj.StateName = (drRow["stateName"].Equals(DBNull.Value)) ? "" : (string)drRow["stateName"];
             
             
             //obj.Emp_dept_id = (drRow["DeptId_Fk"].Equals(DBNull.Value)) ? 0 : (int)drRow["DeptId_Fk"];
@@ -217,7 +217,7 @@ public class cityMaster_tableDB : clsDB_Operation
         }
     }
 
-    public List<cityMaster_tableEntities> OnGetListdt()
+    public List<cityMaster_tableEntities> OnGetListdt(int stateId)
     {
         Exception exForce;
         //IDataReader oReader;
@@ -229,8 +229,11 @@ public class cityMaster_tableDB : clsDB_Operation
         {
             strQ = @"SELECT c.*, s.stateName 
                         FROM [cityMaster] c 
-                        JOIN [stateMaster] s ON c.[stateIdFk] = s.[stateIdPk] ";
+                        JOIN [stateMaster] s ON c.[stateIdFk] = s.[stateIdPk] 
+                        WHERE c.[stateIdFk] = @stateId";
             OnClearParameter();
+
+            AddParameter("stateId", SqlDbType.Int, 2, stateId, ParameterDirection.Input);
 
             dtTable = OnExecQuery(strQ, "list").Tables[0];
 

@@ -61,7 +61,7 @@ public class clsDB_Config : System.Web.UI.Page
     {
         try
         {
-            objText = String.Format(@"Data Source=DESKTOP-IA6N616\SQLEXPRESS;Initial Catalog=Demo;Integrated Security=True");
+            objText = String.Format(@"Data Source=DESKTOP-IA6N616\SQLEXPRESS;Initial Catalog=schoolManagementSyatem;Integrated Security=True");
 
         }
         catch (Exception ex)

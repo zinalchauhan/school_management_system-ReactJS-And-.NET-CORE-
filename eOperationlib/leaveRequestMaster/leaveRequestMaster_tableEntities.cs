@@ -38,7 +38,6 @@ using System.Threading.Tasks;
     public int CategoryIdFk { get => categoryIdFk; set => categoryIdFk = value; }
     public string CategoryName { get => categoryName; set => categoryName = value; }
     public int IsActive { get => isActive; set => isActive = value; }
-    public string FilePath { get => filePath; set => filePath = value; }
     public string AddedOn { get => addedOn; set => addedOn = value; }
     public string UserType { get => userType; set => userType = value; }
     public string LeaveRequestTitle { get => leaveRequestTitle; set => leaveRequestTitle = value; }
