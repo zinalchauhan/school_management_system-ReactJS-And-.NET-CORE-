@@ -88,3 +88,11 @@ C:\Users\DELL\source\repos\DemoSolution\eCommanLib\obj\Debug\eCommanLib.csproj.C
 C:\Users\DELL\source\repos\DemoSolution\eCommanLib\obj\Debug\eCommanLib.csproj.CopyComplete
 C:\Users\DELL\source\repos\DemoSolution\eCommanLib\obj\Debug\eCommanLib.dll
 C:\Users\DELL\source\repos\DemoSolution\eCommanLib\obj\Debug\eCommanLib.pdb
+D:\student_management_system\schoolManagementSystem\eCommanLib\bin\Debug\eCommanLib.dll.config
+D:\student_management_system\schoolManagementSystem\eCommanLib\bin\Debug\eCommanLib.dll
+D:\student_management_system\schoolManagementSystem\eCommanLib\bin\Debug\eCommanLib.pdb
+D:\student_management_system\schoolManagementSystem\eCommanLib\obj\Debug\eCommanLib.csproj.AssemblyReference.cache
+D:\student_management_system\schoolManagementSystem\eCommanLib\obj\Debug\eCommanLib.csproj.CoreCompileInputs.cache
+D:\student_management_system\schoolManagementSystem\eCommanLib\obj\Debug\eCommanLib.csproj.CopyComplete
+D:\student_management_system\schoolManagementSystem\eCommanLib\obj\Debug\eCommanLib.dll
+D:\student_management_system\schoolManagementSystem\eCommanLib\obj\Debug\eCommanLib.pdb
