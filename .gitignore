@@ -365,8 +365,24 @@ FodyWeavers.xsd
 #Database Configuration
 clsDB_Operation.cs
 clsDB_Config.cs
-*.csproj
 *.props
 *.json
 *.editorconfig
 *.cache
+*.suo
+*.csproj
+*.GeneratedMSBuildEditorConfig.editorconfig
+*.assets.cache
+*.dgspec.json
+*.g.props
+*.nuget.cache
+*.dll
+*.pdb
+*.csproj.CoreCompileInputs.cache
+*.csproj.FileListAbsolute.txt
+[Oo]bj/
+[Bb]in/
+[Vv]s/
+/TestResults
+*.vspscc
+*.vssscc
