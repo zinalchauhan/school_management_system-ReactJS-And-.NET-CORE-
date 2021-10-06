@@ -370,7 +370,6 @@ clsDB_Config.cs
 *.editorconfig
 *.cache
 *.suo
-*.csproj
 *.GeneratedMSBuildEditorConfig.editorconfig
 *.assets.cache
 *.dgspec.json
