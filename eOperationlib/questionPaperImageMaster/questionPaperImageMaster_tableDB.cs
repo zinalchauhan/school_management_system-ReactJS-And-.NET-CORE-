@@ -48,9 +48,10 @@ public  class questionPaperImageMaster_tableDB : clsDB_Operation
                              SET    [questionPaperIdFk]=@questionPaperIdFk,
                                     [paperImageName]=@paperImageName,
                                     [isActive] = 1    
-                         WHERE [questionPaperImageIdPk]=@questionPaperImageIdPk";
+                         WHERE [paperImageIdPk]=@paperImageIdPk";
 
                 OnClearParameter();
+                AddParameter("@paperImageIdPk", SqlDbType.Int, 50, obj.PaperImageIdPk, ParameterDirection.Input);
                 AddParameter("@questionPaperIdFk", SqlDbType.Int, 50, obj.QuestionPaperIdFk, ParameterDirection.Input);
                 AddParameter("@paperImageName", SqlDbType.VarChar, 50, obj.PaperImageName, ParameterDirection.Input);
 
@@ -72,10 +73,10 @@ public  class questionPaperImageMaster_tableDB : clsDB_Operation
             {
                 strQ += @"UPDATE  [questionPaperImageMaster]
                             SET [isActive] =  0
-                         WHERE [questionPaperImageIdPk]=@questionPaperImageIdPk";
+                         WHERE [paperImageIdPk]=@paperImageIdPk";
 
                 OnClearParameter();
-                AddParameter("@questionPaperImageIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
+                AddParameter("@paperImageIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
                 return OnExecNonQuery(strQ);
             }
             catch (Exception ex)
@@ -92,16 +93,10 @@ public  class questionPaperImageMaster_tableDB : clsDB_Operation
                 //DateTime dtdata;
                 questionPaperImageMaster_tableEntities obj = new questionPaperImageMaster_tableEntities();
 
-                obj.PaperImageIdPk = (drRow["paperIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["paperIdPk"];
+                obj.PaperImageIdPk = (drRow["paperImageIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["paperImageIdPk"];
                 obj.QuestionPaperIdFk = (drRow["questionPaperIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["questionPaperIdFk"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
-                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.SubjectIdFk = (drRow["subjectIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectIdFk"];
-                obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
-                obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.PaperImageName = (drRow["paperImageName"].Equals(DBNull.Value)) ? "" : (string)drRow["paperImageName"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -173,17 +168,14 @@ public  class questionPaperImageMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT qpi.* , st.standardName , sb.subjectName , m.mediumName
+                strQ = @"SELECT qpi.* 
                             FROM [questionPaperImageMaster] qpi 
                             JOIN [questionPaperMaster] qp ON qpi.[questionPaperIdFk] = qp.[questionPaperIdPk] 
-                            JOIN [standardMaster] st ON qp.[standardIdFk] = st.[standardIdPk]
-                            JOIN [subjectMaster] sb ON qp.[subjectIdFk] = sb.[subjectIdPk]
-                            JOIN [mediumMaster] m ON qp.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [questionPaperImageIdPk] = @questionPaperImageIdPk
-                            and [isActive] = 1";
+                            WHERE [paperImageIdPk] = @paperImageIdPk
+                            and qpi.[isActive] = 1";
 
                 OnClearParameter();
-                AddParameter("questionPaperImageIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+                AddParameter("paperImageIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
 
                 //DB_Config.OnStartConnection();
                 dtTable = OnExecQuery(strQ, "list").Tables[0];
@@ -221,13 +213,10 @@ public  class questionPaperImageMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT qpi.* , st.standardName , sb.subjectName , m.mediumName
+                strQ = @"SELECT qpi.* 
                             FROM [questionPaperImageMaster] qpi 
                             JOIN [questionPaperMaster] qp ON qpi.[questionPaperIdFk] = qp.[questionPaperIdPk] 
-                            JOIN [standardMaster] st ON qp.[standardIdFk] = st.[standardIdPk]
-                            JOIN [subjectMaster] sb ON qp.[subjectIdFk] = sb.[subjectIdPk]
-                            JOIN [mediumMaster] m ON qp.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE qpi.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

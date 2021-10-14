@@ -57,12 +57,13 @@ public  class timetableMaster_tableDB : clsDB_Operation
                          WHERE [timetableIdPk]=@timetableIdPk";
 
                 OnClearParameter();
+                AddParameter("@timetableIdPk", SqlDbType.Int, 50, obj.TimetableIdPk, ParameterDirection.Input);
                 AddParameter("@classIdFk", SqlDbType.Int, 50, obj.ClassIdFk, ParameterDirection.Input);
                 AddParameter("@subjectTeacherIdFk", SqlDbType.Int, 50, obj.SubjectTeacherIdFk, ParameterDirection.Input);
                 AddParameter("@periodNo", SqlDbType.Int, 50, obj.PeriodNo, ParameterDirection.Input);
                 AddParameter("@settingIdFk", SqlDbType.Int, 50, obj.SettingIdFk, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -104,20 +105,16 @@ public  class timetableMaster_tableDB : clsDB_Operation
 
                 obj.TimetableIdPk = (drRow["timetableIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["timetableIdPk"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
                 obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionIdFk = (drRow["divisionIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
                 obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
                 obj.SubjectTeacherIdFk = (drRow["subjectTeacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectTeacherIdFk"];
-                obj.TeacherIdFk = (drRow["teacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["teacherIdFk"];
                 obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
-                obj.SubjectIdFk = (drRow["subjectIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectIdFk"];
                 obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.PeriodNo = (drRow["periodNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["periodNo"];
                 obj.SettingIdFk = (drRow["settingIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["settingIdFk"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -196,14 +193,11 @@ public  class timetableMaster_tableDB : clsDB_Operation
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
                             JOIN [subjectTeacherMaster] sbtc ON tt.[subjectTeacherIdFk] = sbtc.[subjectTeacherIdPk]
                             JOIN [teacherMaster] t ON sbtc.[teacherIdFk] = t.[teacherIdPk]
-                            JOIN [subjectMaster] sb ON sbtc.[subjectIdFk] = sb.[subjectIdFk]
+                            JOIN [subjectMaster] sb ON sbtc.[subjectIdFk] = sb.[subjectIdPk]
                             JOIN [mediumMaster] m ON sbtc.[mediumIdFk] = m.[mediumIdPk]
-                            JOIN [timetableSetting] tts ON tt.[settingIdFk] = tts.[settingIdPk]
-                            AND sbtc.[classIdFk] = cl.[classIdFk]
-                            AND tt.[mediumIdFk] = m.[mediumIdPk]
-                            AND tts.[mediumIdFk] = m.[mediumIdPk]
+                            JOIN [timetableSettingMaster] tts ON tt.[settingIdFk] = tts.[settingIdPk]
                             WHERE [timetableIdPk] = @timetableIdPk
-                            and [isActive] = 1";
+                            and tt.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("timetableIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -251,13 +245,10 @@ public  class timetableMaster_tableDB : clsDB_Operation
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
                             JOIN [subjectTeacherMaster] sbtc ON tt.[subjectTeacherIdFk] = sbtc.[subjectTeacherIdPk]
                             JOIN [teacherMaster] t ON sbtc.[teacherIdFk] = t.[teacherIdPk]
-                            JOIN [subjectMaster] sb ON sbtc.[subjectIdFk] = sb.[subjectIdFk]
+                            JOIN [subjectMaster] sb ON sbtc.[subjectIdFk] = sb.[subjectIdPk]
                             JOIN [mediumMaster] m ON sbtc.[mediumIdFk] = m.[mediumIdPk]
-                            JOIN [timetableSetting] tts ON tt.[settingIdFk] = tts.[settingIdPk]
-                            AND sbtc.[classIdFk] = cl.[classIdFk]
-                            AND tt.[mediumIdFk] = m.[mediumIdPk]
-                            AND tts.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive] = 1 ";
+                            JOIN [timetableSettingMaster] tts ON tt.[settingIdFk] = tts.[settingIdPk]
+                            WHERE tt.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

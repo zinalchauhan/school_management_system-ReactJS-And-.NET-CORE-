@@ -19,15 +19,15 @@ public  class resultMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"INSERT INTO [resultMaster]
-                                   ([studentIdFk],[filePath],[addedOn])
+                                   ([studentIdFk],[filePath])
                              VALUES
-                                   (@studentIdFk,@filePath,@addedOn)";
+                                   (@studentIdFk,@filePath)";
 
                 OnClearParameter();
 
                 AddParameter("@studentIdFk", SqlDbType.Int, 50, obj.StudentIdFk, ParameterDirection.Input);
                 AddParameter("@filePath", SqlDbType.VarChar, 50, obj.FilePath, ParameterDirection.Input);
-                AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
+                //AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
             }
@@ -48,15 +48,15 @@ public  class resultMaster_tableDB : clsDB_Operation
                 strQ = @"UPDATE [resultMaster]
                              SET    [studentIdFk]=@studentIdFk,
                                     [filePath]=@filePath,
-                                    [addedOn]=@addedOn,
                                     [isActive] = 1    
                          WHERE [resultIdPk]=@resultIdPk";
 
                 OnClearParameter();
+                AddParameter("@resultIdPk", SqlDbType.Int, 50, obj.ResultIdPk, ParameterDirection.Input);
                 AddParameter("@studentIdFk", SqlDbType.Int, 50, obj.StudentIdFk, ParameterDirection.Input);
                 AddParameter("@filePath", SqlDbType.VarChar, 50, obj.FilePath, ParameterDirection.Input);
-                AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                //AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -98,19 +98,10 @@ public  class resultMaster_tableDB : clsDB_Operation
 
                 obj.ResultIdPk = (drRow["resultIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["resultIdPk"];
                 obj.StudentIdFk = (drRow["studentIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentIdFk"];
-                obj.StudentName = (drRow["studentName"].Equals(DBNull.Value)) ? "" : (string)drRow["studentName"];
-                obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
-                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionIdFk = (drRow["divisionIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["divisionIdFk"];
-                obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
-                obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
-                obj.CategoryIdFk = (drRow["categoryIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["categoryIdFk"];
-                obj.CategoryName = (drRow["categoryName"].Equals(DBNull.Value)) ? "" : (string)drRow["categoryName"];
+                obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
                 obj.FilePath = (drRow["filePath"].Equals(DBNull.Value)) ? "" : (string)drRow["filePath"];
-                obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : (string)drRow["addedOn"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : drRow["addedOn"].ToString();
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -182,16 +173,11 @@ public  class resultMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT r.* , s.studentName , st.standardName , d.divisionName , m.mediumName , ctg.categoryName
+                strQ = @"SELECT r.* , s.studentMname 
                             FROM [resultMaster] r 
                             JOIN [studentMaster] s ON r.[studentIdFk] = s.[studentIdPk]
-                            JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
-                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
-                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
-                            JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [resultIdPk] = @resultIdPk
-                            and [isActive] = 1";
+                            and r.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("resultIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -232,15 +218,10 @@ public  class resultMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT r.* , s.studentName , st.standardName , d.divisionName , m.mediumName , ctg.categoryName
+                strQ = @"SELECT r.* , s.studentMname
                             FROM [resultMaster] r 
                             JOIN [studentMaster] s ON r.[studentIdFk] = s.[studentIdPk]
-                            JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
-                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
-                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
-                            JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE r.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

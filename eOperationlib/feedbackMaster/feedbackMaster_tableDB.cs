@@ -19,9 +19,9 @@ public  class feedbackMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"INSERT INTO [feedbackMaster]
-                                   ([userIdFk],[userType],[feedbackSubject],[feedbackDetail],[reply],[addedOn])
+                                   ([userIdFk],[userType],[feedbackSubject],[feedbackDetail],[reply])
                              VALUES
-                                   (@userIdFk,@userType,@feedbackSubject,@feedbackDetail,@reply,@addedOn)";
+                                   (@userIdFk,@userType,@feedbackSubject,@feedbackDetail,@reply)";
 
                 OnClearParameter();
                 AddParameter("@userIdFk", SqlDbType.Int, 50, obj.UserIdFk, ParameterDirection.Input);
@@ -29,7 +29,7 @@ public  class feedbackMaster_tableDB : clsDB_Operation
                 AddParameter("@feedbackSubject", SqlDbType.VarChar, 50, obj.FeedbackSubject, ParameterDirection.Input);
                 AddParameter("@feedbackDetail", SqlDbType.VarChar, 50, obj.FeedbackDetail, ParameterDirection.Input);
                 AddParameter("@reply", SqlDbType.VarChar, 50, obj.Reply, ParameterDirection.Input);
-                AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
+                //AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
             }
@@ -48,22 +48,22 @@ public  class feedbackMaster_tableDB : clsDB_Operation
 
 
                 strQ = @"UPDATE [feedbackMaster]
-                             SET    [userName]=@userName,
+                             SET    [userIdFk]=@userIdFk,
                                     [userType]=@userType,
                                     [feedbackSubject]=@feedbackSubject,
                                     [feedbackDetail]=@feedbackDetail,
                                     [reply]=@reply,
-                                    [addedOn]=@addedOn,
                                     [isActive] = 1    
                          WHERE [feedbackIdPk]=@feedbackIdPk";
 
                 OnClearParameter();
+                AddParameter("@feedbackIdPk", SqlDbType.Int, 50, obj.FeedbackIdPk, ParameterDirection.Input);
                 AddParameter("@userIdFk", SqlDbType.Int, 50, obj.UserIdFk, ParameterDirection.Input);
                 AddParameter("@userType", SqlDbType.VarChar, 50, obj.UserType, ParameterDirection.Input);
                 AddParameter("@feedbackSubject", SqlDbType.VarChar, 50, obj.FeedbackSubject, ParameterDirection.Input);
                 AddParameter("@feedbackDetail", SqlDbType.VarChar, 50, obj.FeedbackDetail, ParameterDirection.Input);
                 AddParameter("@reply", SqlDbType.VarChar, 50, obj.Reply, ParameterDirection.Input);
-                AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
+                //AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
                 AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
@@ -110,8 +110,8 @@ public  class feedbackMaster_tableDB : clsDB_Operation
                 obj.FeedbackSubject = (drRow["feedbackSubject"].Equals(DBNull.Value)) ? "" : (string)drRow["feedbackSubject"];
                 obj.FeedbackDetail = (drRow["feedbackDetail"].Equals(DBNull.Value)) ? "" : (string)drRow["feedbackDetail"];
                 obj.Reply = (drRow["reply"].Equals(DBNull.Value)) ? "" : (string)drRow["reply"];
-                obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : (string)drRow["addedOn"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : drRow["addedOn"].ToString();
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{

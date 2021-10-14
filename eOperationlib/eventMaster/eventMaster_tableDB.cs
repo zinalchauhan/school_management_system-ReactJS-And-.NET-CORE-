@@ -57,6 +57,7 @@ public  class eventMaster_tableDB : clsDB_Operation
                          WHERE [eventIdPk]=@eventIdPk";
 
                 OnClearParameter();
+                AddParameter("@eventIdPk", SqlDbType.Int, 50, obj.EventIdPk, ParameterDirection.Input);
                 AddParameter("@eventName", SqlDbType.VarChar, 50, obj.EventName, ParameterDirection.Input);
                 AddParameter("@eventTitle", SqlDbType.VarChar, 50, obj.EventTitle, ParameterDirection.Input);
                 AddParameter("@eventDetail", SqlDbType.VarChar, 50, obj.EventDetail, ParameterDirection.Input);
@@ -109,7 +110,7 @@ public  class eventMaster_tableDB : clsDB_Operation
                 obj.EventDate = (drRow["eventDate"].Equals(DBNull.Value)) ? "" : (string)drRow["eventDate"];
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -185,7 +186,7 @@ public  class eventMaster_tableDB : clsDB_Operation
                             FROM [eventMaster] e 
                             JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk] 
                             WHERE [eventIdPk] = @eventIdPk
-                            and [isActive] = 1";
+                            and e.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("eventIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -229,7 +230,7 @@ public  class eventMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT e.* , m.mediumName
                             FROM [eventMaster] e 
                             JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk] 
-                            WHERE [isActive] = 1 ";
+                            WHERE e.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

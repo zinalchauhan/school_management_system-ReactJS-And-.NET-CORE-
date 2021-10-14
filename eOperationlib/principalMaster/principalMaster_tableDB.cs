@@ -57,7 +57,7 @@ public  class principalMaster_tableDB : clsDB_Operation
                                     [principalMobile]=@principalMobile,
                                     [principalQualification]=@principalQualification,
                                     [principalImage]=@principalImage,
-                                    [principalAddressprincipalAddress
+                                    [principalAddress]=@principalAddress,
                                     [cityIdFk]=@cityIdFk,
                                     [mediumIdFk]=@mediumIdFk,
                                     [standards]=@standards,
@@ -65,6 +65,7 @@ public  class principalMaster_tableDB : clsDB_Operation
                          WHERE [principalIdPk]=@principalIdPk";
 
                 OnClearParameter();
+                AddParameter("@principalIdPk", SqlDbType.Int, 50, obj.PrincipalIdPk, ParameterDirection.Input);
                 AddParameter("@principalName", SqlDbType.VarChar, 50, obj.PrincipalName, ParameterDirection.Input);
                 AddParameter("@principalEmail", SqlDbType.VarChar, 50, obj.PrincipalEmail, ParameterDirection.Input);
                 AddParameter("@principalMobile", SqlDbType.VarChar, 50, obj.PrincipalMobile, ParameterDirection.Input);
@@ -127,7 +128,7 @@ public  class principalMaster_tableDB : clsDB_Operation
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.Standards = (drRow["standards"].Equals(DBNull.Value)) ? "" : (string)drRow["standards"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -205,7 +206,7 @@ public  class principalMaster_tableDB : clsDB_Operation
                             JOIN [stateMaster] s ON c.[stateIdFk] = s.[stateIdPk]
                             JOIN [mediumMaster] m ON p.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [principalIdPk] = @principalIdPk
-                            and [isActive] = 1";
+                            and p.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("principalIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -249,9 +250,9 @@ public  class principalMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT p.* , c.cityName , m.mediumName , s.stateName
                             FROM [principalMaster] p 
                             JOIN [cityMaster] c ON p.[cityIdFk] = c.[cityIdPk]
-                            JOIN [stateMaster] s ON p.[stateIdFk] = s.[stateIdPk]
+                            JOIN [stateMaster] s ON c.[stateIdFk] = s.[stateIdPk]
                             JOIN [mediumMaster] m ON p.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE p.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

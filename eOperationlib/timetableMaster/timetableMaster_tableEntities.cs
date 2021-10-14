@@ -9,14 +9,10 @@ using System.Threading.Tasks;
     {
         private int timetableIdPk = 0;
         private int classIdFk = 0;
-        private int standardIdFk = 0;
         private string standardName = "";
-        private int divisionIdFk = 0;
         private string divisionName = "";
         private int subjectTeacherIdFk = 0;
-        private int teacherIdFk = 0;
         private string teacherName = "";
-        private int subjectIdFk = 0;
         private string subjectName = "";
         private int mediumIdFk = 0;
         private string mediumName = "";
@@ -26,14 +22,10 @@ using System.Threading.Tasks;
 
     public int TimetableIdPk { get => timetableIdPk; set => timetableIdPk = value; }
     public int ClassIdFk { get => classIdFk; set => classIdFk = value; }
-    public int StandardIdFk { get => standardIdFk; set => standardIdFk = value; }
     public string StandardName { get => standardName; set => standardName = value; }
-    public int DivisionIdFk { get => divisionIdFk; set => divisionIdFk = value; }
     public string DivisionName { get => divisionName; set => divisionName = value; }
     public int SubjectTeacherIdFk { get => subjectTeacherIdFk; set => subjectTeacherIdFk = value; }
-    public int TeacherIdFk { get => teacherIdFk; set => teacherIdFk = value; }
     public string TeacherName { get => teacherName; set => teacherName = value; }
-    public int SubjectIdFk { get => subjectIdFk; set => subjectIdFk = value; }
     public string SubjectName { get => subjectName; set => subjectName = value; }
     public int MediumIdFk { get => mediumIdFk; set => mediumIdFk = value; }
     public string MediumName { get => mediumName; set => mediumName = value; }

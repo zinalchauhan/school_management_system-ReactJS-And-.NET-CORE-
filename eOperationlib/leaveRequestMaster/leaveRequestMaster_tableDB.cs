@@ -19,9 +19,9 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"INSERT INTO [leaveRequestMaster]
-                                   ([studentIdFk],[userType],[classIdFk],[leaveRequestTitle],[leaveRequestDetail],[addedOn])
+                                   ([studentIdFk],[userType],[classIdFk],[leaveRequestTitle],[leaveRequestDetail])
                              VALUES
-                                   (@studentIdFk,@userType,@classIdFk,@leaveRequestTitle,@leaveRequestDetail,@addedOn)";
+                                   (@studentIdFk,@userType,@classIdFk,@leaveRequestTitle,@leaveRequestDetail)";
 
                 OnClearParameter();
 
@@ -54,18 +54,18 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
                                     [classIdFk]=@classIdFk,
                                     [leaveRequestTitle]=@leaveRequestTitle,
                                     [leaveRequestDetail]=@leaveRequestDetail,
-                                    [addedOn]=@addedOn,
                                     [isActive] = 1    
                          WHERE [leaveRequestIdPk]=@leaveRequestIdPk";
 
                 OnClearParameter();
+                AddParameter("@leaveRequestIdPk", SqlDbType.Int, 50, obj.LeaveRequestIdPk, ParameterDirection.Input);
                 AddParameter("@studentIdFk", SqlDbType.Int, 50, obj.StudentIdFk, ParameterDirection.Input);
                 AddParameter("@userType", SqlDbType.VarChar, 50, obj.UserType, ParameterDirection.Input);
                 AddParameter("@classIdFk", SqlDbType.Int, 50, obj.ClassIdFk, ParameterDirection.Input);
                 AddParameter("@leaveRequestTitle", SqlDbType.VarChar, 50, obj.LeaveRequestTitle, ParameterDirection.Input);
                 AddParameter("@leaveRequestDetail", SqlDbType.VarChar, 50, obj.LeaveRequestDetail, ParameterDirection.Input);
                 AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -107,21 +107,15 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
 
                 obj.LeaveRequestIdPk = (drRow["leaveRequestIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["leaveRequestIdPk"];
                 obj.StudentIdFk = (drRow["studentIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentIdFk"];
-                obj.StudentName = (drRow["studentName"].Equals(DBNull.Value)) ? "" : (string)drRow["studentName"];
+                obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
                 obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionIdFk = (drRow["divisionIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["divisionIdFk"];
                 obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
-                obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
-                obj.CategoryIdFk = (drRow["categoryIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["categoryIdFk"];
-                obj.CategoryName = (drRow["categoryName"].Equals(DBNull.Value)) ? "" : (string)drRow["categoryName"];
-                obj.CategoryName = (drRow["userType"].Equals(DBNull.Value)) ? "" : (string)drRow["userType"];
-                obj.CategoryName = (drRow["leaveRequestTitle"].Equals(DBNull.Value)) ? "" : (string)drRow["leaveRequestTitle"];
-                obj.CategoryName = (drRow["leaveRequestDetail"].Equals(DBNull.Value)) ? "" : (string)drRow["leaveRequestDetail"];
-                obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : (string)drRow["addedOn"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.UserType = (drRow["userType"].Equals(DBNull.Value)) ? "" : (string)drRow["userType"];
+                obj.LeaveRequestTitle = (drRow["leaveRequestTitle"].Equals(DBNull.Value)) ? "" : (string)drRow["leaveRequestTitle"];
+                obj.LeaveRequestDetail = (drRow["leaveRequestDetail"].Equals(DBNull.Value)) ? "" : (string)drRow["leaveRequestDetail"];
+                obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : drRow["addedOn"].ToString();
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -193,17 +187,14 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT lr.* , s.studentName , st.standardName , d.divisionName , m.mediumName , ctg.categoryName
+                strQ = @"SELECT lr.* , s.studentMname , st.standardName , d.divisionName 
                             FROM [leaveRequestMaster] lr 
                             JOIN [studentMaster] s ON lr.[studentIdFk] = s.[studentIdPk]
                             JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
-                            JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
-                            AND lr.[classIdFk] = cl.[classIdPk]
                             WHERE [leaveRequestIdPk] = @leaveRequestIdPk
-                            and [isActive] = 1";
+                            and lr.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("leaveRequestIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -244,16 +235,13 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT lr.* , s.studentName , st.standardName , d.divisionName , m.mediumName , ctg.categoryName
+                strQ = @"SELECT lr.* , s.studentMname , st.standardName , d.divisionName 
                             FROM [leaveRequestMaster] lr 
                             JOIN [studentMaster] s ON lr.[studentIdFk] = s.[studentIdPk]
                             JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
-                            JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
-                            AND lr.[classIdFk] = cl.[classIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE lr.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

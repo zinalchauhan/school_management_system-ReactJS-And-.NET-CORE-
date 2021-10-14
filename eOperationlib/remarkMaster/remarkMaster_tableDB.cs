@@ -57,6 +57,7 @@ public  class remarkMaster_tableDB : clsDB_Operation
                          WHERE [remarkIdPk]=@remarkIdPk";
 
                 OnClearParameter();
+                AddParameter("@remarkIdPk", SqlDbType.Int, 50, obj.RemarkIdPk, ParameterDirection.Input);
                 AddParameter("@studentIdFk", SqlDbType.Int, 50, obj.StudentIdFk, ParameterDirection.Input);
                 AddParameter("@subjectTeacherIdFk", SqlDbType.Int, 50, obj.SubjectTeacherIdFk, ParameterDirection.Input);
                 AddParameter("@userType", SqlDbType.VarChar, 50, obj.UserType, ParameterDirection.Input);
@@ -104,25 +105,14 @@ public  class remarkMaster_tableDB : clsDB_Operation
 
                 obj.RemarkIdPk = (drRow["remarkIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["remarkIdPk"];
                 obj.StudentIdFk = (drRow["studentIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentIdFk"];
-                obj.StudentName = (drRow["studentName"].Equals(DBNull.Value)) ? "" : (string)drRow["studentName"];
-                obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
-                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionIdFk = (drRow["divisionIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["divisionIdFk"];
-                obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
-                obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
-                obj.CategoryIdFk = (drRow["categoryIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["categoryIdFk"];
-                obj.CategoryName = (drRow["categoryName"].Equals(DBNull.Value)) ? "" : (string)drRow["categoryName"];
+                obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
                 obj.UserType = (drRow["userType"].Equals(DBNull.Value)) ? "" : (string)drRow["userType"];
-                obj.TeacherIdFk = (drRow["teacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["teacherIdFk"];
                 obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
-                obj.SubjectIdFk = (drRow["subjectIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectIdFk"];
                 obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
                 obj.SubjectTeacherIdFk = (drRow["subjectTeacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectTeacherIdFk"];
                 obj.RemarkDetail = (drRow["remarkDetail"].Equals(DBNull.Value)) ? "" : (string)drRow["remarkDetail"];
                 obj.RemarkDate = (drRow["remarkDate"].Equals(DBNull.Value)) ? "" : (string)drRow["remarkDate"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -194,21 +184,14 @@ public  class remarkMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT r.* , s.studentName , st.standardName , d.divisionName , m.mediumName , ctg.categoryName , t.teacherName , sb.subjectName
+                strQ = @"SELECT r.* , s.studentMname , t.teacherName , sb.subjectName
                             FROM [remarkMaster] r 
                             JOIN [studentMaster] s ON r.[studentIdFk] = s.[studentIdPk]
-                            JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
-                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
-                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
-                            JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
-                            JOIN [subjectTeacherMaster] sbtc ON r.[subjectTeacherIdFk] = st.[subjectTeacherIdPk]
+                            JOIN [subjectTeacherMaster] sbtc ON r.[subjectTeacherIdFk] = sbtc.[subjectTeacherIdPk]
                             JOIN [subjectMaster] sb ON sbtc.[subjectIdFk] = sb.[subjectIdPk]
                             JOIN [teacherMaster] t ON sbtc.[teacherIdFk] = t.[teacherIdPk]
-                            AND sbtc.[classIdFk] = cl.[classIdPk]
-                            AND sbtc.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [remarkIdPk] = @remarkIdPk
-                            and [isActive] = 1";
+                            and r.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("remarkIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -249,20 +232,13 @@ public  class remarkMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT r.* , s.studentName , st.standardName , d.divisionName , m.mediumName , ctg.categoryName , t.teacherName , sb.subjectName
+                strQ = @"SELECT r.* , s.studentMname , t.teacherName , sb.subjectName
                             FROM [remarkMaster] r 
                             JOIN [studentMaster] s ON r.[studentIdFk] = s.[studentIdPk]
-                            JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
-                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
-                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
-                            JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
-                            JOIN [subjectTeacherMaster] sbtc ON r.[subjectTeacherIdFk] = st.[subjectTeacherIdPk]
+                            JOIN [subjectTeacherMaster] sbtc ON r.[subjectTeacherIdFk] = sbtc.[subjectTeacherIdPk]
                             JOIN [subjectMaster] sb ON sbtc.[subjectIdFk] = sb.[subjectIdPk]
                             JOIN [teacherMaster] t ON sbtc.[teacherIdFk] = t.[teacherIdPk]
-                            AND sbtc.[classIdFk] = cl.[classIdPk]
-                            AND sbtc.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE r.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

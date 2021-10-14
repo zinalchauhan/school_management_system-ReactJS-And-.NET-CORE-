@@ -55,11 +55,12 @@ public  class authMaster_tableDB : clsDB_Operation
                          WHERE [authIdPk]=@authIdPk";
 
                 OnClearParameter();
+                AddParameter("@authIdPk", SqlDbType.Int, 50, obj.AuthIdPk, ParameterDirection.Input);
                 AddParameter("@userName", SqlDbType.VarChar, 50, obj.UserName, ParameterDirection.Input);
                 AddParameter("@userType", SqlDbType.VarChar, 50, obj.UserType, ParameterDirection.Input);
                 AddParameter("@userIdFk", SqlDbType.Int, 50, obj.UserIdFk, ParameterDirection.Input);
                 AddParameter("@userPassword", SqlDbType.VarChar, 50, obj.UserPassword, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -104,7 +105,7 @@ public  class authMaster_tableDB : clsDB_Operation
                 obj.UserType = (drRow["userType"].Equals(DBNull.Value)) ? "" : (string)drRow["userType"];
                 obj.UserIdFk = (drRow["userIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["userIdFk"];
                 obj.UserPassword = (drRow["userPassword"].Equals(DBNull.Value)) ? "" : (string)drRow["userPassword"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{

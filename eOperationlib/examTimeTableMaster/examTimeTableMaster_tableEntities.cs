@@ -10,8 +10,6 @@ using System.Threading.Tasks;
         private int examTtIdPk = 0;
         private int examIdFk = 0;
         private string examName = "";
-        private int mediumIdFk = 0;
-        private string mediumName = "";
         private int standardIdFk = 0;
         private string standardName = "";
         private int subjectIdFk = 0;
@@ -22,8 +20,6 @@ using System.Threading.Tasks;
         public int ExamTtIdPk { get => examTtIdPk; set => examTtIdPk = value; }
         public int ExamIdFk { get => examIdFk; set => examIdFk = value; }
         public string ExamName { get => examName; set => examName = value; }
-        public int MediumIdFk { get => mediumIdFk; set => mediumIdFk = value; }
-        public string MediumName { get => mediumName; set => mediumName = value; }
         public int StandardIdFk { get => standardIdFk; set => standardIdFk = value; }
         public string StandardName { get => standardName; set => standardName = value; }
         public int SubjectIdFk { get => subjectIdFk; set => subjectIdFk = value; }

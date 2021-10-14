@@ -11,18 +11,11 @@ using System.Threading.Tasks;
         private int classIdFk = 0;
         private int teacherIdFk = 0;
         private string teacherName = "";
-        private int cityIdFk = 0;
-        private string cityName = "";
-        private int stateIdFk = 0;
-        private string stateName = "";
         private int subjectIdFk = 0;
         private string subjectName = "";
         private int mediumIdFk = 0;
-        private string mediumName = "";
-        private int standardIdFk = 0;
-        private string standardName = "";
-        private int divisionIdFk = 0;
         private string divisiondName = "";
+        private string standardName = "";
         private int isActive = 0;
 
     public int SubjectTeacherIdPk { get => subjectTeacherIdPk; set => subjectTeacherIdPk = value; }
@@ -32,15 +25,8 @@ using System.Threading.Tasks;
     public int SubjectIdFk { get => subjectIdFk; set => subjectIdFk = value; }
     public string SubjectName { get => subjectName; set => subjectName = value; }
     public int MediumIdFk { get => mediumIdFk; set => mediumIdFk = value; }
-    public string MediumName { get => mediumName; set => mediumName = value; }
-    public int StandardIdFk { get => standardIdFk; set => standardIdFk = value; }
     public string StandardName { get => standardName; set => standardName = value; }
-    public int DivisionIdFk { get => divisionIdFk; set => divisionIdFk = value; }
     public string DivisiondName { get => divisiondName; set => divisiondName = value; }
     public int IsActive { get => isActive; set => isActive = value; }
-    public int CityIdFk { get => cityIdFk; set => cityIdFk = value; }
-    public string CityName { get => cityName; set => cityName = value; }
-    public int StateIdFk { get => stateIdFk; set => stateIdFk = value; }
-    public string StateName { get => stateName; set => stateName = value; }
 }
 

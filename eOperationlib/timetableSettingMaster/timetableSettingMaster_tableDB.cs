@@ -59,9 +59,10 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                                     [academicYear]=@academicYear,
                                     [mediumIdFk]=@mediumIdFk,
                                     [isActive] = 1    
-                         WHERE [timetableSettingIdPk]=@timetableSettingIdPk";
+                         WHERE [settingIdPk]=@settingIdPk";
 
                 OnClearParameter();
+                AddParameter("@settingIdPk", SqlDbType.Int, 50, obj.SettingIdPk, ParameterDirection.Input);
                 AddParameter("@day", SqlDbType.VarChar, 50, obj.Day, ParameterDirection.Input);
                 AddParameter("@schoolStartTime", SqlDbType.VarChar, 50, obj.SchoolStartTime, ParameterDirection.Input);
                 AddParameter("@lectureNo", SqlDbType.Int, 50, obj.LactureNo, ParameterDirection.Input);
@@ -70,7 +71,7 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 AddParameter("@afterLecture", SqlDbType.Int, 50, obj.AfterLacture, ParameterDirection.Input);
                 AddParameter("@academicYear", SqlDbType.Int, 50, obj.AcademicYear, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -90,10 +91,10 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
             {
                 strQ += @"UPDATE  [timetableSettingMaster]
                             SET [isActive] =  0
-                         WHERE [timetableSettingIdPk]=@timetableSettingIdPk";
+                         WHERE [settingIdPk]=@settingIdPk";
 
                 OnClearParameter();
-                AddParameter("@timetableSettingIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
+                AddParameter("@settingIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
                 return OnExecNonQuery(strQ);
             }
             catch (Exception ex)
@@ -110,7 +111,7 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 //DateTime dtdata;
                 timetableSettingMaster_tableEntities obj = new timetableSettingMaster_tableEntities();
 
-                obj.SettingIdPk = (drRow["timetableSettingIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["timetableSettingIdPk"];
+                obj.SettingIdPk = (drRow["settingIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["settingIdPk"];
                 obj.Day = (drRow["day"].Equals(DBNull.Value)) ? "" : (string)drRow["day"];
                 obj.SchoolStartTime = (drRow["schoolStartTime"].Equals(DBNull.Value)) ? "" : (string)drRow["schoolStartTime"];
                 obj.LactureNo = (drRow["lectureNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["lectureNo"];
@@ -120,7 +121,7 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 obj.BreakNo = (drRow["breakNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["breakNo"];
                 obj.AfterLacture = (drRow["afterLecture"].Equals(DBNull.Value)) ? 0 : (int)drRow["afterLecture"];
                 obj.AcademicYear = (drRow["academicYear"].Equals(DBNull.Value)) ? 0 : (int)drRow["academicYear"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -195,11 +196,11 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT ts.* , m.mediumName 
                             FROM [timetableSettingMaster] ts
                             JOIN [mediumMaster] m ON ts.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [timetableSettingIdPk] = @timetableSettingIdPk 
-                            and [isActive]='1' ";
+                            WHERE [settingIdPk] = @settingIdPk 
+                            and ts.[isActive]='1' ";
 
                 OnClearParameter();
-                AddParameter("timetableSettingIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+                AddParameter("settingIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
 
                 //DB_Config.OnStartConnection();
                 dtTable = OnExecQuery(strQ, "list").Tables[0];
@@ -240,7 +241,7 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT ts.* , m.mediumName 
                             FROM [timetableSettingMaster] ts
                             JOIN [mediumMaster] m ON ts.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive]='1'";
+                            WHERE ts.[isActive]='1'";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

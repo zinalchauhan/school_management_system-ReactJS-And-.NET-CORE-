@@ -21,7 +21,7 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
                 strQ = @"INSERT INTO [examTimeTableMaster]
                                    ([examIdFk],[standardIdFk],[subjectIdFk],[examDate])
                              VALUES
-                                   (@classIdFk,@teacherIdFk,@mediumIdFk)";
+                                   (@examIdFK,@standardIdFk,@subjectIdFk,@examDate)";
 
                 OnClearParameter();
 
@@ -52,9 +52,10 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
                                     [subjectIdFk]=@subjectIdFk,
                                     [examDate]=@examDate,
                                     [isActive] = 1    
-                         WHERE [examTimeTableIdPk]=@examTimeTableIdPk";
+                         WHERE [examTtIdPk]=@examTtIdPk";
 
                 OnClearParameter();
+                AddParameter("@examTtIdPk", SqlDbType.Int, 50, obj.ExamTtIdPk, ParameterDirection.Input);
                 AddParameter("@examIdFk", SqlDbType.Int, 50, obj.ExamIdFk, ParameterDirection.Input);
                 AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
                 AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.SubjectIdFk, ParameterDirection.Input);
@@ -79,10 +80,10 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
             {
                 strQ += @"UPDATE  [examTimeTableMaster]
                             SET [isActive] =  0
-                         WHERE [examTimeTableIdPk]=@examTimeTableIdPk";
+                         WHERE [examTtIdPk]=@examTtIdPk";
 
                 OnClearParameter();
-                AddParameter("@examTimeTableIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
+                AddParameter("@examTtIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
                 return OnExecNonQuery(strQ);
             }
             catch (Exception ex)
@@ -99,17 +100,15 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
                 //DateTime dtdata;
                 examTimeTableMaster_tableEntities obj = new examTimeTableMaster_tableEntities();
 
-                obj.ExamTtIdPk = (drRow["examTimeTableIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["examTimeTableIdPk"];
+                obj.ExamTtIdPk = (drRow["examTtIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["examTtIdPk"];
                 obj.ExamIdFk = (drRow["examIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["examIdFk"];
                 obj.ExamName = (drRow["examName"].Equals(DBNull.Value)) ? "" : (string)drRow["examName"];
                 obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
                 obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
                 obj.SubjectIdFk = (drRow["subjectIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectIdFk"];
                 obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
-                obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.ExamDate = (drRow["examDate"].Equals(DBNull.Value)) ? "" : (string)drRow["examDate"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -181,17 +180,16 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT et.* , e.examName , m.mediumName , st.standardName , sb.subjectName 
+                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName 
                             FROM [examTimeTableMaster] et 
-                            JOIN [examMaster] e ON et.[examIdFk] = cl.[examIdPk]
-                            JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
+                            JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
                             JOIN [standardMaster] st ON et.[standardIdFk] = st.[standardIdPk]
                             JOIN [subjectMaster] sb ON et.[subjectIdFk] = sb.[subjectIdPk]
-                            WHERE [examTimeTableIdPk] = @examTimeTableIdPk
-                            and [isActive] = 1";
+                            WHERE [examTtIdPk] = @examTtIdPk
+                            and et.[isActive] = 1";
 
                 OnClearParameter();
-                AddParameter("examTimeTableIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+                AddParameter("examTtIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
 
                 //DB_Config.OnStartConnection();
                 dtTable = OnExecQuery(strQ, "list").Tables[0];
@@ -229,13 +227,12 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT et.* , e.examName , m.mediumName , st.standardName , sb.subjectName 
+                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName 
                             FROM [examTimeTableMaster] et 
-                            JOIN [examMaster] e ON et.[examIdFk] = cl.[examIdPk]
-                            JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
+                            JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
                             JOIN [standardMaster] st ON et.[standardIdFk] = st.[standardIdPk]
                             JOIN [subjectMaster] sb ON et.[subjectIdFk] = sb.[subjectIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE et.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

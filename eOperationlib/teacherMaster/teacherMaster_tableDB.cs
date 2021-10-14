@@ -65,6 +65,7 @@ public  class teacherMaster_tableDB : clsDB_Operation
                          WHERE [teacherIdPk]=@teacherIdPk";
 
                 OnClearParameter();
+                AddParameter("@teacherIdPk", SqlDbType.Int, 50, obj.TeacherIdPk, ParameterDirection.Input);
                 AddParameter("@teacherName", SqlDbType.VarChar, 50, obj.TeacherName, ParameterDirection.Input);
                 AddParameter("@teacherEmail", SqlDbType.VarChar, 50, obj.TeacherEmail, ParameterDirection.Input);
                 AddParameter("@teacherMobile", SqlDbType.VarChar, 50, obj.TeacherMobile, ParameterDirection.Input);
@@ -126,8 +127,8 @@ public  class teacherMaster_tableDB : clsDB_Operation
                 obj.StateName = (drRow["stateName"].Equals(DBNull.Value)) ? "" : (string)drRow["stateName"];
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
-                obj.Subjects = (drRow["standards"].Equals(DBNull.Value)) ? "" : (string)drRow["standards"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.Subjects = (drRow["subjects"].Equals(DBNull.Value)) ? "" : (string)drRow["subjects"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -205,7 +206,7 @@ public  class teacherMaster_tableDB : clsDB_Operation
                             JOIN [stateMaster] s ON c.[stateIdFk] = s.[stateIdPk]
                             JOIN [mediumMaster] m ON t.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [teacherIdPk] = @teacherIdPk
-                            and [isActive] = 1";
+                            and t.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("teacherIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -249,9 +250,9 @@ public  class teacherMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT t.* , c.cityName , m.mediumName , s.stateName
                             FROM [teacherMaster] t 
                             JOIN [cityMaster] c ON t.[cityIdFk] = c.[cityIdPk]
-                            JOIN [stateMaster] s ON t.[stateIdFk] = s.[stateIdPk]
+                            JOIN [stateMaster] s ON c.[stateIdFk] = s.[stateIdPk]
                             JOIN [mediumMaster] m ON t.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE t.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

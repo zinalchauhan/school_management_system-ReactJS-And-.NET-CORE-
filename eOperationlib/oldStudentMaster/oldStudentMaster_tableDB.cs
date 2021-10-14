@@ -19,9 +19,9 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"INSERT INTO [oldStudentMaster]
-                                   ([studentRollNo],[studentGrNo],[mediumIdFk],[classIdFk],[leaveYear],[studentFname],[studentMname],[studentLname],[studentImage],[studentDob],[studentGender],[studentEmail],[studentMobile],[fatherMobile],[studentAddres],[cityIdFk])
+                                   ([studentRollNo],[studentGrNo],[mediumIdFk],[classIdFk],[leaveYear],[studentFname],[studentMname],[studentLname],[studentImage],[studentDob],[studentGender],[motherMobile],[fatherMobile],[studentAddress],[cityIdFk])
                              VALUES
-                                   (@studentRollNo,@studentGrNo,@mediumIdFk,@classIdFk,@leaveYear,@studentFname,@studentMname,@studentLname,@studentImage,@studentDob,@studentGender,@studentEmail,@studentMobile,@fatherMobile,@studentAddress,@cityIdFk)";
+                                   (@studentRollNo,@studentGrNo,@mediumIdFk,@classIdFk,@leaveYear,@studentFname,@studentMname,@studentLname,@studentImage,@studentDob,@studentGender,@motherMobile,@fatherMobile,@studentAddress,@cityIdFk)";
 
                 OnClearParameter();
 
@@ -36,8 +36,7 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                 AddParameter("@studentImage", SqlDbType.VarChar, 50, obj.StudentImage, ParameterDirection.Input);
                 AddParameter("@studentDob", SqlDbType.VarChar, 50, obj.StudentDob, ParameterDirection.Input);
                 AddParameter("@studentGender", SqlDbType.VarChar, 50, obj.StudentGender, ParameterDirection.Input);
-                AddParameter("@studentEmail", SqlDbType.VarChar, 50, obj.StudentEmail, ParameterDirection.Input);
-                AddParameter("@studentMobile", SqlDbType.VarChar, 50, obj.StudentMobile, ParameterDirection.Input);
+                AddParameter("@motherMobile", SqlDbType.VarChar, 50, obj.MotherMobile, ParameterDirection.Input);
                 AddParameter("@fatherMobile", SqlDbType.VarChar, 50, obj.FatherMobile, ParameterDirection.Input);
                 AddParameter("@studentAddress", SqlDbType.VarChar, 50, obj.StudentAddress, ParameterDirection.Input);
                 AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CityIdFk, ParameterDirection.Input);
@@ -65,13 +64,12 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                                     [classIdFk]=@classIdFk,
                                     [leaveYear]=@leaveYear,
                                     [studentFname]=@studentFname,
-                                    [studentMname]=@studentMname
+                                    [studentMname]=@studentMname,
                                     [studentLname]=@studentLname,
                                     [studentImage]=@studentImage,
                                     [studentDob]=@studentDob,
                                     [studentGender]=@studentGender,
-                                    [studentEmail]=@studentEmail,
-                                    [studentMobile]=@studentMobile,
+                                    [motherMobile]=@motherMobile,
                                     [fatherMobile]=@fatherMobile,
                                     [studentAddress]=@studentAddress,
                                     [cityIdFk]=@cityIdFk,
@@ -79,6 +77,7 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                          WHERE [studentIdPk]=@studentIdPk";
 
                 OnClearParameter();
+                AddParameter("@studentIdPk", SqlDbType.Int, 50, obj.StudentIdPk, ParameterDirection.Input);
                 AddParameter("@studentRollNo", SqlDbType.Int, 50, obj.StudentRollNo, ParameterDirection.Input);
                 AddParameter("@studentGrNo", SqlDbType.Int, 50, obj.StudentGrNo, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
@@ -90,12 +89,11 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                 AddParameter("@studentImage", SqlDbType.VarChar, 50, obj.StudentImage, ParameterDirection.Input);
                 AddParameter("@studentDob", SqlDbType.VarChar, 50, obj.StudentDob, ParameterDirection.Input);
                 AddParameter("@studentGender", SqlDbType.VarChar, 50, obj.StudentGender, ParameterDirection.Input);
-                AddParameter("@studentEmail", SqlDbType.VarChar, 50, obj.StudentEmail, ParameterDirection.Input);
-                AddParameter("@studentMobile", SqlDbType.VarChar, 50, obj.StudentMobile, ParameterDirection.Input);
+                AddParameter("@motherMobile", SqlDbType.VarChar, 50, obj.MotherMobile, ParameterDirection.Input);
                 AddParameter("@fatherMobile", SqlDbType.VarChar, 50, obj.FatherMobile, ParameterDirection.Input);
                 AddParameter("@studentAddress", SqlDbType.VarChar, 50, obj.StudentAddress, ParameterDirection.Input);
                 AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CityIdFk, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -142,9 +140,7 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.LeaveYear = (drRow["leaveYear"].Equals(DBNull.Value)) ? 0 : (int)drRow["leaveYear"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
-                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionIdFk = (drRow["divisioIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["divisionIdFk"];
+                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];;
                 obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
                 obj.StudentFname = (drRow["studentFname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentFname"];
                 obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
@@ -152,15 +148,13 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                 obj.StudentImage = (drRow["studentImage"].Equals(DBNull.Value)) ? "" : (string)drRow["studentImage"];
                 obj.StudentDob = (drRow["studentDob"].Equals(DBNull.Value)) ? "" : (string)drRow["studentDob"];
                 obj.StudentGender = (drRow["studentGender"].Equals(DBNull.Value)) ? "" : (string)drRow["studentGender"];
-                obj.StudentEmail = (drRow["studentEmail"].Equals(DBNull.Value)) ? "" : (string)drRow["studentEmail"];
-                obj.StudentMobile = (drRow["studentMobile"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMobile"];
+                obj.MotherMobile = (drRow["motherMobile"].Equals(DBNull.Value)) ? "" : (string)drRow["motherMobile"];
                 obj.FatherMobile = (drRow["fatherMobile"].Equals(DBNull.Value)) ? "" : (string)drRow["fatherMobile"];
                 obj.StudentAddress = (drRow["studentAddress"].Equals(DBNull.Value)) ? "" : (string)drRow["studentAddress"];
                 obj.CityIdFk = (drRow["cityIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["cityIdFk"];
                 obj.CityName = (drRow["cityName"].Equals(DBNull.Value)) ? "" : (string)drRow["cityName"];
-                obj.StateIdFk = (drRow["stateIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["stateIdFk"];
                 obj.StateName = (drRow["stateName"].Equals(DBNull.Value)) ? "" : (string)drRow["stateName"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -241,7 +235,7 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                             JOIN [cityMaster] c ON s.[cityIdFk] = c.[cityIdPk]
                             JOIN [stateMaster] stt ON c.[stateIdFk] = stt.[stateIdPk] 
                             WHERE [studentIdPk] = @studentIdPk
-                            and [isActive] = 1";
+                            and s.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("studentIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -290,7 +284,7 @@ public  class oldStudentMaster_tableDB : clsDB_Operation
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
                             JOIN [cityMaster] c ON s.[cityIdFk] = c.[cityIdPk]
                             JOIN [stateMaster] stt ON c.[stateIdFk] = stt.[stateIdPk] 
-                            WHERE [isActive] = 1 ";
+                            WHERE s.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

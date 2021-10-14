@@ -61,6 +61,7 @@ public  class examMaster_tableDB : clsDB_Operation
                          WHERE [examIdPk]=@examIdPk";
 
                 OnClearParameter();
+                AddParameter("@examIdPk", SqlDbType.Int, 50, obj.ExamIdPk, ParameterDirection.Input);
                 AddParameter("@examName", SqlDbType.VarChar, 50, obj.ExamName, ParameterDirection.Input);
                 AddParameter("@examTotalMarks", SqlDbType.VarChar, 50, obj.ExamTotalMarks, ParameterDirection.Input);
                 AddParameter("@examStartDate", SqlDbType.VarChar, 50, obj.ExamStartDate, ParameterDirection.Input);
@@ -117,7 +118,7 @@ public  class examMaster_tableDB : clsDB_Operation
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.ResultDate = (drRow["resultDate"].Equals(DBNull.Value)) ? "" : (string)drRow["resultDate"];
                 obj.AcademicYear = (drRow["academicYear"].Equals(DBNull.Value)) ? 0 : (int)drRow["academicYear"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -193,7 +194,7 @@ public  class examMaster_tableDB : clsDB_Operation
                             FROM [examMaster] e
                             JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [examIdPk] = @examIdPk 
-                            and [isActive]='1' ";
+                            and e.[isActive]='1' ";
 
                 OnClearParameter();
                 AddParameter("examIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -237,7 +238,7 @@ public  class examMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT e.* , m.mediumName 
                             FROM [examMaster] e
                             JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive]='1'";
+                            WHERE e.[isActive]='1'";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

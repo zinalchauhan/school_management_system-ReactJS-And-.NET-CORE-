@@ -60,6 +60,7 @@ public  class noticeMaster_tableDB : clsDB_Operation
                          WHERE [noticeIdPk]=@noticeIdPk";
 
                 OnClearParameter();
+                AddParameter("@noticeIdPk", SqlDbType.VarChar, 50, obj.NoticeIdPk, ParameterDirection.Input);
                 AddParameter("@noticeSubject", SqlDbType.VarChar, 50, obj.NoticeSubject, ParameterDirection.Input);
                 AddParameter("@noticeDescription", SqlDbType.VarChar, 50, obj.NoticeDescription, ParameterDirection.Input);
                 AddParameter("@noticeImage", SqlDbType.VarChar, 50, obj.NoticeImage, ParameterDirection.Input);
@@ -67,7 +68,7 @@ public  class noticeMaster_tableDB : clsDB_Operation
                 AddParameter("@toUserType", SqlDbType.VarChar, 50, obj.ToUserType, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
                 AddParameter("@standards", SqlDbType.VarChar, 50, obj.Standards, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -116,7 +117,7 @@ public  class noticeMaster_tableDB : clsDB_Operation
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.Standards = (drRow["standards"].Equals(DBNull.Value)) ? "" : (string)drRow["standards"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -192,7 +193,7 @@ public  class noticeMaster_tableDB : clsDB_Operation
                             FROM [noticeMaster] n
                             JOIN [mediumMaster] m ON n.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [noticeIdPk] = @noticeIdPk 
-                            and [isActive]='1' ";
+                            and n.[isActive]='1' ";
 
                 OnClearParameter();
                 AddParameter("noticeIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -236,7 +237,7 @@ public  class noticeMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT n.* , m.mediumName
                             FROM [noticeMaster] n
                             JOIN [mediumMaster] m ON n.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive]='1'";
+                            WHERE n.[isActive]='1'";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

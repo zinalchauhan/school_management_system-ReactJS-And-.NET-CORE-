@@ -57,6 +57,7 @@ public  class attendenceMaster_tableDB : clsDB_Operation
                          WHERE [attendenceIdPk]=@attendenceIdPk";
 
                 OnClearParameter();
+                AddParameter("@attendenceIdPk", SqlDbType.Int, 50, obj.AttendenceIdPk, ParameterDirection.Input);
                 AddParameter("@studentIdFk", SqlDbType.Int, 50, obj.StudentIdFk, ParameterDirection.Input);
                 AddParameter("@classIdFk", SqlDbType.Int, 50, obj.ClassIdFk, ParameterDirection.Input);
                 AddParameter("@classTeacherIdFk", SqlDbType.Int, 50, obj.ClassTeacherIdFk, ParameterDirection.Input);
@@ -104,22 +105,11 @@ public  class attendenceMaster_tableDB : clsDB_Operation
 
                 obj.AttendenceIdPk = (drRow["attendenceIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["attendenceIdPk"];
                 obj.StudentIdFk = (drRow["studentIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentIdFk"];
-                obj.StudentName = (drRow["studentName"].Equals(DBNull.Value)) ? "" : (string)drRow["studentName"];
+                obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
                 obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionIdFk = (drRow["divisionIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["divisionIdFk"];
                 obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
-                obj.TeacherIdFk = (drRow["teacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["teacherIdFk"];
                 obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
-                obj.CityIdFk = (drRow["cityIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["cityIdFk"];
-                obj.CityName = (drRow["cityName"].Equals(DBNull.Value)) ? "" : (string)drRow["cityName"];
-                obj.StateIdFk = (drRow["stateIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["stateIdFk"];
-                obj.StateName = (drRow["stateName"].Equals(DBNull.Value)) ? "" : (string)drRow["stateName"];
-                obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
-                obj.CategoryIdFk = (drRow["categoryIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["categoryIdFk"];
-                obj.CategoryName = (drRow["categoryName"].Equals(DBNull.Value)) ? "" : (string)drRow["categoryName"];
                 obj.ClassTeacherIdFk = (drRow["classTeacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classTeacherIdFk"];
                 obj.AttendenceDate = (drRow["attendenceDate"].Equals(DBNull.Value)) ? "" : (string)drRow["attendenceDate"];
                 obj.AttendenceStatus = (drRow["attendenceStatus"].Equals(DBNull.Value)) ? "" : (string)drRow["attendenceStatus"];
@@ -195,23 +185,16 @@ public  class attendenceMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT a.* , s.studentName , st.standardName , d.divisionName , m.mediumName , t.teacherName , ct.cityName , st.stateName , ctg.categoryName
+                strQ = @"SELECT a.* , s.studentMname , st.standardName , d.divisionName , t.teacherName 
                             FROM [attendenceMaster] a 
                             JOIN [studentMaster] s ON a.[studentIdFk] = s.[studentIdPk]
                             JOIN [classMaster] cl ON a.[classIdFk] = cl.[classIdPk] 
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
                             JOIN [classTeacherMaster] ct ON a.[classTeacherIdFk] = ct.[classTeacherIdPk]
                             JOIN [teacherMaster] t ON ct.[teacherIdFk] = t.[teacherIdPk]
-                            JOIN [cityMaster] ct ON t.[cityIdFk] = ct.[cityIdPk]
-                            JOIN [stateMaster] st ON ct.[stateIdFk] = st.[stateIdPk]
-                            JOIN [mediumMaster] m ON t.[mediumIdFk] = m.[mediumIdPk]
-                            AND s.[mediumIdFk] = m.[mediumIdPk]
-                            AND ct.[classIdFk] = cl.[classIdPk]
-                            AND ct.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [attendenceIdPk] = @attendenceIdPk
-                            and [isActive] = 1";
+                            and a.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("attendenceIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -252,22 +235,15 @@ public  class attendenceMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT a.* , s.studentName , st.standardName , d.divisionName , m.mediumName , t.teacherName , ct.cityName , st.stateName , ctg.categoryName
+                strQ = @"SELECT a.* , s.studentMname , st.standardName , d.divisionName , t.teacherName 
                             FROM [attendenceMaster] a 
                             JOIN [studentMaster] s ON a.[studentIdFk] = s.[studentIdPk]
                             JOIN [classMaster] cl ON a.[classIdFk] = cl.[classIdPk] 
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
-                            JOIN [categoryMaster] ctg ON s.[categoryIdFk] = ctg.[categoryIdPk]
                             JOIN [classTeacherMaster] ct ON a.[classTeacherIdFk] = ct.[classTeacherIdPk]
                             JOIN [teacherMaster] t ON ct.[teacherIdFk] = t.[teacherIdPk]
-                            JOIN [cityMaster] ct ON t.[cityIdFk] = ct.[cityIdPk]
-                            JOIN [stateMaster] st ON ct.[stateIdFk] = st.[stateIdPk]
-                            JOIN [mediumMaster] m ON t.[mediumIdFk] = m.[mediumIdPk]
-                            AND s.[mediumIdFk] = m.[mediumIdPk]
-                            AND ct.[classIdFk] = cl.[classIdPk]
-                            AND ct.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE a.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

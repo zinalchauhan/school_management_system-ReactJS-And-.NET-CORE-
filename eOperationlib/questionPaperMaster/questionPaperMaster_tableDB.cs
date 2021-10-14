@@ -24,10 +24,10 @@ public  class questionPaperMaster_tableDB : clsDB_Operation
                                    (@standardIdFk,@subjectIdFk,@mediumIdFk,@academicYear)";
 
                 OnClearParameter();
-                AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
+                AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
+                AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.SubjectIdFk, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@academicYear", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
+                AddParameter("@academicYear", SqlDbType.Int, 50, obj.AcademicYear, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
             }
@@ -49,16 +49,16 @@ public  class questionPaperMaster_tableDB : clsDB_Operation
                              SET    [standardIdFk]=@standardIdFk,
                                     [subjectIdFk]=@subjectIdFk,
                                     [mediumIdFk]=@mediumIdFk,
-                                    [academicYear]=@academicYear,
-                                    [isActive] = 1    
-                         WHERE [questionPaperIdPk]=@questionPaperIdPk";
+                                    [academicYear]=@academicYear
+                      WHERE [questionPaperIdPk]=@queationPaperIdPk";
 
                 OnClearParameter();
-                AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
+                AddParameter("@queationPaperIdPk", SqlDbType.Int, 50, obj.QuestionPaperIdPk, ParameterDirection.Input);
+                AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
+                AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.SubjectIdFk, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@academicYear", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                AddParameter("@academicYear", SqlDbType.Int, 50, obj.AcademicYear, ParameterDirection.Input);
+                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -106,7 +106,7 @@ public  class questionPaperMaster_tableDB : clsDB_Operation
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.AcademicYear = (drRow["academicYear"].Equals(DBNull.Value)) ? 0 : (int)drRow["academicYear"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -184,7 +184,7 @@ public  class questionPaperMaster_tableDB : clsDB_Operation
                             JOIN [subjectMaster] sb ON qp.[subjectIdFk] = sb.[subjectIdPk]
                             JOIN [mediumMaster] m ON qp.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [questionPaperIdPk] = @questionPaperIdPk 
-                            and [isActive]='1' ";
+                            and qp.[isActive]='1' ";
 
                 OnClearParameter();
                 AddParameter("questionPaperIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -230,7 +230,7 @@ public  class questionPaperMaster_tableDB : clsDB_Operation
                             JOIN [standardMaster] st ON qp.[standardIdFk] = st.[standardIdPk]
                             JOIN [subjectMaster] sb ON qp.[subjectIdFk] = sb.[subjectIdPk]
                             JOIN [mediumMaster] m ON qp.[mediumIdFk] = m.[mediumIdPk]
-                            WHERE [isActive]='1'";
+                            WHERE qp.[isActive]='1'";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

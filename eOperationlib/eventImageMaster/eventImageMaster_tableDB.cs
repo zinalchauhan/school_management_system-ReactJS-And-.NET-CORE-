@@ -51,8 +51,10 @@ public  class eventImageMaster_tableDB : clsDB_Operation
                          WHERE [eventImageIdPk]=@eventImageIdPk";
 
                 OnClearParameter();
+                AddParameter("@eventImageIdPk", SqlDbType.Int, 50, obj.EventImageIdPk, ParameterDirection.Input);
                 AddParameter("@eventIdFk", SqlDbType.Int, 50, obj.EventIdFk, ParameterDirection.Input);
                 AddParameter("@eventImage", SqlDbType.VarChar, 50, obj.EventImage, ParameterDirection.Input);
+                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -96,7 +98,7 @@ public  class eventImageMaster_tableDB : clsDB_Operation
                 obj.EventIdFk = (drRow["eventIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["eventIdFk"];
                 obj.EventName = (drRow["eventName"].Equals(DBNull.Value)) ? "" : (string)drRow["eventName"];
                 obj.EventImage = (drRow["eventImage"].Equals(DBNull.Value)) ? "" : (string)drRow["eventImage"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -172,7 +174,7 @@ public  class eventImageMaster_tableDB : clsDB_Operation
                             FROM [eventImageMaster] ei 
                             JOIN [eventMaster] e ON ei.[eventIdFk] = e.[eventIdPk] 
                             WHERE [eventImageIdPk] = @eventImageIdPk
-                            and [isActive] = 1";
+                            and ei.[isActive] = 1";
 
                 OnClearParameter();
                 AddParameter("eventImageIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -216,7 +218,7 @@ public  class eventImageMaster_tableDB : clsDB_Operation
                 strQ = @"SELECT ei.* , e.eventName
                             FROM [eventImageMaster] ei 
                             JOIN [eventMaster] e ON ei.[eventIdFk] = e.[eventIdPk]
-                            WHERE [isActive] = 1 ";
+                            WHERE ei.[isActive] = 1 ";
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

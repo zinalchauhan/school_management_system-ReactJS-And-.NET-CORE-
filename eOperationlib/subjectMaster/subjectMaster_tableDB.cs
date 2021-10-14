@@ -165,10 +165,10 @@ public  class subjectMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT * FROM [subjectMaster] WHERE [subjectIdPk] = @subjectIdPk , [isActive]='1' ";
+                strQ = @"SELECT * FROM [subjectMaster] WHERE [subjectIdPk] = @ID AND [isActive]='1' ";
 
                 OnClearParameter();
-                AddParameter("subjectIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+                AddParameter("ID", SqlDbType.Int, 2, ID, ParameterDirection.Input);
 
                 //DB_Config.OnStartConnection();
                 dtTable = OnExecQuery(strQ, "list").Tables[0];

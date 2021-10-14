@@ -106,7 +106,7 @@ public class classMaster_tableDB : clsDB_Operation
             obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
             obj.DivisionIdFk = (drRow["divisionIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["divisionIdFk"];
             obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
-            obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : (int)drRow["isActive"];
+            obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
 
             //obj.Emp_dept_id = (drRow["DeptId_Fk"].Equals(DBNull.Value)) ? 0 : (int)drRow["DeptId_Fk"];
@@ -189,9 +189,9 @@ public class classMaster_tableDB : clsDB_Operation
             strQ = @"SELECT c.* , s.standardName , d.divisionName
                         FROM [classMaster] c
                         JOIN [standardMaster] s ON c.[standardIdFk] = s.[standardIdPk]
-                        JOIN [divisionMaster] d ON c.[divisionIdFk] = d.[divisionIdFk]
+                        JOIN [divisionMaster] d ON c.[divisionIdFk] = d.[divisionIdPk]
                         WHERE [classIdPk] = @classIdPk
-                        AND isActive = 1";
+                        AND c.[isActive] = 1";
 
             OnClearParameter();
             AddParameter("classIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
@@ -267,10 +267,10 @@ public class classMaster_tableDB : clsDB_Operation
         try
         {
             strQ = @"SELECT c.* , s.standardName , d.divisionName
-                        FROM [classMaster]
-                        JOIN [standardMaster] c ON c.[standardIdFk] = s.[standardIdPk]
-                        JOIN [divisionMaster] d ON c.[divisionIdFk] = d.[divisionIdFk]
-                        WHERE isActive = 1"; 
+                        FROM [classMaster] c
+                        JOIN [standardMaster] s ON c.[standardIdFk] = s.[standardIdPk]
+                        JOIN [divisionMaster] d ON c.[divisionIdFk] = d.[divisionIdPk]
+                        WHERE c.[isActive] = 1"; 
             OnClearParameter();
 
             dtTable = OnExecQuery(strQ, "list").Tables[0];
