@@ -6,6 +6,7 @@ import AddStudent from "./admin/addStudent";
 import ViewStudent from "./admin/viewStudent";
 import ViewRemark from "./admin/viewRemark";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ViewStandardCard from "./admin/viewStandardCard";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/addStudentManually" component={AddStudentManually} />
         <Route path="/addStudent" component={AddStudent} />
         <Route path="/viewStudent" component={ViewStudent} />
+        <Route path="/ViewStandardCard" component={ViewStandardCard} />
         <Route path="/viewRemark" component={ViewRemark} />
       </Switch>
     </BrowserRouter>
