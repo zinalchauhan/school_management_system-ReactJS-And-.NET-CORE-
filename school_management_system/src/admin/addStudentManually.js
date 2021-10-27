@@ -20,7 +20,7 @@ export class AddStudentManually extends Component {
                         <a href="index-2.html">Home</a>
                       </li>
                       <li className="breadcrumb-item active">
-                      Add Student Manually
+                        Add Student Manually
                       </li>
                     </ol>
                   </div>
@@ -29,10 +29,8 @@ export class AddStudentManually extends Component {
               <div className="content-header-right text-md-right col-md-6 col-xs-12">
                 <div className="form-group"></div>
                 {/* <!-- Round Outline Icon Buttons--> */}
-                
               </div>
-              <div className="content-header-lead col-xs-12 mt-2">
-              </div>
+              <div className="content-header-lead col-xs-12 mt-2"></div>
             </div>
             <div className="content-body">
               {/* <!-- Input Validation start --> */}
@@ -75,10 +73,9 @@ export class AddStudentManually extends Component {
                           <form className="form-horizontal" novalidate>
                             <div className="row">
                               <div className="col-lg-6 col-md-12">
-                                  
                                 <div className="form-group">
                                   <h5>
-                                    Student Roll No. : {" "}
+                                    Student Roll No. :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
@@ -94,7 +91,7 @@ export class AddStudentManually extends Component {
                                 </div>
                                 <div className="form-group">
                                   <h5>
-                                  Student GR No. : {" "}
+                                    Student GR No. :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
@@ -109,9 +106,7 @@ export class AddStudentManually extends Component {
                                   </div>
                                 </div>
                                 <div className="form-group">
-                                  <h5>
-                                    Student First Name : {" "}
-                                  </h5>
+                                  <h5>Student First Name : </h5>
                                   <div className="controls">
                                     <input
                                       type="text"
@@ -124,9 +119,7 @@ export class AddStudentManually extends Component {
                                   </div>
                                 </div>
                                 <div className="form-group">
-                                  <h5>
-                                    Student Middle Name : {" "}
-                                  </h5>
+                                  <h5>Student Middle Name : </h5>
                                   <div className="controls">
                                     <input
                                       type="text"
@@ -139,9 +132,7 @@ export class AddStudentManually extends Component {
                                   </div>
                                 </div>
                                 <div className="form-group">
-                                  <h5>
-                                    Student Last Name : {" "}
-                                  </h5>
+                                  <h5>Student Last Name : </h5>
                                   <div className="controls">
                                     <input
                                       type="text"
@@ -154,9 +145,7 @@ export class AddStudentManually extends Component {
                                   </div>
                                 </div>
                                 <div className="form-group">
-                                  <h5>
-                                    Mother Mobile No. : {" "}
-                                  </h5>
+                                  <h5>Mother Mobile No. : </h5>
                                   <div className="controls">
                                     <input
                                       type="text"
@@ -169,9 +158,7 @@ export class AddStudentManually extends Component {
                                   </div>
                                 </div>
                                 <div className="form-group">
-                                  <h5>
-                                  Father Mobile No. : {" "}
-                                  </h5>
+                                  <h5>Father Mobile No. : </h5>
                                   <div className="controls">
                                     <input
                                       type="text"
@@ -185,25 +172,20 @@ export class AddStudentManually extends Component {
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-12">
-                              <div className="form-group">
+                                <div className="form-group">
                                   <h5>
-                                    Gender : {" "}
-                                    <span className="required"></span>
+                                    Gender : <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <input
-                                      type="radio"
-                                      name="gender"
-                                    /> &nbsp; Male &nbsp;&nbsp;&nbsp; 
-                                    <input
-                                      type="radio"
-                                      name="gender"
-                                    /> &nbsp; Female &nbsp;&nbsp;&nbsp; 
+                                    <input type="radio" name="gender" /> &nbsp;
+                                    Male &nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="gender" /> &nbsp;
+                                    Female &nbsp;&nbsp;&nbsp;
                                   </div>
                                 </div>
                                 <div className="form-group">
                                   <h5>
-                                    Student Image : {" "}
+                                    Student Image :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
@@ -217,7 +199,7 @@ export class AddStudentManually extends Component {
                                 </div>
                                 <div className="form-group">
                                   <h5>
-                                    Date of Birth : {" "}
+                                    Date of Birth :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
@@ -230,7 +212,7 @@ export class AddStudentManually extends Component {
                                 </div>
                                 <div className="form-group">
                                   <h5>
-                                    Select Medium : {" "}
+                                    Select Medium :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
@@ -249,7 +231,7 @@ export class AddStudentManually extends Component {
                                 </div>
                                 <div className="form-group">
                                   <h5>
-                                    Select Class : {" "}
+                                    Select Class :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
@@ -275,7 +257,7 @@ export class AddStudentManually extends Component {
                                 </div>
                                 <div className="form-group">
                                   <h5>
-                                    Select Category : {" "}
+                                    Select Category :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
@@ -292,7 +274,7 @@ export class AddStudentManually extends Component {
                                       <option value="4">EWS</option>
                                       <option value="5">OPEN</option>
                                       <option value="6">OTHER</option>
-                                      </select>
+                                    </select>
                                   </div>
                                 </div>
                                 <div className="text-xs-right">
@@ -302,7 +284,8 @@ export class AddStudentManually extends Component {
                                   >
                                     Submit{" "}
                                     <i className="icon-thumbs-up position-right"></i>
-                                  </button> &nbsp;&nbsp;&nbsp;
+                                  </button>{" "}
+                                  &nbsp;&nbsp;&nbsp;
                                   <button
                                     type="reset"
                                     className="btn btn-danger"
