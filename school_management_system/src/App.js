@@ -10,7 +10,7 @@ import ViewStandardCard from "./admin/viewStandardCard";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter forceRefresh={true}>
       <Switch>
         <Route path="/" exact component={Index} />
         <Route path="/addStudentManually" component={AddStudentManually} />
