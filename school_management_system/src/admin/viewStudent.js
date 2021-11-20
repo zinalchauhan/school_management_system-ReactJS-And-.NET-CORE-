@@ -17,39 +17,53 @@ export class ViewStudent extends Component {
                 <div className="row breadcrumbs-top">
                   <div className="breadcrumb-wrapper col-xs-12">
                     <ol className="breadcrumb">
-                      <li className="breadcrumb-item"><Link to="/">Home</Link>
+                      <li className="breadcrumb-item">
+                        <Link to="/">Home</Link>
                       </li>
-                      <li className="breadcrumb-item active">Student List
-                      </li>
+                      <li className="breadcrumb-item active">Student List</li>
                     </ol>
                   </div>
                 </div>
               </div>
             </div>
             <div className="content-body">
-
               {/* <!-- File export table --> */}
               <section id="file-export">
                 <div className="row">
                   <div className="col-xs-12">
                     <div className="card">
                       <div className="card-header">
-                        <h4 className="card-title">File export</h4>
-                        <a className="heading-elements-toggle"><i className="icon-ellipsis font-medium-3"></i></a>
+                        <h4 className="card-title">Student List</h4>
+                        <a className="heading-elements-toggle">
+                          <i className="icon-ellipsis font-medium-3"></i>
+                        </a>
                         <div className="heading-elements">
                           <ul className="list-inline mb-0">
-                            <li><a data-action="collapse"><i className="icon-m	inus4"></i></a></li>
-                            <li><a data-action="reload"><i className="icon-reload"></i></a></li>
-                            <li><a data-action="expand"><i className="icon-expand2"></i></a></li>
-                            <li><a data-action="close"><i className="icon-cross2"></i></a></li>
+                            <li>
+                              <a data-action="collapse">
+                                <i className="icon-m	inus4"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a data-action="reload">
+                                <i className="icon-reload"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a data-action="expand">
+                                <i className="icon-expand2"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a data-action="close">
+                                <i className="icon-cross2"></i>
+                              </a>
+                            </li>
                           </ul>
                         </div>
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block card-dashboard">
-                          <p className="card-text">Exporting data from a table can often be a key part of a
-                            complex application. The Buttons extension for DataTables provides three
-                            plug-ins that provide overlapping functionality for data export.</p>
                           <table className="table table-striped table-bordered file-export">
                             <thead>
                               <tr>
@@ -537,7 +551,6 @@ export class ViewStudent extends Component {
                 </div>
               </section>
               {/* <!-- File export table --> */}
-
             </div>
           </div>
         </div>

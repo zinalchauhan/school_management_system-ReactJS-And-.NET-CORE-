@@ -45,7 +45,7 @@ import ViewPrincipalLoginData from "./admin/viewPrincipalLoginData";
 
 function App() {
   return (
-    <BrowserRouter forceRefresh={true}>
+    <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Index} />
         <Route path="/addStudentManually" component={AddStudentManually} />

@@ -4,7 +4,7 @@ import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
 
-export class ViewRemark extends Component {
+export class ViewEvent extends Component {
   render() {
     return (
       <div>
@@ -13,14 +13,14 @@ export class ViewRemark extends Component {
           <div className="content-wrapper">
             <div className="content-header row">
               <div className="content-header-left col-md-6 col-xs-12">
-                <h2 className="content-header-title mb-0">Remark List</h2>
+                <h2 className="content-header-title mb-0">Event List</h2>
                 <div className="row breadcrumbs-top">
                   <div className="breadcrumb-wrapper col-xs-12">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
                         <Link to="/">Home</Link>
                       </li>
-                      <li className="breadcrumb-item active">Remark List</li>
+                      <li className="breadcrumb-item active">Event List</li>
                     </ol>
                   </div>
                 </div>
@@ -33,7 +33,14 @@ export class ViewRemark extends Component {
                   <div className="col-xs-12">
                     <div className="card">
                       <div className="card-header">
-                        <h4 className="card-title">Remark List</h4>
+                        <h4 className="card-title">Event List</h4>
+                        <br />
+                        <Link
+                          to="/addEvent"
+                          class="btn btn-outline-primary edit-item-btn"
+                        >
+                          Add New Event
+                        </Link>
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
                         </a>
@@ -63,15 +70,20 @@ export class ViewRemark extends Component {
                         </div>
                       </div>
                       <div className="card-body collapse in">
-                        <div className="card-block card-dashboard">
+                        <div
+                          className="card-block card-dashboard"
+                          style={{ overflow: "scroll" }}
+                        >
                           <table className="table table-striped table-bordered file-export">
                             <thead>
                               <tr>
                                 <th>#</th>
-                                <th>Student Name</th>
-                                <th>Teacher Name</th>
+                                <th>Medium Name</th>
+                                <th>Title</th>
                                 <th>Details</th>
-                                <th> Date</th>
+                                <th>Date</th>
+                                <th>Image</th>
+                                <th> Edit </th>
                                 <th>Delete</th>
                               </tr>
                             </thead>
@@ -82,28 +94,25 @@ export class ViewRemark extends Component {
                                 <td>Edinburgh</td>
                                 <td>61</td>
                                 <td>2011/04/25</td>
-                                <td class="Delete">
+                                <td>
+                                  {" "}
+                                  <a href=""> Galary</a>{" "}
+                                </td>
+
+                                <td class="edit">
                                   <a
                                     href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete1"
-                                    class="btn btn-outline-danger remove-item-btn"
+                                    class="btn btn-outline-primary edit-item-btn"
                                   >
-                                    Delete
+                                    Edit
                                   </a>
                                 </td>
-                              </tr>
-                              <tr>
-                                <td>Shad Decker</td>
-                                <td>Regional Director</td>
-                                <td>Edinburgh</td>
-                                <td>51</td>
-                                <td>2008/11/13</td>
+
                                 <td class="Delete">
                                   <a
                                     href=""
                                     data-toggle="modal"
-                                    data-target="#iconFormDelete1"
+                                    data-target="#iconFormDelete12"
                                     class="btn btn-outline-danger remove-item-btn"
                                   >
                                     Delete
@@ -116,11 +125,25 @@ export class ViewRemark extends Component {
                                 <td>Singapore</td>
                                 <td>29</td>
                                 <td>2011/06/27</td>
+                                <td>
+                                  {" "}
+                                  <a href=""> Galary</a>{" "}
+                                </td>
+
+                                <td class="edit">
+                                  <a
+                                    href=""
+                                    class="btn btn-outline-primary edit-item-btn"
+                                  >
+                                    Edit
+                                  </a>
+                                </td>
+
                                 <td class="Delete">
                                   <a
                                     href=""
                                     data-toggle="modal"
-                                    data-target="#iconFormDelete1"
+                                    data-target="#iconFormDelete12"
                                     class="btn btn-outline-danger remove-item-btn"
                                   >
                                     Delete
@@ -133,11 +156,24 @@ export class ViewRemark extends Component {
                                 <td>New York</td>
                                 <td>27</td>
                                 <td>2011/01/25</td>
+                                <td>
+                                  {" "}
+                                  <a href=""> Galary </a>{" "}
+                                </td>
+                                <td class="edit">
+                                  <a
+                                    href=""
+                                    class="btn btn-outline-primary edit-item-btn"
+                                  >
+                                    Edit
+                                  </a>
+                                </td>
+
                                 <td class="Delete">
                                   <a
                                     href=""
                                     data-toggle="modal"
-                                    data-target="#iconFormDelete1"
+                                    data-target="#iconFormDelete12"
                                     class="btn btn-outline-danger remove-item-btn"
                                   >
                                     Delete
@@ -148,10 +184,12 @@ export class ViewRemark extends Component {
                             <tfoot>
                               <tr>
                                 <th>#</th>
-                                <th>Student Name</th>
-                                <th>Teacher Name</th>
+                                <th>Medium Name</th>
+                                <th>Title</th>
                                 <th>Details</th>
-                                <th> Date</th>
+                                <th>Date</th>
+                                <th>Image</th>
+                                <th> Edit </th>
                                 <th>Delete</th>
                               </tr>
                             </tfoot>
@@ -172,4 +210,4 @@ export class ViewRemark extends Component {
   }
 }
 
-export default ViewRemark;
+export default ViewEvent;
