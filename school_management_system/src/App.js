@@ -63,6 +63,7 @@ function App() {
         <Route path="/viewPrincipal" component={ViewPrincipal} />
         <Route path="/addSubject" component={AddSubject} />
         <Route path="/viewSubject" component={ViewSubject} />
+        <Route path='/edit-subject/:id' component={AddSubject} />
         <Route path="/addStandardSubject" component={AddStandardSubject} />
         <Route path="/addSubjectTeacher" component={AddSubjectTeacher} />
         <Route path="/addTimeTableSetting" component={AddTimeTableSetting} />
@@ -77,6 +78,7 @@ function App() {
         <Route path="/addStandard" component={AddStandard} />
         <Route path="/viewStandard" component={ViewStandard} />
         <Route path="/addDivision" component={AddDivision} />
+        <Route path='/edit-division/:id' component={AddDivision} />
         <Route path="/viewDivision" component={ViewDivision} />
         <Route path="/addClass" component={AddClass} />
         <Route path="/viewClass" component={ViewClass} />

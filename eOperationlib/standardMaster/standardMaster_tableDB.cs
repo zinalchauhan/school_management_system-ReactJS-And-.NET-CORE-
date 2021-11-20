@@ -165,7 +165,7 @@ public  class standardMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT * FROM [standardMaster] WHERE [standardIdPk] = @standardIdPk , [isActive]='1' ";
+                strQ = @"SELECT * FROM [standardMaster] WHERE [standardIdPk] = @standardIdPk and [isActive]='1' ";
 
                 OnClearParameter();
                 AddParameter("standardIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);

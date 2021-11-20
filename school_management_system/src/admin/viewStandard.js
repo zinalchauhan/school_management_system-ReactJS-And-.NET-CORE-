@@ -3,9 +3,60 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewStandard extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      standards: [],
+      modelTitle: "",
+      standardName: "",
+      standardIdPk: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "standardList")
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res);
+        if (res.result == "success") {
+          this.setState({ standards: res.data });
+        }
+      });
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteStandardList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
+
   render() {
+
+    const { standards, modelTitle, standardIdPk, standardName } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -80,48 +131,23 @@ export class ViewStandard extends Component {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-
-                                <td className="edit">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Get Data
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Get Data
-                                  </a>
-                                </td>
-
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Get Data
-                                  </a>
-                                </td>
-                              </tr>
+                            {standards.map((std, index) => (
+                              <tr key={index}>
+                                <td>{index + 1}</td>
+                                  <td>{std.standardName}</td>
+                                  <td>
+                                  <button class="btn btn-outline-primary edit-item-btn">
+                                      {/* <Link
+                                        to={{
+                                          pathname: `/edit-subject/${sub.subjectIdPk}`,
+                                        }}
+                                      > */}
+                                        Get Data
+                                      {/* </Link>{" "} */}
+                                    </button>
+                                  </td>
+                                </tr>
+                            ))}
                             </tbody>
                             <tfoot>
                               <tr>

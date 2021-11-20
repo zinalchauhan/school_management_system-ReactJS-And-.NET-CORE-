@@ -165,7 +165,7 @@ public  class mediumMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT * FROM [mediumMaster] WHERE [mediumIdPk] = @mediumIdPk , [isActive]='1' ";
+                strQ = @"SELECT * FROM [mediumMaster] WHERE [mediumIdPk] = @mediumIdPk and [isActive]='1' ";
 
                 OnClearParameter();
                 AddParameter("mediumIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);

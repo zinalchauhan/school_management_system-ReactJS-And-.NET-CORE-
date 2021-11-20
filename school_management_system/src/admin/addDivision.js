@@ -2,9 +2,120 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
 
 export class AddDivision extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      divisions: [],
+      modelTitle: "",
+      divisionName: "",
+      divisionIdPk: 0,
+      isActive: 0,
+    };
+  }
+
+  changeDivisionName = (e) => {
+    this.setState({ divisionName: e.target.value });
+  };
+
+  componentDidMount() {
+    console.log("Params:::", this.props.match.params.id);
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ divisionIdPk: this.props.match.params.id });
+      this.OnGetData(this.props.match.params.id);
+    } else {
+      this.setState({ divisionIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    //this.setState({ dept_name: event.target.departmentname.value });
+    if (this.state.divisionIdPk !== 0) {
+      this.update();
+    } else {
+      this.insert();
+    }
+  };
+
+  insert() {
+    fetch(Variables.API_URL + "insertDivisionList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        divisionName: this.state.divisionName,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewDivision");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  update() {
+    fetch(Variables.API_URL + "updateDivisionList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        divisionIdPk: this.state.divisionIdPk,
+        divisionName: this.state.divisionName,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewDivision");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  OnGetData(id) {
+    fetch(Variables.API_URL + "getDivision/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({ divisionName: result.data.divisionName });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  reset() {
+    this.state.divisionName = "";
+  }
+
+
   render() {
+    const { divisions, modelTitle, divisionIdPk, divisionName } = this.state;
     return (
       <div>
         <Header></Header>
@@ -68,7 +179,7 @@ export class AddDivision extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block ">
-                          <form className="form-horizontal" novalidate>
+                          <form className="form-horizontal" onSubmit={this.onSubmit.bind(this)}>
                             <div className="row">
                               <div className="col-lg-6 col-md-12">
                                 <div className="form-group">
@@ -79,7 +190,9 @@ export class AddDivision extends Component {
                                   <div className="controls">
                                     <input
                                       type="text"
-                                      name="rno"
+                                      name="divname"
+                                      value={divisionName}
+                                      onChange={this.changeDivisionName}
                                       placeholder="Division Name"
                                       className="form-control"
                                       required
@@ -96,7 +209,7 @@ export class AddDivision extends Component {
                                 <i className="icon-thumbs-up position-right"></i>
                               </button>{" "}
                               &nbsp;&nbsp;&nbsp;
-                              <button type="reset" className="btn btn-danger">
+                              <button type="reset"  onClick={this.reset()} className="btn btn-danger">
                                 Reset{" "}
                                 <i className="icon-refresh position-right"></i>
                               </button>

@@ -3,9 +3,59 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewDivision extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      divisions: [],
+      modelTitle: "",
+      divisionName: "",
+      divisionIdPk: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "divisionList")
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res);
+        if (res.result == "success") {
+          this.setState({ divisions: res.data });
+        }
+      });
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteDivisionList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
   render() {
+
+    const { divisions, modelTitle, divisionIdPk, divisionName } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -81,79 +131,35 @@ export class ViewDivision extends Component {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
+                            {divisions.map((div, index) => (
+                              <tr key={index}>
+                                <td>{index + 1}</td>
+                                  <td>{div.divisionName}</td>
+                                  <td>
+                                  <button class="btn btn-outline-primary edit-item-btn">
+                                      <Link
+                                        to={{
+                                          pathname: `/edit-division/${div.divisionIdPk}`,
+                                        }}
+                                      >
+                                        Edit
+                                      </Link>{" "}
+                                    </button>
+                                  </td>
+                                  <td>
+                                  <button
+                                      type="button"
+                                      onClick={() =>
+                                        this.delete(div.divisionIdPk)
+                                      }
+                                       class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button>
+                                  </td>
+                                </tr>
+                            ))}
                             </tbody>
                             <tfoot>
                               <tr>

@@ -165,7 +165,7 @@ public  class divisionMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT * FROM [divisionMaster] WHERE [divisionIdPk] = @divisionIdPk , [isActive]='1' ";
+                strQ = @"SELECT * FROM [divisionMaster] WHERE [divisionIdPk] = @divisionIdPk and [isActive]='1' ";
 
                 OnClearParameter();
                 AddParameter("divisionIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);

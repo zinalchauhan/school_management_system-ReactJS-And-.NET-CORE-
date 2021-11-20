@@ -3,9 +3,56 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewSubject extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      subjects: [],
+      modelTitle: "",
+      subjectName: "",
+      subjectIdPk: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "subjectList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result == "success") {
+          this.setState({ subjects: res.data });
+        }
+      });
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteSubjectList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
   render() {
+    const { subjects, modelTitle, subjectIdPk, subjectName } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -70,7 +117,10 @@ export class ViewSubject extends Component {
                         </div>
                       </div>
                       <div className="card-body collapse in">
-                        <div className="card-block card-dashboard" style={{overflow:"scroll"}}>
+                        <div
+                          className="card-block card-dashboard"
+                          style={{ overflow: "scroll" }}
+                        >
                           <table className="table table-striped table-bordered file-export">
                             <thead>
                               <tr>
@@ -81,78 +131,35 @@ export class ViewSubject extends Component {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
+                              {subjects.map((sub, index) => (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{sub.subjectName}</td>
+                                  <td>
+                                    <button class="btn btn-outline-primary edit-item-btn">
+                                      <Link
+                                        to={{
+                                          pathname: `/edit-subject/${sub.subjectIdPk}`,
+                                        }}
+                                      >
+                                        Edit
+                                      </Link>{" "}
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        this.delete(sub.subjectIdPk)
+                                      }
+                                      class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                             <tfoot>
                               <tr>

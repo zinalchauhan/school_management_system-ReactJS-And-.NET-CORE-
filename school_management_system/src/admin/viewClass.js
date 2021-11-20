@@ -3,9 +3,68 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewClass extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      standards: [],
+      divisions: [],
+      classes: [],
+      modelTitle: "",
+      classIDPk: 0,
+      standardIdFk: 0,
+      divisionIdFk: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "classList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ classes: res.data });
+        }
+      });
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteClassList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
   render() {
+    const {
+      standards,
+      divisions,
+      classes,
+      modelTitle,
+      classIDPk,
+      standardIdFk,
+      divisionIdFk,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -70,98 +129,45 @@ export class ViewClass extends Component {
                         </div>
                       </div>
                       <div className="card-body collapse in">
-                        <div className="card-block card-dashboard" style={{overflow:"scroll"}}>
+                        <div
+                          className="card-block card-dashboard"
+                          style={{ overflow: "scroll" }}
+                        >
                           <table className="table table-striped table-bordered file-export">
                             <thead>
                               <tr>
                                 <th>#</th>
                                 <th>Standard Name</th>
                                 <th>Division Name</th>
-                                <th>Edit</th>
                                 <th>Delete</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>System Architect</td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>System Architect</td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>System Architect</td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
+                              {classes.map((cls, index) => (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{cls.standardName}</td>
+                                  <td>{cls.divisionName}</td>
+                                  <td>
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        this.delete(cls.classIdPk)
+                                      }
+                                      class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                             <tfoot>
                               <tr>
                                 <th>#</th>
                                 <th>Standard Name</th>
                                 <th>Division Name</th>
-                                <th>Edit</th>
                                 <th>Delete</th>
                               </tr>
                             </tfoot>

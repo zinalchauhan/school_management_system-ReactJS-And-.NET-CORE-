@@ -104,6 +104,72 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        [HttpPost("insertMediumList")]
+
+        public JsonResult insertMediumList(mediumMaster_tableEntities medium)
+        {
+
+            int result = mediumObj.OnInsert(medium);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = medium });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+            }
+        }
+
+        [HttpGet("getMedium/{id}")]
+        public JsonResult getMedium(int id)
+        {
+            mediumMaster_tableEntities result = mediumObj.OnGetData(id);
+            if (result.MediumIdPk != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpPost("updateMediumList")]
+
+        public JsonResult updateMediumList(mediumMaster_tableEntities medium)
+        {
+
+            int result = mediumObj.OnUpdate(medium);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+            }
+        }
+
+        [HttpDelete("deleteMediumList/{id}")]
+
+        public JsonResult deleteMediumList(int id)
+        {
+
+            int result = mediumObj.OnDelete(id);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Deleted", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Deleted" });
+            }
+        }
+
+
         [HttpGet("standardList")]
         public JsonResult standardList()
         {
@@ -120,6 +186,71 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        [HttpPost("insertStandardList")]
+
+        public JsonResult insertStandardList(standardMaster_tableEntities standard)
+        {
+
+            int result = stdObj.OnInsert(standard);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = standard });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+            }
+        }
+
+        [HttpGet("getStandard/{id}")]
+        public JsonResult getStandard(int id)
+        {
+            standardMaster_tableEntities result = stdObj.OnGetData(id);
+            if (result.StandardIdPk != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }s
+        }
+
+        [HttpPost("updateStandardList")]
+
+        public JsonResult updateStandardList(standardMaster_tableEntities standard)
+        {
+
+            int result = stdObj.OnUpdate(standard);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+            }
+        }
+
+        [HttpDelete("deleteStandardList/{id}")]
+
+        public JsonResult deleteStandardList(int id)
+        {
+
+            int result = stdObj.OnDelete(id);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Deleted", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Deleted" });
+            }
+        }
+
         [HttpGet("divisionList")]
         public JsonResult divisionList()
         {
@@ -133,6 +264,71 @@ namespace schoolManagementSystemAPI.Controllers
             else
             {
                 return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpPost("insertDivisionList")]
+
+        public JsonResult insertDivisionList(divisionMaster_tableEntities division)
+        {
+
+            int result = divObj.OnInsert(division);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = division });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+            }
+        }
+
+        [HttpGet("getDivision/{id}")]
+        public JsonResult getDivision(int id)
+        {
+            divisionMaster_tableEntities result = divObj.OnGetData(id);
+            if (result.DivisionIdPk != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpPost("updateDivisionList")]
+
+        public JsonResult updateDivisionList(divisionMaster_tableEntities division)
+        {
+
+            int result = divObj.OnUpdate(division);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+            }
+        }
+
+        [HttpDelete("deleteDivisionList/{id}")]
+
+        public JsonResult deleteDivisionList(int id)
+        {
+
+            int result = divObj.OnDelete(id);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Deleted", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Deleted" });
             }
         }
 
@@ -481,7 +677,6 @@ namespace schoolManagementSystemAPI.Controllers
 
 
         [HttpPost("insertClassList")]
-
         public JsonResult insertClassList(classMaster_tableEntities classes)
         {
 

@@ -2,9 +2,118 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
 
 export class AddStandard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      standards: [],
+      modelTitle: "",
+      standardName: "",
+      standardIdPk: 0,
+      isActive: 0,
+    };
+  }
+
+  changeStandardName = (e) => {
+    this.setState({ standardName: e.target.value });
+  };
+
+  componentDidMount() {
+    console.log("Params:::", this.props.match.params.id);
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ standardIdPk: this.props.match.params.id });
+      this.OnGetData(this.props.match.params.id);
+    } else {
+      this.setState({ standardIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    //this.setState({ standardName: event.target.standardName.value });
+    if (this.state.standardIdPk !== 0) {
+      this.update();
+    } else {
+      this.insert();
+    }
+  };
+
+  insert() {
+    fetch(Variables.API_URL + "insertStandardList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        standardName: this.state.standardName,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewStandard");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  update() {
+    fetch(Variables.API_URL + "updateStandardList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        standardIdPk: this.state.standardIdPk,
+        standardName: this.state.standardName,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewStandard");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  OnGetData(id) {
+    fetch(Variables.API_URL + "getStandard/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({ standardName: result.data.standardName });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  reset() {
+    this.state.standardName = "";
+  }
+
   render() {
+    const { modelTitle, standardIdPk, standardName } = this.state;
     return (
       <div>
         <Header></Header>
@@ -68,18 +177,23 @@ export class AddStandard extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block ">
-                          <form className="form-horizontal" novalidate>
+                          <form
+                            className="form-horizontal"
+                            onSubmit={this.onSubmit.bind(this)}
+                          >
                             <div className="row">
                               <div className="col-lg-6 col-md-12">
                                 <div className="form-group">
                                   <h5>
-                                  Standard Name :{" "}
+                                    Standard Name:{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
                                     <input
                                       type="text"
-                                      name="rno"
+                                      name="subname"
+                                      value={standardName}
+                                      onChange={this.changeStandardName}
                                       placeholder="Standard Name"
                                       className="form-control"
                                       required
@@ -96,7 +210,11 @@ export class AddStandard extends Component {
                                 <i className="icon-thumbs-up position-right"></i>
                               </button>{" "}
                               &nbsp;&nbsp;&nbsp;
-                              <button type="reset" className="btn btn-danger">
+                              <button
+                                type="reset"
+                                className="btn btn-danger"
+                                onClick={this.reset()}
+                              >
                                 Reset{" "}
                                 <i className="icon-refresh position-right"></i>
                               </button>
