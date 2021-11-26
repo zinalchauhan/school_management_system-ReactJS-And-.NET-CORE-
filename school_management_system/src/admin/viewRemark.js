@@ -3,9 +3,80 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewRemark extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      remarks: [],
+      students: [],
+      teachers: [],
+      subjects: [],
+      modelTitle: "",
+      remarkIdPk: 0,
+      studentIdFk: 0,
+      teacherIdFk: 0,
+      subjectIdFk: 0,
+      userType : "",
+      remarkDetail: "",
+      remarkDate: "",
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "remarkList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ remarks: res.data });
+        }
+      });
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteRemarkList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
   render() {
+
+    const {
+      remarks,
+      students,
+      teachers,
+      subjects,
+      modelTitle,
+      remarkIdPk,
+      studentIdFk,
+      teacherIdFk,
+      subjectIdFk,
+      userType ,
+      remarkDetail,
+      remarkDate,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -69,87 +140,43 @@ export class ViewRemark extends Component {
                               <tr>
                                 <th>#</th>
                                 <th>Student Name</th>
-                                <th>Teacher Name</th>
+                                <th>Subject</th>
+                                <th>Given By</th>
                                 <th>Details</th>
                                 <th> Date</th>
                                 <th>Delete</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete1"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Shad Decker</td>
-                                <td>Regional Director</td>
-                                <td>Edinburgh</td>
-                                <td>51</td>
-                                <td>2008/11/13</td>
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete1"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                <td>29</td>
-                                <td>2011/06/27</td>
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete1"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                <td>27</td>
-                                <td>2011/01/25</td>
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete1"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
+                            {remarks.map((rmk, index) => (
+                                <tr key={index}>
+                                  <td> {index + 1} </td>
+                                  <td> {rmk.studentMname} {rmk.studentFname} </td>
+                                  <td> {rmk.subjectName} </td>
+                                  <td> {rmk.teacherName} <br/> ({rmk.userType})</td>
+                                  <td> {rmk.remarkDetail} </td>
+                                  <td> {rmk.remarkDate} </td>
+                                  <td> 
+                                  <button
+                                      type="button"
+                                      onClick={() =>
+                                        this.delete(rmk.remarkIdPk)
+                                      }
+                                      class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button>
+                                  </td>
+                                  </tr>
+                            ))}
+                              </tbody>
                             <tfoot>
                               <tr>
                                 <th>#</th>
                                 <th>Student Name</th>
-                                <th>Teacher Name</th>
+                                <th>Subject</th>
+                                <th>Given By</th>
                                 <th>Details</th>
                                 <th> Date</th>
                                 <th>Delete</th>

@@ -178,9 +178,8 @@ public  class eventImageMaster_tableDB : clsDB_Operation
 
                 OnClearParameter();
                 AddParameter("eventImageIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
-
-                //DB_Config.OnStartConnection();
-                dtTable = OnExecQuery(strQ, "list").Tables[0];
+            //DB_Config.OnStartConnection();
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
 
                 if (!string.IsNullOrEmpty(ErrorMessage))
@@ -205,7 +204,52 @@ public  class eventImageMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<eventImageMaster_tableEntities> OnGetListdt()
+    public List<eventImageMaster_tableEntities> OnGetImageListdt(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<eventImageMaster_tableEntities> oList = new List<eventImageMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT ei.* , e.eventName
+                            FROM [eventImageMaster] ei 
+                            JOIN [eventMaster] e ON ei.[eventIdFk] = e.[eventIdPk]
+                            WHERE [eventIdFk] = @eventIdFk
+                            AND ei.[isActive] = 1 ";
+            OnClearParameter();
+            AddParameter("eventIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+    public List<eventImageMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

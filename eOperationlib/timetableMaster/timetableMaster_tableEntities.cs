@@ -18,6 +18,7 @@ using System.Threading.Tasks;
         private string mediumName = "";
         private int periodNo = 0;
         private int settingIdFk = 0;
+    private string day = "";
         private int isActive = 0;
 
     public int TimetableIdPk { get => timetableIdPk; set => timetableIdPk = value; }
@@ -32,5 +33,6 @@ using System.Threading.Tasks;
     public int PeriodNo { get => periodNo; set => periodNo = value; }
     public int SettingIdFk { get => settingIdFk; set => settingIdFk = value; }
     public int IsActive { get => isActive; set => isActive = value; }
+    public string Day { get => day; set => day = value; }
 }
 

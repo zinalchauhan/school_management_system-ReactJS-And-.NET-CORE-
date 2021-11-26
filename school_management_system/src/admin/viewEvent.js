@@ -3,9 +3,71 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewEvent extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      events: [],
+      mediums: [],
+      modelTitle: "",
+      eventIdPk: 0,
+      mediumIdFk: 0,
+      eventName: "",
+      eventDetail: "",
+      eventDate: "",
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "eventList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result == "success") {
+          this.setState({ events: res.data });
+        }
+      });
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteEventList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
   render() {
+
+    const { 
+      events, 
+      mediums, 
+      modelTitle, 
+      eventIdPk,
+      mediumIdFk, 
+      eventName , 
+      eventDetail , 
+      eventDate 
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -88,99 +150,43 @@ export class ViewEvent extends Component {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>
-                                  {" "}
-                                  <a href=""> Galary</a>{" "}
-                                </td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                <td>29</td>
-                                <td>2011/06/27</td>
-                                <td>
-                                  {" "}
-                                  <a href=""> Galary</a>{" "}
-                                </td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                <td>27</td>
-                                <td>2011/01/25</td>
-                                <td>
-                                  {" "}
-                                  <a href=""> Galary </a>{" "}
-                                </td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
+                            {events.map((evt, index) => (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td> {evt.mediumName} </td>
+                                  <td> {evt.eventName} </td>
+                                  <td> {evt.eventDetail} </td>
+                                  <td> {evt.eventDate} </td>
+                                  <td> 
+                                  <Link to = {{ 
+                                    pathname: `/edit-eventImage/${evt.eventIdPk}`,
+                                  }}>
+                                        Galary
+                                      </Link>{" "} </td>
+                                  <td> 
+                                  <button class="btn btn-outline-primary edit-item-btn">
+                                      <Link
+                                        to={{
+                                          pathname: `/edit-event/${evt.eventIdPk}`,
+                                        }}
+                                      >
+                                        Edit
+                                      </Link>{" "}
+                                    </button> </td>
+                                  <td> 
+                                  <button
+                                      type="button"
+                                      onClick={() =>
+                                        this.delete(evt.eventIdPk)
+                                      }
+                                      class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button> </td> 
+                                  </tr>
+                            ))}
+                              </tbody>
                             <tfoot>
                               <tr>
                                 <th>#</th>

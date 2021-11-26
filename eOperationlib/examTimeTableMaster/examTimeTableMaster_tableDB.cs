@@ -19,7 +19,7 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"INSERT INTO [examTimeTableMaster]
-                                   ([examIdFk],[standardIdFk],[subjectIdFk],[examDate])
+                                   ([examIdFk],[standardIdFk],[subjectIdFk],[exam])
                              VALUES
                                    (@examIdFK,@standardIdFk,@subjectIdFk,@examDate)";
 
@@ -107,8 +107,9 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
                 obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
                 obj.SubjectIdFk = (drRow["subjectIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectIdFk"];
                 obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
-                obj.ExamDate = (drRow["examDate"].Equals(DBNull.Value)) ? "" : (string)drRow["examDate"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
+                obj.ExamStartDate = (drRow["examStartDate"].Equals(DBNull.Value)) ? "" : (string)drRow["examStartDate"];
+            obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
+            obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -180,9 +181,10 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName 
+                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName , e.examStartDate , m.mediumName
                             FROM [examTimeTableMaster] et 
                             JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
+                            JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
                             JOIN [standardMaster] st ON et.[standardIdFk] = st.[standardIdPk]
                             JOIN [subjectMaster] sb ON et.[subjectIdFk] = sb.[subjectIdPk]
                             WHERE [examTtIdPk] = @examTtIdPk
@@ -227,9 +229,10 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName 
+                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName , e.examStartDate , m.mediumName 
                             FROM [examTimeTableMaster] et 
                             JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
+                            JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
                             JOIN [standardMaster] st ON et.[standardIdFk] = st.[standardIdPk]
                             JOIN [subjectMaster] sb ON et.[subjectIdFk] = sb.[subjectIdPk]
                             WHERE et.[isActive] = 1 ";

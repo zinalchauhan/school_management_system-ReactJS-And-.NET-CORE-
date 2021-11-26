@@ -3,9 +3,74 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewClassTeacher extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      clstech: [],
+      mediums: [],
+      classes: [],
+      teachers: [],
+      modelTitle: "",
+      classTeacherIdPk: 0,
+      mediumIdFk:0,
+      classIdFk: 0,
+      teacherIdFk: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "classTeachList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ clstech: res.data });
+        }
+      });
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteClassTechList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
   render() {
+
+    const {
+      clstech,
+      mediums,
+      classes,
+      teachers,
+      modelTitle,
+      classTeacherIdPk,
+      mediumIdFk,      
+      classIdFk,
+      teacherIdFk
+    } = this.state;
+
     return (
       <div>
           <Header></Header>
@@ -82,89 +147,42 @@ export class ViewClassTeacher extends Component {
                                 <th>Delete</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                
-
-                                <td class="edit">
-                                  <a
-                                    href="https://metanoiainfotech.com/android/Shardayatan/admin/EditTeacher/12"
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                <td>29</td>
-                                
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                <td>27</td>
-                                
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
+                           <tbody>
+                           {clstech.map((cltc, index) => (
+                             <tr key={index}>
+                               <td> {index + 1} </td>
+                               <td> {cltc.mediumName} </td>
+                               <td> {cltc.standardName} - {" "} {cltc.divisionName} </td>
+                               <td> {cltc.teacherName} </td>
+                               <td>
+                               <button
+                                      type="button"
+                                      class="btn btn-outline-primary edit-item-btn"
+                                    >
+                               <Link
+                                        to={{
+                                          pathname: `/edit-classTeacher/${cltc.classTeacherIdPk}`,
+                                        }}
+                                      >
+                                        Edit
+                                      </Link>{" "}
+                                      </button>
+                                    </td>
+                                    <td>
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        this.delete(cltc.classTeacherIdPk)
+                                      }
+                                      class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button>
+                                  </td>
+                               </tr>
+                           ))}
+                             </tbody>
                             <tfoot>
                               <tr>
                               <th>#</th>

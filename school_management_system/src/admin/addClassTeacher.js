@@ -3,9 +3,186 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class AddClassTeacher extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      clstech: [],
+      teachers: [],
+      classes: [],
+      mediums: [],
+      modelTitle: "",
+      classTeacherIdPk: 0,
+      classIdFk: 0,
+      mediumIdFk: 0,
+      teacherIdFk: 0,
+      isActive: 0,
+    };
+  }
+
+  getTeacherList() {
+    fetch(Variables.API_URL + "teacherList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ teachers: res.data });
+        }
+      });
+  }
+
+  getClassList() {
+    fetch(Variables.API_URL + "classList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ classes: res.data });
+        }
+      });
+  }
+
+  getMediumList() {
+    fetch(Variables.API_URL + "mediumList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ mediums: res.data });
+        }
+      });
+  }
+
+  changeTeacherName = (e) => {
+    console.log(e.target.value);
+    this.setState({ teacherIdFk: e.target.value });
+  };
+
+  changeClassName = (e) => {
+    console.log(e.target.value);
+    this.setState({ classIdFk: e.target.value });
+  };
+
+  changeMediumName = (e) => {
+    console.log(e.target.value);
+    this.setState({ mediumIdFk: e.target.value });
+  };
+
+  componentDidMount() {
+    this.getClassList();
+    this.getMediumList();
+    this.getTeacherList();
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ classTeacherIdPk: this.props.match.params.id });
+      this.onGetData(this.props.match.params.id);
+    } else {
+      this.setState({ classTeacherIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.classTeacherIdPk !== 0) {
+      this.update();
+    } else {
+      this.insert();
+    }
+  };
+
+  insert() {
+    console.log("in Insert");
+    fetch(Variables.API_URL + "insertClassTechList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        classIdFk: this.state.classIdFk,
+        teacherIdFk: this.state.teacherIdFk,
+        mediumIdFk: this.state.mediumIdFk,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewClassTeacher");
+        },
+        (error) => {
+          console.log(error);
+          alert("Failed");
+        }
+      );
+  }
+
+  update() {
+    console.log("in update");
+    fetch(Variables.API_URL + "updateClassTechList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        classTeacherIdPk: this.state.classTeacherIdPk,
+        mediumIdFk: this.state.mediumIdFk,
+        classIdFk: this.state.classIdFk,
+        teacherIdFk: this.state.teacherIdFk,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewClassTeacher");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  onGetData(id) {
+    fetch(Variables
+      .API_URL + "getClassTech/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            teacherIdFk: result.data.teacherIdFk,
+            mediumIdFk: result.data.mediumIdFk,
+            classIdFk: result.data.classIdFk,
+          });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
   render() {
+
+    const {
+      clstech,
+      teachers,
+      classes,
+      mediums,
+      modelTitle,
+      classTeacherIdPk,
+      classIdFk,
+      mediumIdFk,
+      teacherIdFk
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -69,7 +246,7 @@ export class AddClassTeacher extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block ">
-                          <form className="form-horizontal" novalidate>
+                          <form onSubmit={this.onSubmit} className="form-horizontal" novalidate>
                             <div className="row">
                               <div className="col-md-12">
                                 <div className="form-group">
@@ -78,16 +255,24 @@ export class AddClassTeacher extends Component {
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                  <select
+                                      name="med"
+                                      id="med"
                                       className="form-control"
+                                      onChange={this.changeMediumName}
+                                      value={mediumIdFk}
                                     >
-                                      <option value="">Select Medium</option>
-                                      <option value="1">Gujarati</option>
-                                      <option value="2">Hindi</option>
-                                      <option value="3">English</option>
+                                      <option value="0">Select Medium</option>
+                                      {mediums.map((med) => (
+                                        <option
+                                          value={med.mediumIdPk}
+                                          selected={
+                                            mediumIdFk === med.mediumIdPk
+                                          }
+                                        >
+                                          {med.mediumName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -102,23 +287,24 @@ export class AddClassTeacher extends Component {
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                  <select
+                                      name="cls"
+                                      id="cls"
                                       className="form-control"
+                                      onChange={this.changeClassName}
+                                      value={classIdFk}
                                     >
-                                      <option value="">Select class</option>
-                                      <option value="1">1-A</option>
-                                      <option value="2">1-B</option>
-                                      <option value="3">2-A</option>
-                                      <option value="4">2-B</option>
-                                      <option value="5">3-A</option>
-                                      <option value="6">3-B</option>
-                                      <option value="7">4-A</option>
-                                      <option value="8">4-B</option>
-                                      <option value="9">5-A</option>
-                                      <option value="10">5-B</option>
+                                      <option value="0">Select Class</option>
+                                      {classes.map((cls) => (
+                                        <option
+                                          value={cls.classIdPk}
+                                          selected={
+                                            classIdFk === cls.classIdPk
+                                          }
+                                        >
+                                          {cls.standardName} - {cls.divisionName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -131,19 +317,24 @@ export class AddClassTeacher extends Component {
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                  <select
+                                      name="std"
+                                      id="std"
                                       className="form-control"
+                                      onChange={this.changeTeacherName}
+                                      value={teacherIdFk}
                                     >
-                                      <option value="">Select Teacher</option>
-                                      <option value="1">Zinal</option>
-                                      <option value="2">Om</option>
-                                      <option value="3">Vrutika</option>
-                                      <option value="4">Vibhuti</option>
-                                      <option value="5">Tushar</option>
-                                      <option value="6">Harsh</option>
+                                      <option value="0">Select Teacher</option>
+                                      {teachers.map((tech) => (
+                                        <option
+                                          value={tech.teacherIdPk}
+                                          selected={
+                                            teacherIdFk === tech.teacherIdPk
+                                          }
+                                        >
+                                          {tech.teacherName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>

@@ -3,9 +3,75 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewExam extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      exams: [],
+      mediums: [],
+      modelTitle: "",
+      examIdPk: 0,
+      mediumIdFk: 0,
+      examName: "",
+      examStartDate: "",
+      examEndDate: "",
+      resultDate: "",
+      examTotalMarks: 0,
+      academicYear: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "examList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result == "success") {
+          this.setState({ exams: res.data });
+        }
+      });
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteExamList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
   render() {
+    const {
+      exams,
+      mediums,
+      modelTitle,
+      examIdPk,
+      mediumIdFk,
+      examName,
+      examStartDate,
+      examEndDate,
+      resultDate,
+      examTotalMarks,
+      academicYear,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -35,6 +101,12 @@ export class ViewExam extends Component {
                       <div className="card-header">
                         <h4 className="card-title">Exam List</h4>
                         <br />
+                        <Link
+                          to="/addExam"
+                          class="btn btn-outline-primary edit-item-btn"
+                        >
+                          Add New Exam
+                        </Link>
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
                         </a>
@@ -75,97 +147,52 @@ export class ViewExam extends Component {
                                 <th>Medium</th>
                                 <th>Exam</th>
                                 <th>Date</th>
-                                <th>Total Marks</th>
+                                <th>Total <br/> Marks</th>
                                 <th>Year</th>
                                 <th> Edit </th>
                                 <th>Delete</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>2011/01/25</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                <td>29</td>
-                                <td>2011/06/27</td>
-                                <td>2011/01/25</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                <td>27</td>
-                                <td>2011/01/25</td>
-                                <td>2011/01/25</td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
+                              {exams.map((exm, index) => (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td> {exm.mediumName} </td>
+                                  <td> {exm.examName}</td>
+                                  <td>
+                                    {" "}
+                                    <b>Start Date :</b><br />  {exm.examStartDate} <br /> 
+                                    <b>End Date : </b><br /> {exm.examEndDate} <br /> 
+                                    <b>Result Date:</b><br /> {exm.resultDate}{" "}
+                                  </td>
+                                  <td> {exm.examTotalMarks} </td>
+                                  <td> {exm.academicYear} </td>
+                                  <td>
+                                    <button
+                                      type="button"
+                                      class="btn btn-outline-primary edit-item-btn"
+                                    >
+                                      <Link
+                                        to={{
+                                          pathname: `/edit-exam/${exm.examIdPk}`,
+                                        }}
+                                      >
+                                        Edit
+                                      </Link>{" "}
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <button
+                                      type="button"
+                                      onClick={() => this.delete(exm.examIdPk)}
+                                      class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                             <tfoot>
                               <tr>
@@ -173,7 +200,7 @@ export class ViewExam extends Component {
                                 <th>Medium</th>
                                 <th>Exam</th>
                                 <th>Date</th>
-                                <th>Total Marks</th>
+                                <th>Total <br/> Marks</th>
                                 <th>Year</th>
                                 <th> Edit </th>
                                 <th>Delete</th>

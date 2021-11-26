@@ -13,4 +13,9 @@
     <ProjectReference Include="..\eOperationlib\eOperationlib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="uploads\events\" />
+    <Folder Include="uploads\studentImages\" />
+  </ItemGroup>
+
 </Project>

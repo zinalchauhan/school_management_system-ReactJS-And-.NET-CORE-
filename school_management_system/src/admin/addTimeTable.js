@@ -2,9 +2,291 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
+import $ from 'jquery';
 
 export class AddTimeTable extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tt: [],
+      tts: [],
+      mediums: [],
+      days: [],
+      classes: [],
+      subtechs: [],
+      subjectTeacherIdFk: [],
+      periodNo: [],
+      modelTitle: "",
+      lec_no: 0,
+      timeTableIdPk: 0,
+      mediumIdFk: 0,
+      classIdFk: 0,
+      settingIdFk: 0,
+      isActive: 0,
+    };
+  }
+
+  getClassList() {
+    fetch(Variables.API_URL + "classList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ classes: res.data });
+        }
+      });
+  }
+
+  changeMediumName = (e) => {
+    console.log(e.target.value);
+    this.setState({ mediumIdFk: e.target.value });
+  };
+
+  changeSubjectTeacher = (e, index) => {
+    console.log(e.target.value);
+    this.setState((state) => {
+      state.subjectTeacherIdFk[index] = e.target.value;
+    });
+  };
+
+  changeClass = (e) => {
+    console.log(e.target.value);
+    this.setState({ classIdFk: e.target.value });
+  };
+
+  changeTimeTableSetting = (e) => {
+    console.log(e.target.value);
+    this.setState({ settingIdFk: e.target.value });
+    fetch(Variables.API_URL + "getTtsetting/" + e.target.value)
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ lec_no: response.data.lectureNo });
+        for (var i = 1; i <= response.data.lectureNo - 1; i++) {
+          //	var newEl = $(el).after(el.cloneNode(true));
+          this.setState((state) => {
+            var period = i + 1;
+            state.periodNo[i] = period.toString();
+          });
+          this.nextElement($("#period"), i);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  nextElement(element, i) {
+    var _ = this;
+    var newElement = element.clone();
+    var id = this.state.current_id + 1;
+    this.state.current_id = id;
+    if (id < 10) id = "0" + id;
+    newElement.attr("name", element.attr("id").split("01")[0] + id);
+    var field = $("input", newElement).attr("id");
+    $("input", newElement).attr("name", field.split("01")[0] + id);
+    $("input", newElement).val(this.state.periodNo[i]);
+
+    var field1 = $("select", newElement).attr("id");
+    $("select", newElement).attr("id", field1.split("01")[0] + id);
+    $("select", newElement).attr("name", field1.split("01")[0] + id);
+    $("select", newElement).on("change", (e) => _.changeSubjectTeacher(e, i));
+    $("select", newElement).val(this.state.subjectTeacherIdFk[i]);
+    newElement.appendTo($("#period_tab"));
+    //
+  }
+
+  changePeriodNo = (e) => {
+    console.log(e.target.value);
+    this.setState({ periodNo: e.target.value });
+  };
+
+  componentDidMount() {
+    this.loadMedium();
+    this.getClassList();
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ timeTableIdPk: this.props.match.params.id });
+      this.onGetData(this.props.match.params.id);
+    } else {
+      this.setState({ timeTableIdPk: 0 });
+    }
+    this.setState((state)=>{
+      state.periodNo[0]='1';
+    });
+  }
+
+  loadMedium() {
+    fetch(Variables.API_URL + "mediumList/", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          //console.log(result);
+          this.setState({ mediums: result.data });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  loadDay = (e) => {
+    console.log("Medium ID ::: " + e.target.value);
+    this.setState({
+      mediumIdFk: e.target.value,
+    });
+    fetch(Variables.API_URL + "getTtsettingByMedium/" + e.target.value)
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          days: response.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  loadSubject = (e) => {
+    console.log("Class ID ::: " + e.target.value);
+    this.setState({
+      classIdFk: e.target.value,
+    });
+    fetch(Variables.API_URL + "subTeachList/" + e.target.value)
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          subtechs: response.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  
+  onSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.timeTableIdPk !== 0) {
+      this.update();
+    } else {
+      this.insert();
+    }
+  };
+
+
+  insert() {
+
+    //alert("in insert..");
+    for (let index = 0; index < this.state.lec_no; index++) {
+      console.log(this.state.periodNo[index]);
+      console.log(this.state.subjectTeacherIdFk[index]);
+      console.log(this.state.mediumIdFk);
+      console.log(this.state.classIdFk);
+      console.log(this.state.settingIdFk);
+
+      fetch(Variables.API_URL + "insertTimetableList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        classIdFk: this.state.classIdFk,
+        subjectTeacherIdFk: this.state.subjectTeacherIdFk[index],
+        periodNo: this.state.periodNo[index],
+        mediumIdFk: this.state.mediumIdFk,
+        settingIdFk: this.state.settingIdFk,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+    this.props.history.push("/showTimeTable");
+    
+  }
+
+  update() {
+    fetch(Variables.API_URL + "updateTimetableList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        timeTableIdPk: this.state.timeTableIdPk,
+        mediumIdFk: this.state.mediumIdFk,
+        classIdFk: this.state.classIdFk,
+        subjectTeacherIdFk: this.state.subjectTeacherIdFk,
+        settingIdFk: this.state.settingIdFk,
+        periodNo: this.state.periodNo,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewTimeTable");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  onGetData(id) {
+    fetch(Variables.API_URL + "getTimetable/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            classIdFk: result.data.classIdFk,
+            mediumIdFk: result.data.mediumIdFk,
+            subjectTeacherIdFk: result.data.subjectTeacherIdFk,
+            settingIdFk: result.data.settingIdFk,
+            periodNo: result.data.periodNo,
+          });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
   render() {
+    const {
+      tt,
+      tts,
+      mediums,
+      classes,
+      subtechs,
+      modelTitle,
+      days,
+      timeTableIdPk,
+      mediumIdFk,
+      classIdFk,
+      subjectTeacherIdFk,
+      periodNo,
+      settingIdFk,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -13,8 +295,7 @@ export class AddTimeTable extends Component {
             <div className="content-header row">
               <div className="content-header-left col-md-6 col-xs-12">
                 <div className="row breadcrumbs-top">
-                  <div className="breadcrumb-wrapper col-xs-12">
-                  </div>
+                  <div className="breadcrumb-wrapper col-xs-12"></div>
                 </div>
               </div>
               <div className="content-header-right text-md-right col-md-6 col-xs-12">
@@ -61,9 +342,13 @@ export class AddTimeTable extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block ">
-                          <form className="form-horizontal" novalidate>
+                          <form
+                            className="form-horizontal"
+                            novalidate
+                            onSubmit={this.onSubmit.bind(this)}
+                          >
                             <div className="row">
-                              <div className="col-md-9">
+                              <div className="col-md-12">
                                 <div className="form-group">
                                   <h5>
                                     Select Medium :{" "}
@@ -71,15 +356,23 @@ export class AddTimeTable extends Component {
                                   </h5>
                                   <div className="controls">
                                     <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                      name="med"
+                                      id="med"
                                       className="form-control"
+                                      onChange={this.loadDay}
+                                      value={mediumIdFk}
                                     >
-                                      <option value="">Select Medium</option>
-                                      <option value="1">Gujarati</option>
-                                      <option value="2">Hindi</option>
-                                      <option value="3">English</option>
+                                      <option value="0">Select Medium</option>
+                                      {mediums.map((med) => (
+                                        <option
+                                          value={med.mediumIdPk}
+                                          selected={
+                                            mediumIdFk === med.mediumIdPk
+                                          }
+                                        >
+                                          {med.mediumName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -88,32 +381,34 @@ export class AddTimeTable extends Component {
                             <br />
                             <div className="row">
                               <div className="col-lg-6 col-md-12">
-                              <div className="form-group">
+                                <div className="form-group">
                                   <h5>
                                     Select Class :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
                                     <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                      name="cls"
+                                      id="cls"
                                       className="form-control"
+                                      onChange={this.loadSubject}
+                                      value={classIdFk}
                                     >
-                                      <option value="">Select class</option>
-                                      <option value="1">1-A</option>
-                                      <option value="2">1-B</option>
-                                      <option value="3">2-A</option>
-                                      <option value="4">2-B</option>
-                                      <option value="5">3-A</option>
-                                      <option value="6">3-B</option>
-                                      <option value="7">4-A</option>
-                                      <option value="8">4-B</option>
-                                      <option value="9">5-A</option>
-                                      <option value="10">5-B</option>
+                                      <option value="0">Select Class</option>
+                                      {classes.map((cls) => (
+                                        <option
+                                          value={cls.classIdPk}
+                                          selected={classIdFk === cls.classIdPk}
+                                        >
+                                          {cls.standardName} -{" "}
+                                          {cls.divisionName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
+                              </div>
+                              <div className="col-lg-6 col-md-12">
                                 <div className="form-group">
                                   <h5>
                                     Select Day :{" "}
@@ -121,65 +416,82 @@ export class AddTimeTable extends Component {
                                   </h5>
                                   <div className="controls">
                                     <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                      name="day"
+                                      id="day"
                                       className="form-control"
+                                      onChange={this.changeTimeTableSetting}
+                                      value={settingIdFk}
                                     >
-                                      <option value="">Select Day</option>
-                                      <option value="1">Monday</option>
-                                      <option value="2">Tuesday</option>
-                                      <option value="3">Wednesday</option>
-                                      <option value="4">Thursday</option>
-                                      <option value="5">Friday</option>
-                                      <option value="6">Saturday</option>
+                                      <option value="0">Select Day</option>
+                                      {days.map((ttsday) => (
+                                        <option
+                                          value={ttsday.settingIdPk}
+                                          selected={
+                                            settingIdFk === ttsday.settingIdPk
+                                          }
+                                        >
+                                          {ttsday.day}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
-
-                               
                               </div>
-                              <div className="col-lg-6 col-md-12">
-                              <div className="form-group">
-                                  <h5>Period No. : </h5>
-                                  <div className="controls">
-                                    <input
-                                      type="text"
-                                      name="text"
-                                      placeholder="Period No."
-                                      className="form-control"
-                                      required
-                                      data-validation-required-message="This field is required"
-                                    />
+                            </div>
+                            <div id="period_tab" className="row">
+                              <div id="period" className="col-md-12">
+                                <div className="col-lg-6 col-md-6">
+                                  <div className="form-group">
+                                    <h5>Period No. : </h5>
+                                    <div className="controls">
+                                      <input
+                                        type="text"
+                                        id="periodno01"
+                                        name="periodno01"
+                                        placeholder="Period No."
+                                        value={this.state.periodNo[0]}
+                                        className="form-control"
+                                        required
+                                        data-validation-required-message="This field is required"
+                                      />
+                                    </div>
                                   </div>
                                 </div>
-                                <div className="form-group">
-                                  <h5>
-                                    Select Subject :{" "}
-                                    <span className="required"></span>
-                                  </h5>
-                                  <div className="controls">
-                                    <select
-                                      name="select"
-                                      id="select"
-                                      required
-                                      className="form-control"
-                                    >
-                                      <option value="">Select Subject</option>
-                                      <option value="1">Hindi</option>
-                                      <option value="2">Gujarati</option>
-                                      <option value="3">English</option>
-                                      <option value="4">Polity  </option>
-                                      <option value="5">History</option>
-                                      <option value="6">Geography</option>
-                                      <option value="7">Science</option>
-                                      <option value="8">Maths</option>
-                                      <option value="9">Computer</option>
-                                      <option value="10">Yoga</option>
-                                    </select>
+                                <div className="col-lg-6 col-md-6">
+                                  <div className="form-group">
+                                    <h5>
+                                      Select Subject :{" "}
+                                      <span className="required"></span>
+                                    </h5>
+                                    <div className="controls">
+                                      <select
+                                        name="subjectname01"
+                                        id="subjectname01"
+                                        className="form-control"
+                                        onChange={(e) =>
+                                          this.changeSubjectTeacher(e, 0)
+                                        }
+                                        value={this.state.subjectTeacherIdFk[0]}
+                                      >
+                                        <option value="0">
+                                          Select Subject{" "}
+                                        </option>
+                                        {subtechs.map((sub) => (
+                                          <option
+                                            value={sub.subjectTeacherIdPk}
+                                            selected={
+                                              subjectTeacherIdFk ===
+                                              sub.subjectTeacherIdPk
+                                            }
+                                          >
+                                            {sub.subjectName} -{" "}
+                                            {sub.teacherName}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
                                   </div>
                                 </div>
-                              
                               </div>
                             </div>
                             <hr />

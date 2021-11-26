@@ -13,7 +13,7 @@ export class AddClass extends Component {
       divisions: [],
       classes: [],
       modelTitle: "",
-      classIDPk: 0,
+      classIdPk: 0,
       standardIdFk: 0,
       divisionIdFk: 0,
       isActive: 0,
@@ -54,16 +54,16 @@ export class AddClass extends Component {
     this.getStandardList();
     this.getDivisionList();
     if (this.props.match.params.id !== undefined) {
-      this.setState({ classIDPk: this.props.match.params.id });
+      this.setState({ classIdPk: this.props.match.params.id });
       this.getClass(this.props.match.params.id);
     } else {
-      this.setState({ classIDPk: 0 });
+      this.setState({ classIdPk: 0 });
     }
   }
 
   onSubmit = (event) => {
     event.preventDefault();
-    if (this.state.classIDPk !== 0) {
+    if (this.state.classIdPk !== 0) {
       this.update();
     } else {
       this.insert();
@@ -104,7 +104,7 @@ export class AddClass extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        classIDPk: this.state.classIDPk,
+        classIdPk: this.state.classIdPk,
         standardIdFk: this.state.standardIdFk,
         divisionIdFk: this.state.divisionIdFk,
       }),
@@ -151,7 +151,7 @@ export class AddClass extends Component {
       divisions,
       classes,
       modelTitle,
-      classIDPk,
+      classIdPk,
       standardIdFk,
       divisionIdFk,
     } = this.state;

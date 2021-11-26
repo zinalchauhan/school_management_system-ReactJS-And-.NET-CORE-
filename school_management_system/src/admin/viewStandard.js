@@ -86,12 +86,6 @@ export class ViewStandard extends Component {
                       <div className="card-header">
                         <h4 className="card-title">Standard List</h4>
                         <br />
-                        <Link
-                          to="/addStandard"
-                          class="btn btn-outline-primary edit-item-btn"
-                        >
-                          Add New Standard
-                        </Link>
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
                         </a>

@@ -111,7 +111,8 @@ public  class timetableMaster_tableDB : clsDB_Operation
                 obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
                 obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
+            obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
+            obj.Day = (drRow["day"].Equals(DBNull.Value)) ? "" : (string)drRow["day"];
                 obj.PeriodNo = (drRow["periodNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["periodNo"];
                 obj.SettingIdFk = (drRow["settingIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["settingIdFk"];
                 obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
@@ -186,7 +187,7 @@ public  class timetableMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT tt.* , st.standardName , d.divisionName , sb.subjectName , t.teacherName , m.mediumName 
+                strQ = @"SELECT tt.* , st.standardName , d.divisionName , sb.subjectName , t.teacherName , m.mediumName , tts.day
                             FROM [timetableMaster] tt 
                             JOIN [classMaster] cl ON tt.[classIdFk] = cl.[classIdPk]
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
@@ -238,7 +239,7 @@ public  class timetableMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT tt.* , st.standardName , d.divisionName , sb.subjectName , t.teacherName , m.mediumName 
+                strQ = @"SELECT tt.* , st.standardName , d.divisionName , sb.subjectName , t.teacherName , m.mediumName  , tts.day
                             FROM [timetableMaster] tt 
                             JOIN [classMaster] cl ON tt.[classIdFk] = cl.[classIdPk]
                             JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]

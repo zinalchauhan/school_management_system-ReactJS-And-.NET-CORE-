@@ -21,6 +21,7 @@ export class AddStandard extends Component {
     this.setState({ standardName: e.target.value });
   };
 
+
   componentDidMount() {
     console.log("Params:::", this.props.match.params.id);
     if (this.props.match.params.id !== undefined) {
@@ -42,6 +43,7 @@ export class AddStandard extends Component {
   };
 
   insert() {
+    console.log(this.state.standardName);
     fetch(Variables.API_URL + "insertStandardList", {
       method: "POST",
       headers: {
@@ -56,7 +58,7 @@ export class AddStandard extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewStandard");
+       //'/   this.props.history.push("/viewStandard");
         },
         (error) => {
           alert("Failed");
@@ -192,7 +194,7 @@ export class AddStandard extends Component {
                                     <input
                                       type="text"
                                       name="subname"
-                                      value={standardName}
+                                      value={this.state.standardName}
                                       onChange={this.changeStandardName}
                                       placeholder="Standard Name"
                                       className="form-control"

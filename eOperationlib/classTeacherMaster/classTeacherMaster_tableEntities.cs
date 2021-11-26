@@ -12,8 +12,9 @@ using System.Threading.Tasks;
         private int teacherIdFk = 0;
         private string teacherName = "";
         private int mediumIdFk = 0;
-        private string standardName = "";
-        private string divisiondName = "";
+    private string mediumName = "";
+    private string standardName = "";
+        private string divisionName = "";
         private int isActive = 0;
 
     public int ClassTeacherIdPk { get => classTeacherIdPk; set => classTeacherIdPk = value; }
@@ -22,7 +23,8 @@ using System.Threading.Tasks;
     public string TeacherName { get => teacherName; set => teacherName = value; }
     public int MediumIdFk { get => mediumIdFk; set => mediumIdFk = value; }
     public string StandardName { get => standardName; set => standardName = value; }
-    public string DivisiondName { get => divisiondName; set => divisiondName = value; }
+    public string DivisionName { get => divisionName; set => divisionName = value; }
     public int IsActive { get => isActive; set => isActive = value; }
+    public string MediumName { get => mediumName; set => mediumName = value; }
 }
 

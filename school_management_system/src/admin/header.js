@@ -622,15 +622,6 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addStandardSubject"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Standard Subject
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       to="/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
@@ -911,22 +902,7 @@ export class Header extends Component {
                 ></i>
               </li>
               <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Standard
-                  </span>
-                </a>
                 <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addStandard"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Standard
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/viewStandard"
@@ -946,15 +922,6 @@ export class Header extends Component {
                   </span>
                 </a>
                 <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addDivision"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Division
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/viewDivision"
@@ -1030,15 +997,6 @@ export class Header extends Component {
                   </span>
                 </a>
                 <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addMedium"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Medium
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/viewMedium"

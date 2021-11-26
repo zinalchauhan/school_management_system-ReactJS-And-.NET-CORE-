@@ -26,10 +26,10 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 OnClearParameter();
                 AddParameter("@day", SqlDbType.VarChar, 50, obj.Day, ParameterDirection.Input);
                 AddParameter("@schoolStartTime", SqlDbType.VarChar, 50, obj.SchoolStartTime, ParameterDirection.Input);
-                AddParameter("@lectureNo", SqlDbType.Int, 50, obj.LactureNo, ParameterDirection.Input);
-                AddParameter("@lectureTime", SqlDbType.VarChar, 50, obj.LactureTime, ParameterDirection.Input);
+                AddParameter("@lectureNo", SqlDbType.Int, 50, obj.LectureNo, ParameterDirection.Input);
+                AddParameter("@lectureTime", SqlDbType.VarChar, 50, obj.LectureTime, ParameterDirection.Input);
                 AddParameter("@breakNo", SqlDbType.Int, 50, obj.BreakNo, ParameterDirection.Input);
-                AddParameter("@afterLecture", SqlDbType.Int, 50, obj.AfterLacture, ParameterDirection.Input);
+                AddParameter("@afterLecture", SqlDbType.Int, 50, obj.AfterLecture, ParameterDirection.Input);
                 AddParameter("@academicYear", SqlDbType.Int, 50, obj.AcademicYear, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
 
@@ -65,10 +65,10 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 AddParameter("@settingIdPk", SqlDbType.Int, 50, obj.SettingIdPk, ParameterDirection.Input);
                 AddParameter("@day", SqlDbType.VarChar, 50, obj.Day, ParameterDirection.Input);
                 AddParameter("@schoolStartTime", SqlDbType.VarChar, 50, obj.SchoolStartTime, ParameterDirection.Input);
-                AddParameter("@lectureNo", SqlDbType.Int, 50, obj.LactureNo, ParameterDirection.Input);
-                AddParameter("@lectureTime", SqlDbType.VarChar, 50, obj.LactureTime, ParameterDirection.Input);
+                AddParameter("@lectureNo", SqlDbType.Int, 50, obj.LectureNo, ParameterDirection.Input);
+                AddParameter("@lectureTime", SqlDbType.VarChar, 50, obj.LectureTime, ParameterDirection.Input);
                 AddParameter("@breakNo", SqlDbType.Int, 50, obj.BreakNo, ParameterDirection.Input);
-                AddParameter("@afterLecture", SqlDbType.Int, 50, obj.AfterLacture, ParameterDirection.Input);
+                AddParameter("@afterLecture", SqlDbType.Int, 50, obj.AfterLecture, ParameterDirection.Input);
                 AddParameter("@academicYear", SqlDbType.Int, 50, obj.AcademicYear, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
                 //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
@@ -114,12 +114,12 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
                 obj.SettingIdPk = (drRow["settingIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["settingIdPk"];
                 obj.Day = (drRow["day"].Equals(DBNull.Value)) ? "" : (string)drRow["day"];
                 obj.SchoolStartTime = (drRow["schoolStartTime"].Equals(DBNull.Value)) ? "" : (string)drRow["schoolStartTime"];
-                obj.LactureNo = (drRow["lectureNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["lectureNo"];
-                obj.LactureTime = (drRow["lectureTime"].Equals(DBNull.Value)) ? "" : (string)drRow["lectureTime"];
+                obj.LectureNo = (drRow["lectureNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["lectureNo"];
+                obj.LectureTime = (drRow["lectureTime"].Equals(DBNull.Value)) ? "" : (string)drRow["lectureTime"];
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.BreakNo = (drRow["breakNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["breakNo"];
-                obj.AfterLacture = (drRow["afterLecture"].Equals(DBNull.Value)) ? 0 : (int)drRow["afterLecture"];
+                obj.AfterLecture = (drRow["afterLecture"].Equals(DBNull.Value)) ? 0 : (int)drRow["afterLecture"];
                 obj.AcademicYear = (drRow["academicYear"].Equals(DBNull.Value)) ? 0 : (int)drRow["academicYear"];
                 obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
@@ -228,7 +228,52 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<timetableSettingMaster_tableEntities> OnGetListdt()
+    public List<timetableSettingMaster_tableEntities> OnGetDataByMed(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<timetableSettingMaster_tableEntities> oList = new List<timetableSettingMaster_tableEntities>(ID);
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT ts.*, m.mediumName 
+                            FROM [timetableSettingMaster] ts
+                            JOIN [mediumMaster] m ON ts.[mediumIdFk] = m.[mediumIdPk]
+                            WHERE [mediumIdFk] = @mediumIdFk
+                            and ts.[isActive]='1' ";
+            OnClearParameter();
+            AddParameter("@mediumIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+    public List<timetableSettingMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

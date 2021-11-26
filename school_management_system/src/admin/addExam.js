@@ -2,9 +2,200 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
+import { Link } from "react-router-dom";
 
 export class AddExam extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      exams: [],
+      mediums: [],
+      modelTitle: "",
+      examIdPk: 0,
+      mediumIdFk: 0,
+      examName: "",
+      examStartDate: "",
+      examEndDate: "",
+      resultDate: "",
+      examTotalMarks: 0,
+      academicYear: 0,
+      isActive: 0,
+    };
+  }
+
+  getMediumList() {
+    fetch(Variables.API_URL + "mediumList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ mediums: res.data });
+        }
+      });
+  }
+
+  changeMediumName = (e) => {
+    console.log(e.target.value);
+    this.setState({ mediumIdFk: e.target.value });
+  };
+
+  changeExamName = (e) => {
+    console.log(e.target.value);
+    this.setState({ examName: e.target.value });
+  };
+
+  changeExamStartDate = (e) => {
+    console.log(e.target.value);
+    this.setState({ examStartDate: e.target.value });
+  };
+  
+  changeExamEndDate = (e) => {
+    console.log(e.target.value);
+    this.setState({ examEndDate: e.target.value });
+  };
+  
+  changeResultDate = (e) => {
+    console.log(e.target.value);
+    this.setState({ resultDate: e.target.value });
+  };
+  
+  changeExamTotalMarks = (e) => {
+    console.log(e.target.value);
+    this.setState({ examTotalMarks: e.target.value });
+  };
+  
+  changeAcademicYear = (e) => {
+    console.log(e.target.value);
+    this.setState({ academicYear: e.target.value });
+  };
+
+  componentDidMount() {
+    this.getMediumList();
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ examIdPk: this.props.match.params.id });
+      this.onGetData(this.props.match.params.id);
+    } else {
+      this.setState({ examIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.examIdPk !== 0) {
+      this.update();
+    } else {
+      this.insert();
+    }
+  };
+
+  insert() {
+    console.log("in Insert");
+    fetch(Variables.API_URL + "insertExamList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mediumIdFk: this.state.mediumIdFk,
+        examName: this.state.examName,
+        examStartDate: this.state.examStartDate,
+        examEndDate: this.state.examEndDate,
+        resultDate: this.state.resultDate,
+        examTotalMarks: this.state.examTotalMarks,
+        academicYear: this.state.academicYear,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewExam");
+        },
+        (error) => {
+          
+          alert("Failed");
+        }
+      );
+  }
+
+  update() {
+    fetch(Variables.API_URL + "updateExamList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        examIdPk: this.state.examIdPk,
+        mediumIdFk: this.state.mediumIdFk,
+        examName: this.state.examName,
+        examStartDate: this.state.examStartDate,
+        examEndDate: this.state.examEndDate,
+        resultDate: this.state.resultDate,
+        examTotalMarks: this.state.examTotalMarks,
+        academicYear: this.state.academicYear,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewExam");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  onGetData(id) {
+    fetch(Variables
+      .API_URL + "getExam/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            examName: result.data.examName,
+            mediumIdFk: result.data.mediumIdFk,
+            examStartDate: result.data.examStartDate,
+            examEndDate: result.data.examEndDate,
+            resultDate: result.data.resultDate,
+            academicYear: result.data.academicYear,
+            examTotalMarks: result.data.examTotalMarks,
+          });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
   render() {
+
+    const {
+      exams,
+      mediums,
+      modelTitle,
+      examIdPk,
+      mediumIdFk,
+      examName,
+      examStartDate,
+      examEndDate,
+      resultDate,
+      examTotalMarks,
+      academicYear,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -31,6 +222,7 @@ export class AddExam extends Component {
                     <div className="card">
                       <div className="card-header">
                         <h4 className="card-title">Exam </h4>
+                        
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
                         </a>
@@ -61,25 +253,33 @@ export class AddExam extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block ">
-                          <form className="form-horizontal" novalidate>
+                          <form className="form-horizontal" novalidate onSubmit={this.onSubmit.bind(this)}>
                             <div className="row">
-                              <div className="col-md-9">
+                              <div className="col-md-12">
                                 <div className="form-group">
                                   <h5>
                                     Select Medium :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <select
+                                  <select
                                       name="select"
                                       id="select"
-                                      required
                                       className="form-control"
+                                      onChange={this.changeMediumName}
+                                      value={mediumIdFk}
                                     >
-                                      <option value="">Select Medium</option>
-                                      <option value="1">Gujarati</option>
-                                      <option value="2">Hindi</option>
-                                      <option value="3">English</option>
+                                      <option value="0">Select Medium</option>
+                                      {mediums.map((med) => (
+                                        <option
+                                          value={med.mediumIdPk}
+                                          selected={
+                                            mediumIdFk === med.mediumIdPk
+                                          }
+                                        >
+                                          {med.mediumName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -98,6 +298,8 @@ export class AddExam extends Component {
                                       type="text"
                                       name="name"
                                       placeholder="Exam Name"
+                                      value={examName}
+                                      onChange={this.changeExamName}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -110,7 +312,9 @@ export class AddExam extends Component {
                                   <div className="controls">
                                     <input
                                     type="date"
-                                      name="mobile"
+                                      name="date"
+                                      value={examStartDate}
+                                      onChange={this.changeExamStartDate}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -123,8 +327,10 @@ export class AddExam extends Component {
                                   <div className="controls">
                                     <input
                                       type="date"
-                                      name="lac"
-                                      placeholder="Lacture No."
+                                      name="res"
+                                      placeholder="Result Date"
+                                      value={resultDate}
+                                      onChange={this.changeResultDate}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -140,6 +346,8 @@ export class AddExam extends Component {
                                       type="text"
                                       name="text"
                                       placeholder="Exam Total Marks"
+                                      value={examTotalMarks}
+                                      onChange={this.changeExamTotalMarks}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -153,6 +361,8 @@ export class AddExam extends Component {
                                     <input
                                       type="date"
                                       name="text"
+                                      value={examEndDate}
+                                      onChange={this.changeExamEndDate}
                                       placeholder="Academic Year"
                                       className="form-control"
                                       required
@@ -167,6 +377,8 @@ export class AddExam extends Component {
                                       type="text"
                                       name="text"
                                       placeholder="Academic Year"
+                                      value={academicYear}
+                                      onChange={this.changeAcademicYear}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"

@@ -106,7 +106,8 @@ public  class remarkMaster_tableDB : clsDB_Operation
                 obj.RemarkIdPk = (drRow["remarkIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["remarkIdPk"];
                 obj.StudentIdFk = (drRow["studentIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentIdFk"];
                 obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
-                obj.UserType = (drRow["userType"].Equals(DBNull.Value)) ? "" : (string)drRow["userType"];
+            obj.StudentFname = (drRow["studentFname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentFname"];
+            obj.UserType = (drRow["userType"].Equals(DBNull.Value)) ? "" : (string)drRow["userType"];
                 obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
                 obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
                 obj.SubjectTeacherIdFk = (drRow["subjectTeacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectTeacherIdFk"];
@@ -184,7 +185,7 @@ public  class remarkMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT r.* , s.studentMname , t.teacherName , sb.subjectName
+                strQ = @"SELECT r.* , s.studentMname , t.teacherName , sb.subjectName , s.studentFname
                             FROM [remarkMaster] r 
                             JOIN [studentMaster] s ON r.[studentIdFk] = s.[studentIdPk]
                             JOIN [subjectTeacherMaster] sbtc ON r.[subjectTeacherIdFk] = sbtc.[subjectTeacherIdPk]
@@ -232,7 +233,7 @@ public  class remarkMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT r.* , s.studentMname , t.teacherName , sb.subjectName
+                strQ = @"SELECT r.* , s.studentMname , t.teacherName , sb.subjectName , s.studentFname
                             FROM [remarkMaster] r 
                             JOIN [studentMaster] s ON r.[studentIdFk] = s.[studentIdPk]
                             JOIN [subjectTeacherMaster] sbtc ON r.[subjectTeacherIdFk] = sbtc.[subjectTeacherIdPk]

@@ -2,9 +2,290 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
 
 export class AddStudentManually extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      students: [],
+      mediums: [],
+      classes: [],
+      categories: [],
+      modelTitle: "",
+      studentIdPk: 0,
+      studentRollNo: 0,
+      studentGrNo: 0,
+      mediumIdFk: 0,
+      classIdFk: 0,
+      studentFname: "",
+      studentMname: "",
+      studentLname: "",
+      studentImage: "",
+      studentDob: "",
+      studentGender: "",
+      motherMobile: "",
+      fatherMobile: "",
+      categoryIdFk: 0,
+      isActive: 0,
+      file: "",
+    };
+  }
+
+  setFile(e) {
+    this.setState({ file: e.target.files[0] });
+  }
+
+  getMediumList() {
+    fetch(Variables.API_URL + "mediumList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ mediums: res.data });
+        }
+      });
+  }
+
+  getClassList() {
+    fetch(Variables.API_URL + "classList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ classes: res.data });
+        }
+      });
+  }
+
+  getCategoryList() {
+    fetch(Variables.API_URL + "categoryList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ categories: res.data });
+        }
+      });
+  }
+
+  changeRollno = (e) => {
+    this.setState({ studentRollNo: e.target.value });
+  };
+
+  changeGrno = (e) => {
+    this.setState({ studentGrNo: e.target.value });
+  };
+
+  changeMedium = (e) => {
+    this.setState({ mediumIdFk: e.target.value });
+  };
+
+  changeClass = (e) => {
+    console.log(e.target.value);
+    this.setState({ classIdFk: e.target.value });
+  };
+
+  changeStudentFname = (e) => {
+    this.setState({ studentFname: e.target.value });
+  };
+
+  changeStudentMname = (e) => {
+    this.setState({ studentMname: e.target.value });
+  };
+
+  changeStudentLname = (e) => {
+    this.setState({ studentLname: e.target.value });
+  };
+
+  changeStudentImage = (e) => {
+    this.setState({ studentImage: e.target.value });
+  };
+
+  changeStudentDob = (e) => {
+    this.setState({ studentDob: e.target.value });
+  };
+
+  changeStudentGender = (e) => {
+    console.log(e.target.value);
+    this.setState({ studentGender: e.target.value });
+  };
+
+  changeMotherMobile = (e) => {
+    this.setState({ motherMobile: e.target.value });
+  };
+
+  changeFatherMobile = (e) => {
+    this.setState({ fatherMobile: e.target.value });
+  };
+
+  changeCategory = (e) => {
+    this.setState({ categoryIdFk: e.target.value });
+  };
+
+  componentDidMount() {
+    this.getMediumList();
+    this.getClassList();
+    this.getCategoryList();
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ studentIdPk: this.props.match.params.id });
+      this.OnGetData(this.props.match.params.id);
+    } else {
+      this.setState({ studentIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    //this.setState({ dept_name: event.target.departmentname.value });
+    if (this.state.studentIdPk !== 0) {
+      this.update(event);
+    } else {
+      this.insert(event);
+    }
+  };
+
+  insert(e) {
+    // console.log(this.state.file);
+    const formData = new FormData();
+    formData.append("file", this.state.file, this.state.file.name);
+    formData.append("studentRollNo", this.state.studentRollNo);
+    formData.append("studentGrNo", this.state.studentGrNo);
+    formData.append("mediumIdFk", this.state.mediumIdFk);
+    formData.append("classIdFk", this.state.classIdFk);
+    formData.append("studentFname", this.state.studentFname);
+    formData.append("studentMname", this.state.studentMname);
+    formData.append("studentLname", this.state.studentLname);
+    formData.append("studentImage",this.state.studentImage);
+    if(this.state.file != ''){
+    formData.append("file", this.state.file, this.state.file.name);
+    }
+    formData.append("studentDob", this.state.studentDob);
+    formData.append("studentGender", this.state.studentGender);
+    formData.append("motherMobile", this.state.motherMobile);
+    formData.append("fatherMobile", this.state.fatherMobile);
+    formData.append("categoryIdFk", this.state.categoryIdFk);
+
+    fetch(Variables.API_URL + "insertStudentList", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewStudent");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  update(e) {
+
+    const formData = new FormData();
+    formData.append("file", this.state.file, this.state.file.name);
+    formData.append("studentIdPk", this.state.studentIdPk);
+    formData.append("studentRollNo", this.state.studentRollNo);
+    formData.append("studentGrNo", this.state.studentGrNo);
+    formData.append("mediumIdFk", this.state.mediumIdFk);
+    formData.append("classIdFk", this.state.classIdFk);
+    formData.append("studentFname", this.state.studentFname);
+    formData.append("studentMname", this.state.studentMname);
+    formData.append("studentLname", this.state.studentLname);
+    formData.append("studentImage",this.state.studentImage);
+    if(this.state.file != ''){
+    formData.append("file", this.state.file, this.state.file.name);
+    }
+    formData.append("studentDob", this.state.studentDob);
+    formData.append("studentGender", this.state.studentGender);
+    formData.append("motherMobile", this.state.motherMobile);
+    formData.append("fatherMobile", this.state.fatherMobile);
+    formData.append("categoryIdFk", this.state.categoryIdFk);
+
+    fetch(Variables.API_URL + "updateStudentList", {
+      method: "POST",
+      body: formData, })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewStudent");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  OnGetData(id) {
+    fetch(Variables.API_URL + "getStudent/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            studentRollNo: result.data.studentRollNo,
+            studentGrNo: result.data.studentGrNo,
+            mediumIdFk: result.data.mediumIdFk,
+            classIdFk: result.data.classIdFk,
+            studentFname: result.data.studentFname,
+            studentMname: result.data.studentMname,
+            studentLname: result.data.studentLname,
+            studentImage: result.data.studentImage,
+            studentDob: result.data.studentDob,
+            studentGender: result.data.studentGender,
+            motherMobile: result.data.motherMobile,
+            fatherMobile: result.data.fatherMobile,
+            categoryIdFk: result.data.categoryIdFk,
+          });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  // reset() {
+  //   this.state.studentRollNo = 0;
+  //   this.state.studentGrNo = 0;
+  //   this.state.studentFname = 0;
+  //   this.state.studentMname = 0;
+  //   this.state.studentLname = 0;
+  //   this.state.studentDob = 0;
+  //   this.state.studentGender = 0;
+  //   this.state.motherMobile = 0;
+  //   this.state.fatherMobile = 0;
+  // }
+
   render() {
+    const {
+      students,
+      mediums,
+      classes,
+      categories,
+      modelTitle,
+      studentIdPk,
+      studentRollNo,
+      studentGrNo,
+      mediumIdFk,
+      classIdFk,
+      studentFname,
+      studentMname,
+      studentLname,
+      studentImage,
+      studentDob,
+      studentGender,
+      motherMobile,
+      fatherMobile,
+      categoryIdFk,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -70,7 +351,10 @@ export class AddStudentManually extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block ">
-                          <form className="form-horizontal" novalidate>
+                          <form
+                            className="form-horizontal"
+                            onSubmit={this.onSubmit.bind(this)}
+                          >
                             <div className="row">
                               <div className="col-lg-6 col-md-12">
                                 <div className="form-group">
@@ -82,6 +366,8 @@ export class AddStudentManually extends Component {
                                     <input
                                       type="text"
                                       name="rno"
+                                      value={studentRollNo}
+                                      onChange={this.changeRollno}
                                       placeholder="Student Roll No."
                                       className="form-control"
                                       required
@@ -98,10 +384,12 @@ export class AddStudentManually extends Component {
                                     <input
                                       type="text"
                                       name="grno"
-                                      placeholder="Student GR No."
-                                      data-validation-match-match="email"
+                                      value={studentGrNo}
+                                      onChange={this.changeGrno}
+                                      placeholder="Student Gr No."
                                       className="form-control"
                                       required
+                                      data-validation-required-message="This field is required"
                                     />
                                   </div>
                                 </div>
@@ -112,6 +400,8 @@ export class AddStudentManually extends Component {
                                       type="text"
                                       name="fname"
                                       placeholder="Student First Name"
+                                      value={studentFname}
+                                      onChange={this.changeStudentFname}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -125,6 +415,8 @@ export class AddStudentManually extends Component {
                                       type="text"
                                       name="mname"
                                       placeholder="Student Middle Name"
+                                      value={studentMname}
+                                      onChange={this.changeStudentMname}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -138,6 +430,8 @@ export class AddStudentManually extends Component {
                                       type="text"
                                       name="lname"
                                       placeholder="Student Last Name"
+                                      value={studentLname}
+                                      onChange={this.changeStudentLname}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -151,6 +445,8 @@ export class AddStudentManually extends Component {
                                       type="text"
                                       name="mothermobile"
                                       placeholder="Mother Mobile No."
+                                      value={motherMobile}
+                                      onChange={this.changeMotherMobile}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -162,8 +458,10 @@ export class AddStudentManually extends Component {
                                   <div className="controls">
                                     <input
                                       type="text"
-                                      name="lname"
+                                      name="fathermobile"
                                       placeholder="Father Mobile No."
+                                      value={fatherMobile}
+                                      onChange={this.changeFatherMobile}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -177,10 +475,22 @@ export class AddStudentManually extends Component {
                                     Gender : <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <input type="radio" name="gender" /> &nbsp;
-                                    Male &nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="gender" /> &nbsp;
-                                    Female &nbsp;&nbsp;&nbsp;
+                                    <input
+                                      type="radio"
+                                      value="male"
+                                      checked={"male" === studentGender}
+                                      onChange={this.changeStudentGender}
+                                      name="gender"
+                                    />{" "}
+                                    &nbsp; Male &nbsp;&nbsp;&nbsp;
+                                    <input
+                                      type="radio"
+                                      value="female"
+                                      checked={"female" === studentGender}
+                                      onChange={this.changeStudentGender}
+                                      name="gender"
+                                    />{" "}
+                                    &nbsp; Female &nbsp;&nbsp;&nbsp;
                                   </div>
                                 </div>
                                 <div className="form-group">
@@ -192,6 +502,7 @@ export class AddStudentManually extends Component {
                                     <input
                                       type="file"
                                       name="img"
+                                      onChange={(e) => this.setFile(e)}
                                       className="form-control"
                                       required
                                     />
@@ -207,6 +518,7 @@ export class AddStudentManually extends Component {
                                       type="date"
                                       className="form-control"
                                       placeholder="MM/DD/YYYY"
+                                      onChange={this.changeStudentDob}
                                     />
                                   </div>
                                 </div>
@@ -219,13 +531,21 @@ export class AddStudentManually extends Component {
                                     <select
                                       name="select"
                                       id="select"
-                                      required
                                       className="form-control"
+                                      onChange={this.changeMedium}
+                                      value={mediumIdFk}
                                     >
-                                      <option value="">Select Medium</option>
-                                      <option value="1">Gujarati</option>
-                                      <option value="2">Hindi</option>
-                                      <option value="3">English</option>
+                                      <option value="0">Select Medium</option>
+                                      {mediums.map((med) => (
+                                        <option
+                                          value={med.mediumIdPk}
+                                          selected={
+                                            mediumIdFk === med.mediumIdPk
+                                          }
+                                        >
+                                          {med.mediumName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -238,20 +558,20 @@ export class AddStudentManually extends Component {
                                     <select
                                       name="select"
                                       id="select"
-                                      required
                                       className="form-control"
+                                      onChange={this.changeClass}
+                                      value={classIdFk}
                                     >
-                                      <option value="">Select class</option>
-                                      <option value="1">1-A</option>
-                                      <option value="2">1-B</option>
-                                      <option value="3">2-A</option>
-                                      <option value="4">2-B</option>
-                                      <option value="5">3-A</option>
-                                      <option value="6">3-B</option>
-                                      <option value="7">4-A</option>
-                                      <option value="8">4-B</option>
-                                      <option value="9">5-A</option>
-                                      <option value="10">5-B</option>
+                                      <option value="0">Select Class </option>
+                                      {classes.map((cls) => (
+                                        <option
+                                          value={cls.classIdPk}
+                                          selected={classIdFk === cls.classIdPk}
+                                        >
+                                          {cls.standardName} -{" "}
+                                          {cls.divisionName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -264,16 +584,21 @@ export class AddStudentManually extends Component {
                                     <select
                                       name="select"
                                       id="select"
-                                      required
                                       className="form-control"
+                                      onChange={this.changeCategory}
+                                      value={categoryIdFk}
                                     >
-                                      <option value="">Select Category</option>
-                                      <option value="1">SC</option>
-                                      <option value="2">ST</option>
-                                      <option value="3">OBC</option>
-                                      <option value="4">EWS</option>
-                                      <option value="5">OPEN</option>
-                                      <option value="6">OTHER</option>
+                                      <option value="0">Select Category</option>
+                                      {categories.map((ctg) => (
+                                        <option
+                                          value={ctg.categoryIdPk}
+                                          selected={
+                                            categoryIdFk === ctg.categoryIdPk
+                                          }
+                                        >
+                                          {ctg.categoryName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>

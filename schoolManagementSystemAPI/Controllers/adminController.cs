@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace schoolManagementSystemAPI.Controllers
@@ -214,7 +216,7 @@ namespace schoolManagementSystemAPI.Controllers
             else
             {
                 return new JsonResult(new { result = "faliure", message = "Data Not Found" });
-            }s
+            }
         }
 
         [HttpPost("updateStandardList")]
@@ -593,23 +595,122 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
-
-        [HttpPost("insertStudentList")]
-
-        public JsonResult insertStudentList(studentMaster_tableEntities student)
+        private String photoUpload(IFormFileCollection Files , string destination)
         {
+            Random _random = new Random();
+            var file = Files[0];
+            var folderName = Path.Combine("uploads", destination);
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            var fileName = "IMG_" + _random.Next(1, 999) + "" + ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fullPath = Path.Combine(pathToSave, fileName);
+            var dbPath = Path.Combine(folderName, fileName);
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+            return dbPath;
+
+        }
+
+        [HttpPost("insertStudentList"), DisableRequestSizeLimit]
+        public JsonResult insertStudentList()
+        {
+            studentMaster_tableEntities student = new studentMaster_tableEntities();
+            String photo_path = photoUpload(Request.Form.Files, "studentImages");
+
+            student.StudentRollNo = Int32.Parse(Request.Form["studentRollNo"]);
+            student.StudentGrNo = Int32.Parse(Request.Form["studentGrNo"]);
+            student.MediumIdFk = Int32.Parse(Request.Form["mediumIdFk"]);
+            student.ClassIdFk = Int32.Parse(Request.Form["classIdFk"]);
+            student.StudentFname = Request.Form["studentFname"];
+            student.StudentMname = Request.Form["studentMname"];
+            student.StudentLname = Request.Form["studentLname"];
+            student.StudentImage = photo_path;
+            student.StudentDob = Request.Form["studentDob"];
+            student.StudentGender = Request.Form["studentGender"];
+            student.MotherMobile = Request.Form["motherMobile"];
+            student.FatherMobile = Request.Form["fatherMobile"];
+            student.CategoryIdFk = Int32.Parse(Request.Form["categoryIdFk"]);
 
             int result = studentObj.OnInsert(student);
-
             if (result == 1)
             {
-                return new JsonResult(new { result = "success", message = "Data Inserted", data = student });
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = result });
             }
             else
             {
                 return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
             }
         }
+
+        [HttpPost("updateStudentList"), DisableRequestSizeLimit]
+        public JsonResult updateStudentList()
+        {
+            studentMaster_tableEntities student = new studentMaster_tableEntities();
+            if (Request.Form.Files.Count != 0)
+            {
+
+                if (Request.Form.Files[0].Length > 0)
+                {
+                    String photo_path = photoUpload(Request.Form.Files, "studentImages");
+                    student.StudentImage = photo_path;
+                }
+                else
+                {
+                    student.StudentImage = Request.Form["studentImage"];
+                }
+            }
+            else
+            {
+                student.StudentImage = Request.Form["studentImage"];
+            }
+
+            student.StudentIdPk = Int32.Parse(Request.Form["studentIdPk"]);
+            student.StudentRollNo = Int32.Parse(Request.Form["studentRollNo"]);
+            student.StudentGrNo = Int32.Parse(Request.Form["studentGrNo"]);
+            student.MediumIdFk = Int32.Parse(Request.Form["mediumIdFk"]);
+            student.ClassIdFk = Int32.Parse(Request.Form["classIdFk"]);
+            student.StudentFname = Request.Form["studentFname"];
+            student.StudentMname = Request.Form["studentMname"];
+            student.StudentLname = Request.Form["studentLname"];
+            student.StudentDob = Request.Form["studentDob"];
+            student.StudentGender = Request.Form["studentGender"];
+            student.MotherMobile = Request.Form["motherMobile"];
+            student.FatherMobile = Request.Form["fatherMobile"];
+            student.CategoryIdFk = Int32.Parse(Request.Form["categoryIdFk"]);
+
+            int result = studentObj.OnUpdate(student);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+            }
+        }
+
+
+        //[HttpPost("insertStudentList")]
+
+        //public JsonResult insertStudentList(studentMaster_tableEntities student)
+        //{
+
+        //    int result = studentObj.OnInsert(student);
+
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Inserted", data = student });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+        //    }
+        //}
+
+
 
         [HttpGet("getStudent/{id}")]
         public JsonResult getStudent(int id)
@@ -625,22 +726,22 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
-        [HttpPost("updateStudentList")]
+        //[HttpPost("updateStudentList")]
 
-        public JsonResult updateStudentList(studentMaster_tableEntities student)
-        {
+        //public JsonResult updateStudentList(studentMaster_tableEntities student)
+        //{
 
-            int result = studentObj.OnUpdate(student);
+        //    int result = studentObj.OnUpdate(student);
 
-            if (result == 1)
-            {
-                return new JsonResult(new { result = "success", message = "Data Updated", data = result });
-            }
-            else
-            {
-                return new JsonResult(new { result = "failure", message = "Data Not Updated" });
-            }
-        }
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+        //    }
+        //}
 
         [HttpDelete("deleteStudentList/{id}")]
 
@@ -745,6 +846,22 @@ namespace schoolManagementSystemAPI.Controllers
         {
 
             List<subjectTeacherMaster_tableEntities> sbtc = sbtcObj.OnGetListdt();
+
+            if (sbtc.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = sbtc });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("subTeachList/{id}")]
+        public JsonResult subTeachList(int id)
+        {
+
+            List<subjectTeacherMaster_tableEntities> sbtc = sbtcObj.OnGetSubTechListdt(id);
 
             if (sbtc.Count != 0)
             {
@@ -1012,7 +1129,8 @@ namespace schoolManagementSystemAPI.Controllers
 
             if (result == 1)
             {
-                return new JsonResult(new { result = "success", message = "Data Inserted", data = events });
+                int eventid = eventObj.OnLastRecordInserted(); 
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = eventid });
             }
             else
             {
@@ -1085,16 +1203,36 @@ namespace schoolManagementSystemAPI.Controllers
         }
 
 
-        [HttpPost("insertEventImgList")]
+        //[HttpPost("insertEventImgList")]
 
-        public JsonResult insertEventImgList(eventImageMaster_tableEntities eventImg)
+        //public JsonResult insertEventImgList(eventImageMaster_tableEntities eventImg)
+        //{
+
+        //    int result = eventimgObj.OnInsert(eventImg);
+
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Inserted", data = eventImg });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+        //    }
+        //}
+
+        [HttpPost("insertEventImgList"), DisableRequestSizeLimit]
+        public JsonResult insertEventImgList()
         {
+            eventImageMaster_tableEntities img = new eventImageMaster_tableEntities();
+            String photo_path = photoUpload(Request.Form.Files, "events");
 
-            int result = eventimgObj.OnInsert(eventImg);
-
+            img.EventIdFk = Int32.Parse(Request.Form["eventIdFk"]);
+            img.EventImage = photo_path;
+           
+            int result = eventimgObj.OnInsert(img);
             if (result == 1)
             {
-                return new JsonResult(new { result = "success", message = "Data Inserted", data = eventImg });
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = result });
             }
             else
             {
@@ -1102,26 +1240,32 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
-        [HttpGet("getEventImg/{id}")]
-        public JsonResult getEventImg(int id)
+        [HttpPost("updateEventImgList"), DisableRequestSizeLimit]
+        public JsonResult updateEventImgList()
         {
-            eventImageMaster_tableEntities result = eventimgObj.OnGetData(id);
-            if (result.EventImageIdPk != 0)
+            eventImageMaster_tableEntities img = new eventImageMaster_tableEntities();
+            if (Request.Form.Files.Count != 0)
             {
-                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+
+                if (Request.Form.Files[0].Length > 0)
+                {
+                    String photo_path = photoUpload(Request.Form.Files, "events");
+                    img.EventImage = photo_path;
+                }
+                else
+                {
+                    img.EventImage = Request.Form["eventImage"];
+                }
             }
             else
             {
-                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+                img.EventImage = Request.Form["eventImage"];
             }
-        }
 
-        [HttpPost("updateEventImgList")]
+            img.EventImageIdPk = Int32.Parse(Request.Form["eventImageIdPk"]);
+            img.EventIdFk = Int32.Parse(Request.Form["eventIdFk"]);
 
-        public JsonResult updateEventImgList(eventImageMaster_tableEntities eventImg)
-        {
-
-            int result = eventimgObj.OnUpdate(eventImg);
+            int result = eventimgObj.OnUpdate(img);
 
             if (result == 1)
             {
@@ -1132,6 +1276,40 @@ namespace schoolManagementSystemAPI.Controllers
                 return new JsonResult(new { result = "failure", message = "Data Not Updated" });
             }
         }
+
+
+        [HttpGet("eventImageList/{id}")]
+        public JsonResult getEventImageList(int id)
+        {
+
+            List<eventImageMaster_tableEntities> img = eventimgObj.OnGetImageListdt(id);
+
+            if (img.Count > 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = img });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        //[HttpPost("updateEventImgList")]
+
+        //public JsonResult updateEventImgList(eventImageMaster_tableEntities eventImg)
+        //{
+
+        //    int result = eventimgObj.OnUpdate(eventImg);
+
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+        //    }
+        //}
 
         [HttpDelete("deleteEventImgList/{id}")]
 
@@ -1608,6 +1786,20 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        [HttpGet("getTtsettingByMedium/{id}")]
+        public JsonResult getTtsettingByMedium(int id)
+        {
+           List <timetableSettingMaster_tableEntities> result = ttsettingObj.OnGetDataByMed(id);
+            if (result.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
+
         [HttpPost("updateTtsettingList")]
 
         public JsonResult updateTtsettingList(timetableSettingMaster_tableEntities ttsetting)
@@ -2035,7 +2227,7 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
-        [HttpDelete("deleteRemarkList/{id}")]
+        [HttpDelete("deleteRemarkLis/{id}")]
 
         public JsonResult deleteRemarkList(int id)
         {

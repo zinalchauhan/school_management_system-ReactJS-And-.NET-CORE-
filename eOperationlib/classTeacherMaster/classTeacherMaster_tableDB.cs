@@ -100,11 +100,13 @@ public  class classTeacherMaster_tableDB : clsDB_Operation
                 obj.ClassTeacherIdPk = (drRow["classTeacherIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classTeacherIdPk"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
                 obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisiondName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
+                obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
                 obj.TeacherIdFk = (drRow["teacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["teacherIdFk"];
                 obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
-                obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
+                obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
+
+            obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
@@ -176,12 +178,13 @@ public  class classTeacherMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT cltc.* , t.teacherName , s.standardName , d.divisionName
+                strQ = @"SELECT cltc.* , t.teacherName , s.standardName , d.divisionName , m.mediumName
                             FROM [classTeacherMaster] cltc 
                             JOIN [classMaster] cl ON cltc.[classIdFk] = cl.[classIdPk]
                             JOIN [standardMaster] s ON cl.[standardIdFk] = s.[standardIdPk]
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
                             JOIN [teacherMaster] t ON cltc.[teacherIdFk] = t.[teacherIdPk]
+                            JOIN [mediumMaster] m ON cltc.[mediumIdFk] = m.[mediumIdPk]
                             WHERE [classTeacherIdPk] = @classTeacherIdPk
                             and cltc.[isActive] = 1";
 
@@ -224,12 +227,13 @@ public  class classTeacherMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT cltc.* , t.teacherName , s.standardName , d.divisionName
+                strQ = @"SELECT cltc.* , t.teacherName , s.standardName , d.divisionName , m.mediumName
                             FROM [classTeacherMaster] cltc 
                             JOIN [classMaster] cl ON cltc.[classIdFk] = cl.[classIdPk]
                             JOIN [standardMaster] s ON cl.[standardIdFk] = s.[standardIdPk]
                             JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
                             JOIN [teacherMaster] t ON cltc.[teacherIdFk] = t.[teacherIdPk]
+                            JOIN [mediumMaster] m ON cltc.[mediumIdFk] = m.[mediumIdPk]
                             WHERE cltc.[isActive] = 1 ";
                 OnClearParameter();
 

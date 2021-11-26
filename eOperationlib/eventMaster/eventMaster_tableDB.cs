@@ -131,13 +131,12 @@ public  class eventMaster_tableDB : clsDB_Operation
             }
         }
 
-        public eventMaster_tableEntities OnLastRecordInserted()
+        public int OnLastRecordInserted()
         {
             Exception exForce;
             DataTable dtTable;
 
-            eventMaster_tableEntities obj = new eventMaster_tableEntities();
-
+        int lastId = 0;
             string strQ = "";
 
             try
@@ -159,10 +158,10 @@ public  class eventMaster_tableDB : clsDB_Operation
 
                 if (dtTable.Rows.Count != 0)
                 {
-                    obj = BuildEntities(dtTable.Rows[0]);
+                lastId = Int32.Parse(dtTable.Rows[0].ItemArray[0].ToString());
                 }
 
-                return obj;
+                return lastId;
 
             }
             catch (Exception ex)

@@ -3,9 +3,58 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewMedium extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      mediums: [],
+      modelTitle: "",
+      mediumName: "",
+      mediumIdPk: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "mediumList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result == "success") {
+          this.setState({ mediums: res.data });
+        }
+      });
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteMediumList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
   render() {
+
+    const { mediums, modelTitle, mediumIdPk, mediumName } = this.state;
+    
     return (
       <div>
         <Header></Header>
@@ -35,12 +84,6 @@ export class ViewMedium extends Component {
                       <div className="card-header">
                         <h4 className="card-title">Medium List</h4>
                         <br />
-                        <Link
-                          to="/addMedium"
-                          class="btn btn-outline-primary edit-item-btn"
-                        >
-                          Add New Medium
-                        </Link>
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
                         </a>
@@ -78,92 +121,31 @@ export class ViewMedium extends Component {
                             <thead>
                               <tr>
                                 <th>#</th>
-                                <th>Medium Name</th>
-                                <th>Section</th>
-                                <th>Edit</th>
+                                <th>Medium</th>
                                 <th>Delete</th>
                               </tr>
+                              
                             </thead>
-                            <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>System Architect</td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>System Architect</td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>System Architect</td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    class="btn btn-outline-primary edit-item-btn"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
+                            {mediums.map((med, index) => (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{med.mediumName}</td>
+                                  <td> <button
+                                      type="button"
+                                      onClick={() =>
+                                        this.delete(med.mediumIdPk)
+                                      }
+                                      class="btn btn-outline-danger remove-item-btn"
+                                    >
+                                      {" "}
+                                      Delete{" "}
+                                    </button> </td>
+                                  </tr>
+                            ))}
                             <tfoot>
                               <tr>
                                 <th>#</th>
-                                <th>Medium Name</th>
-                                <th>Section</th>
-                                <th>Edit</th>
+                                <th>Medium </th>
                                 <th>Delete</th>
                               </tr>
                             </tfoot>
