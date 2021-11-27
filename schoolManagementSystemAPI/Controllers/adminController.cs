@@ -1344,6 +1344,19 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        [HttpGet("getExamByMedium/{id}")]
+        public JsonResult getExamByMedium(int id)
+        {
+            List<examMaster_tableEntities> result = examObj.OnGetDataByMed(id);
+            if (result.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
 
         [HttpPost("insertExamList")]
 

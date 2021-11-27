@@ -2,8 +2,12 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
 
 export class AddExamTimeTable extends Component {
+
+
+  
   render() {
     return (
       <div>
@@ -62,7 +66,7 @@ export class AddExamTimeTable extends Component {
                         <div className="card-block ">
                           <form className="form-horizontal" novalidate>
                             <div className="row">
-                              <div className="col-md-9">
+                              <div className="col-md-12">
                                 <div className="form-group">
                                   <h5>
                                     Select Medium :{" "}
@@ -116,6 +120,22 @@ export class AddExamTimeTable extends Component {
                                   </div>
                                 </div>
                                 <div className="form-group">
+                                  <h5>Exam Date : </h5>
+                                  <div className="controls">
+                                    <input
+                                      type="date"
+                                      name="text"
+                                      placeholder="Period No."
+                                      className="form-control"
+                                      required
+                                      data-validation-required-message="This field is required"
+                                    />
+                                  </div>
+                                </div>
+                                
+                              </div>
+                              <div className="col-lg-6 col-md-12">
+                              <div className="form-group">
                                   <h5>
                                     Select Exam :{" "}
                                     <span className="required"></span>
@@ -132,21 +152,6 @@ export class AddExamTimeTable extends Component {
                                       <option value="2">Priliminary</option>
                                       <option value="3">Mock</option>]
                                     </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-lg-6 col-md-12">
-                                <div className="form-group">
-                                  <h5>Exam Date : </h5>
-                                  <div className="controls">
-                                    <input
-                                      type="date"
-                                      name="text"
-                                      placeholder="Period No."
-                                      className="form-control"
-                                      required
-                                      data-validation-required-message="This field is required"
-                                    />
                                   </div>
                                 </div>
                                 <div className="form-group">

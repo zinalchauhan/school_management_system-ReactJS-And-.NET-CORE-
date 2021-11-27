@@ -2,8 +2,112 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
 
 export class AddPrincipal extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      principals: [],
+      cities: [],
+      states: [],
+      mediums: [],
+      standards: [],
+      modelTitle: "",
+      principalIdPk: 0,
+      principalName: "",
+      principalEmail: "",
+      principalMobile: "",
+      principalQualification: "",
+      principalImage: "",
+      cityIdFk: 0,
+      stateIdFk : 0,
+      principalAddress: "",
+      mediumIdFk: 0,
+      isActive: 0,
+      file: "",
+    };
+  }
+
+  setFile(e) {
+    this.setState({ file: e.target.files[0] });
+  }
+
+  getMediumList() {
+    fetch(Variables.API_URL + "mediumList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ mediums: res.data });
+        }
+      });
+  }
+
+  getStandardList() {
+    fetch(Variables.API_URL + "standardList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ standards: res.data });
+        }
+      });
+  }
+
+  changePrincipalName = (e) => {
+    this.setState({ principalName: e.target.value });
+  };
+
+  changePrincipalEmail = (e) => {
+    this.setState({ principalEmail: e.target.value });
+  };
+
+  changePrincipalMobile = (e) => {
+    this.setState({ principalMobile: e.target.value });
+  };
+
+  changePrincipalQualification = (e) => {
+    this.setState({ principalQualification: e.target.value });
+  };
+
+  changePrincipalAddress = (e) => {
+    this.setState({ principalAddress: e.target.value });
+  };
+
+  changeMedium = (e) => {
+    this.setState({ mediumIdFk: e.target.value });
+  };
+
+  changeCity = (e) => {
+    this.setState({ cityIdFk: e.target.value });
+  };
+
+  changeState = (e) => {
+    this.setState({ stateIdFk: e.target.value });
+  };
+
+  componentDidMount() {
+    this.getMediumList();
+    this.getStandardList();
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ principalIdPk: this.props.match.params.id });
+      this.OnGetData(this.props.match.params.id);
+    } else {
+      this.setState({ principalIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    //this.setState({ dept_name: event.target.departmentname.value });
+    if (this.state.principalIdPk !== 0) {
+      this.update(event);
+    } else {
+      this.insert(event);
+    }
+  };
+
   render() {
     return (
       <div>

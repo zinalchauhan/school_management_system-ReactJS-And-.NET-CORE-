@@ -80,9 +80,53 @@ public  class examMaster_tableDB : clsDB_Operation
             }
         }
 
+    public List<examMaster_tableEntities> OnGetDataByMed(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<examMaster_tableEntities> oList = new List<examMaster_tableEntities>(ID);
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT e.*, m.mediumName 
+                            FROM [examMaster] e
+                            JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
+                            WHERE [mediumIdFk] = @mediumIdFk
+                            and e.[isActive]='1' ";
+            OnClearParameter();
+            AddParameter("@mediumIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
 
-        public int OnDelete(int ID)
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+
+    public int OnDelete(int ID)
         {
             string strQ = "";
             try

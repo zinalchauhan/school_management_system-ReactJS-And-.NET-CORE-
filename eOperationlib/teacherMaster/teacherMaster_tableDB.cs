@@ -149,6 +149,8 @@ public  class teacherMaster_tableDB : clsDB_Operation
             }
         }
 
+
+
         public teacherMaster_tableEntities OnLastRecordInserted()
         {
             Exception exForce;
