@@ -87,7 +87,18 @@ export class viewEventImage extends Component {
     fetch(Variables.API_URL + "insertEventImgList", {
       method: "POST",
       body: formData,
-    });
+    })
+    .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          
+        },
+        (error) => {
+          console.log(error);
+          //alert("Failed");
+        }
+      );
   }
 
   render() {

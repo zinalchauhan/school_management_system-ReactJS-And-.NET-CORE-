@@ -5,48 +5,48 @@ using System.Linq;
 using System.Text;
 
 
-public  class examTimeTableMaster_tableDB : clsDB_Operation
+public class examTimeTableMaster_tableDB : clsDB_Operation
 {
-        private const string mstrModuleName = "examTimeTableMaster";
+    private const string mstrModuleName = "examTimeTableMaster";
 
-        public examTimeTableMaster_tableDB()
-        {
-        }
+    public examTimeTableMaster_tableDB()
+    {
+    }
 
-        public int OnInsert(examTimeTableMaster_tableEntities obj)
+    public int OnInsert(examTimeTableMaster_tableEntities obj)
+    {
+        string strQ = "";
+        try
         {
-            string strQ = "";
-            try
-            {
-                strQ = @"INSERT INTO [examTimeTableMaster]
-                                   ([examIdFk],[standardIdFk],[subjectIdFk],[exam])
+            strQ = @"INSERT INTO [examTimeTableMaster]
+                                   ([examIdFk],[standardIdFk],[subjectIdFk],[examDate])
                              VALUES
                                    (@examIdFK,@standardIdFk,@subjectIdFk,@examDate)";
 
-                OnClearParameter();
+            OnClearParameter();
 
-                AddParameter("@examIdFk", SqlDbType.Int, 50, obj.ExamIdFk, ParameterDirection.Input);
-                AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
-                AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.SubjectIdFk, ParameterDirection.Input);
-                AddParameter("@examDate", SqlDbType.VarChar, 50, obj.ExamDate, ParameterDirection.Input);
+            AddParameter("@examIdFk", SqlDbType.Int, 50, obj.ExamIdFk, ParameterDirection.Input);
+            AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
+            AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.SubjectIdFk, ParameterDirection.Input);
+            AddParameter("@examDate", SqlDbType.VarChar, 50, obj.ExamDate, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
         }
-
-        public int OnUpdate(examTimeTableMaster_tableEntities obj)
+        catch (Exception ex)
         {
-            string strQ = "";
-            try
-            {
+
+            throw ex;
+        }
+    }
+
+    public int OnUpdate(examTimeTableMaster_tableEntities obj)
+    {
+        string strQ = "";
+        try
+        {
 
 
-                strQ = @"UPDATE [examTimeTableMaster]
+            strQ = @"UPDATE [examTimeTableMaster]
                              SET    [examIdFk]=@examIdFk,
                                     [standardIdFk]=@standardIdFk,
                                     [subjectIdFk]=@subjectIdFk,
@@ -54,60 +54,61 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
                                     [isActive] = 1    
                          WHERE [examTtIdPk]=@examTtIdPk";
 
-                OnClearParameter();
-                AddParameter("@examTtIdPk", SqlDbType.Int, 50, obj.ExamTtIdPk, ParameterDirection.Input);
-                AddParameter("@examIdFk", SqlDbType.Int, 50, obj.ExamIdFk, ParameterDirection.Input);
-                AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
-                AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.SubjectIdFk, ParameterDirection.Input);
-                AddParameter("@examDate", SqlDbType.VarChar, 50, obj.ExamDate, ParameterDirection.Input);
-                AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+            OnClearParameter();
+            AddParameter("@examTtIdPk", SqlDbType.Int, 50, obj.ExamTtIdPk, ParameterDirection.Input);
+            AddParameter("@examIdFk", SqlDbType.Int, 50, obj.ExamIdFk, ParameterDirection.Input);
+            AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
+            AddParameter("@subjectIdFk", SqlDbType.Int, 50, obj.SubjectIdFk, ParameterDirection.Input);
+            AddParameter("@examDate", SqlDbType.VarChar, 50, obj.ExamDate, ParameterDirection.Input);
+            AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
-
-
-
-        public int OnDelete(int ID)
+        catch (Exception ex)
         {
-            string strQ = "";
-            try
-            {
-                strQ += @"UPDATE  [examTimeTableMaster]
+            throw ex;
+        }
+    }
+
+
+
+    public int OnDelete(int ID)
+    {
+        string strQ = "";
+        try
+        {
+            strQ += @"UPDATE  [examTimeTableMaster]
                             SET [isActive] =  0
                          WHERE [examTtIdPk]=@examTtIdPk";
 
-                OnClearParameter();
-                AddParameter("@examTtIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
-                return OnExecNonQuery(strQ);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            OnClearParameter();
+            AddParameter("@examTtIdPk", SqlDbType.Int, 50, ID, ParameterDirection.Input);
+            return OnExecNonQuery(strQ);
         }
-
-        private examTimeTableMaster_tableEntities BuildEntities(DataRow drRow)
+        catch (Exception ex)
         {
+            throw ex;
+        }
+    }
 
-            try
-            {
-                //DateTime dtdata;
-                examTimeTableMaster_tableEntities obj = new examTimeTableMaster_tableEntities();
+    private examTimeTableMaster_tableEntities BuildEntities(DataRow drRow)
+    {
 
-                obj.ExamTtIdPk = (drRow["examTtIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["examTtIdPk"];
-                obj.ExamIdFk = (drRow["examIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["examIdFk"];
-                obj.ExamName = (drRow["examName"].Equals(DBNull.Value)) ? "" : (string)drRow["examName"];
-                obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
-                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.SubjectIdFk = (drRow["subjectIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectIdFk"];
-                obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
-                obj.ExamStartDate = (drRow["examStartDate"].Equals(DBNull.Value)) ? "" : (string)drRow["examStartDate"];
+        try
+        {
+            //DateTime dtdata;
+            examTimeTableMaster_tableEntities obj = new examTimeTableMaster_tableEntities();
+
+            obj.ExamTtIdPk = (drRow["examTtIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["examTtIdPk"];
+            obj.ExamIdFk = (drRow["examIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["examIdFk"];
+            obj.ExamName = (drRow["examName"].Equals(DBNull.Value)) ? "" : (string)drRow["examName"];
+            obj.StandardIdFk = (drRow["standardIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdFk"];
+            obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
+            obj.SubjectIdFk = (drRow["subjectIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["subjectIdFk"];
+            obj.SubjectName = (drRow["subjectName"].Equals(DBNull.Value)) ? "" : (string)drRow["subjectName"];
+            obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
+            obj.ExamDate = (drRow["examDate"].Equals(DBNull.Value)) ? "" : (string)drRow["examDate"];
             obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
             obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
@@ -122,66 +123,66 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
             //}
 
             return obj;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                return null;
-            }
         }
-
-        public examTimeTableMaster_tableEntities OnLastRecordInserted()
+        catch (Exception ex)
         {
-            Exception exForce;
-            DataTable dtTable;
-
-            examTimeTableMaster_tableEntities obj = new examTimeTableMaster_tableEntities();
-
-            string strQ = "";
-
-            try
-            {
-                strQ = @"SELECT IDENT_CURRENT('examTimeTableMaster') ";
-
-                OnClearParameter();
-
-                //DB_Config.OnStartConnection();
-                dtTable = OnExecQuery(strQ, "list").Tables[0];
-
-
-                if (!string.IsNullOrEmpty(ErrorMessage))
-                {
-                    exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
-                    throw exForce;
-                }
-
-
-                if (dtTable.Rows.Count != 0)
-                {
-                    obj = BuildEntities(dtTable.Rows[0]);
-                }
-
-                return obj;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw ex;
+            return null;
         }
+    }
 
-        public examTimeTableMaster_tableEntities OnGetData(int ID)
+    public examTimeTableMaster_tableEntities OnLastRecordInserted()
+    {
+        Exception exForce;
+        DataTable dtTable;
+
+        examTimeTableMaster_tableEntities obj = new examTimeTableMaster_tableEntities();
+
+        string strQ = "";
+
+        try
         {
-            Exception exForce;
-            DataTable dtTable;
+            strQ = @"SELECT IDENT_CURRENT('examTimeTableMaster') ";
 
-            examTimeTableMaster_tableEntities obj = new examTimeTableMaster_tableEntities();
+            OnClearParameter();
 
-            string strQ = "";
+            //DB_Config.OnStartConnection();
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
-            try
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName , e.examStartDate , m.mediumName
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+
+
+            if (dtTable.Rows.Count != 0)
+            {
+                obj = BuildEntities(dtTable.Rows[0]);
+            }
+
+            return obj;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public examTimeTableMaster_tableEntities OnGetData(int ID)
+    {
+        Exception exForce;
+        DataTable dtTable;
+
+        examTimeTableMaster_tableEntities obj = new examTimeTableMaster_tableEntities();
+
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT et.* , e.examName,e.mediumIdFk , st.standardName , sb.subjectName , e.examStartDate , m.mediumName
                             FROM [examTimeTableMaster] et 
                             JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
                             JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
@@ -190,124 +191,124 @@ public  class examTimeTableMaster_tableDB : clsDB_Operation
                             WHERE [examTtIdPk] = @examTtIdPk
                             and et.[isActive] = 1";
 
-                OnClearParameter();
-                AddParameter("examTtIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+            OnClearParameter();
+            AddParameter("examTtIdPk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
 
-                //DB_Config.OnStartConnection();
-                dtTable = OnExecQuery(strQ, "list").Tables[0];
-
-
-                if (!string.IsNullOrEmpty(ErrorMessage))
-                {
-                    exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
-                    throw exForce;
-                }
+            //DB_Config.OnStartConnection();
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
 
-                if (dtTable.Rows.Count != 0)
-                {
-                    obj = BuildEntities(dtTable.Rows[0]);
-                }
-
-                return obj;
-
-            }
-            catch (Exception ex)
+            if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                throw ex;
-                return obj;
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
             }
+
+
+            if (dtTable.Rows.Count != 0)
+            {
+                obj = BuildEntities(dtTable.Rows[0]);
+            }
+
+            return obj;
+
         }
-
-        public List<examTimeTableMaster_tableEntities> OnGetListdt()
+        catch (Exception ex)
         {
-            Exception exForce;
-            //IDataReader oReader;
-            DataTable dtTable;
-            List<examTimeTableMaster_tableEntities> oList = new List<examTimeTableMaster_tableEntities>();
-            string strQ = "";
+            throw ex;
+            return obj;
+        }
+    }
 
-            try
-            {
-                strQ = @"SELECT et.* , e.examName , st.standardName , sb.subjectName , e.examStartDate , m.mediumName 
+    public List<examTimeTableMaster_tableEntities> OnGetListdt()
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<examTimeTableMaster_tableEntities> oList = new List<examTimeTableMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT et.* ,e.mediumIdFk, e.examName , st.standardName , sb.subjectName , e.examStartDate , m.mediumName 
                             FROM [examTimeTableMaster] et 
                             JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
                             JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
                             JOIN [standardMaster] st ON et.[standardIdFk] = st.[standardIdPk]
                             JOIN [subjectMaster] sb ON et.[subjectIdFk] = sb.[subjectIdPk]
                             WHERE et.[isActive] = 1 ";
-                OnClearParameter();
+            OnClearParameter();
 
-                dtTable = OnExecQuery(strQ, "list").Tables[0];
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
 
 
-                if (!string.IsNullOrEmpty(ErrorMessage))
-                {
-                    exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
-                    throw exForce;
-                }
-                int intRow = 0;
-                while (intRow < dtTable.Rows.Count)
-                {
-                    oList.Add(BuildEntities(dtTable.Rows[intRow]));
-                    intRow = intRow + 1;
-                }
-                return oList;
-            }
-            catch (Exception ex)
+            if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                throw ex;
-                return null;
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
             }
-            finally
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
             {
-                //    DB_Config.OnStopConnection();
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
             }
+            return oList;
         }
-        public List<ComboboxItem> OnGetListForCombo()
+        catch (Exception ex)
         {
-            Exception exForce;
-            DataTable dtTable;
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+    public List<ComboboxItem> OnGetListForCombo()
+    {
+        Exception exForce;
+        DataTable dtTable;
 
-            List<ComboboxItem> oList = new List<ComboboxItem>();
+        List<ComboboxItem> oList = new List<ComboboxItem>();
 
-            string strQ = "";
+        string strQ = "";
 
-            try
-            {
+        try
+        {
 
-                OnClearParameter();
-                strQ = @"SELECT [examTimeTableMaster].examTimeTableIdPk
+            OnClearParameter();
+            strQ = @"SELECT [examTimeTableMaster].examTimeTableIdPk
                                    ,[examTimeTableMaster].examTimeTableName
                                     FROM [examTimeTableMaster] 
                                     WHERE [examTimeTableMaster].isActive = '1'";
 
-                dtTable = OnExecQuery(strQ, "list").Tables[0];
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
-                if (!string.IsNullOrEmpty(ErrorMessage))
-                {
-                    exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
-                    throw exForce;
-                }
-
-                int intRow = 0;
-                while (intRow < dtTable.Rows.Count)
-                {
-                    ComboboxItem objData = new ComboboxItem();
-                    objData.ID = dtTable.Rows[intRow]["examTimeTableIdPk"].Equals(DBNull.Value) ? 0 : (int)dtTable.Rows[intRow]["examTimeTableIdPk"];
-                    objData.NAME = dtTable.Rows[intRow]["examTimeTableName"].Equals(DBNull.Value) ? "" : (string)dtTable.Rows[intRow]["examTimeTableName"];
-                    oList.Add(objData);
-
-                    intRow = intRow + 1;
-                }
-                return oList;
-            }
-            catch (Exception ex)
+            if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                throw ex;
-                return oList;
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
             }
+
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                ComboboxItem objData = new ComboboxItem();
+                objData.ID = dtTable.Rows[intRow]["examTimeTableIdPk"].Equals(DBNull.Value) ? 0 : (int)dtTable.Rows[intRow]["examTimeTableIdPk"];
+                objData.NAME = dtTable.Rows[intRow]["examTimeTableName"].Equals(DBNull.Value) ? "" : (string)dtTable.Rows[intRow]["examTimeTableName"];
+                oList.Add(objData);
+
+                intRow = intRow + 1;
+            }
+            return oList;
         }
- }
+        catch (Exception ex)
+        {
+            throw ex;
+            return oList;
+        }
+    }
+}
 

@@ -212,7 +212,7 @@ export class AddTimeTable extends Component {
       );
     }
 
-    this.props.history.push("/showTimeTable");
+    this.props.history.push("/viewTimeTable");
     
   }
 

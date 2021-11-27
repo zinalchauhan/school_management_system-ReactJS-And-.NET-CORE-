@@ -157,7 +157,7 @@ export class ViewExamTt extends Component {
                                   <td>{index + 1}</td>
                                   <td> {exmtt.examName} </td>
                                   <td> {exmtt.subjectName}</td>
-                                  <td> {exmtt.examStartDate} </td>
+                                  <td> {exmtt.examDate} </td>
                                   <td>
                                     <button
                                       type="button"

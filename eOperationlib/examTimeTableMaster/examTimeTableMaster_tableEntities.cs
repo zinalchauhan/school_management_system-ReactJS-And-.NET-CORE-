@@ -12,6 +12,7 @@ using System.Threading.Tasks;
         private string examName = "";
     private string examStartDate = "";
     private string mediumName = "";
+    private int mediumIdFk = 0;
         private int standardIdFk = 0;
         private string standardName = "";
         private int subjectIdFk = 0;
@@ -30,5 +31,6 @@ using System.Threading.Tasks;
         public int IsActive { get => isActive; set => isActive = value; }
     public string ExamStartDate { get => examStartDate; set => examStartDate = value; }
     public string MediumName { get => mediumName; set => mediumName = value; }
+    public int MediumIdFk { get => mediumIdFk; set => mediumIdFk = value; }
 }
 

@@ -142,7 +142,7 @@ export class AddEvent extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewEvent");
+          this.props.history.push("/edit-eventImage/" + this.state.eventIdPk);
         },
         (error) => {
           alert("Failed");
@@ -327,6 +327,7 @@ export class AddEvent extends Component {
                                     />
                                   </div>
                                 </div>
+                                {this.state.eventIdPk === 0 ? (
                                 <div className="form-group">
                                   <h5>
                                     Event Image :{" "}
@@ -344,6 +345,7 @@ export class AddEvent extends Component {
                                     />
                                   </div>
                                 </div>
+                                ):(<></>)}
                               </div>
                             </div>
                             <hr />
