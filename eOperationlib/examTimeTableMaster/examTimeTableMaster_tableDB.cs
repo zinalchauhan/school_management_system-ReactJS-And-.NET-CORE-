@@ -182,7 +182,7 @@ public class examTimeTableMaster_tableDB : clsDB_Operation
 
         try
         {
-            strQ = @"SELECT et.* , e.examName,e.mediumIdFk , st.standardName , sb.subjectName , e.examStartDate , m.mediumName
+            strQ = @"SELECT et.* , e.examName , e.mediumIdFk , st.standardName , sb.subjectName , e.examStartDate , m.mediumName
                             FROM [examTimeTableMaster] et 
                             JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
                             JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
