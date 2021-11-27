@@ -33,7 +33,7 @@ public class _DateTime
         }
         catch (Exception ex)
         {
-            DisplayError.Show(ex.Source, ex.Message, mstrModuleName, System.Reflection.MethodBase.GetCurrentMethod().Name);
+            throw ex;
         }       
 
         return dt;
@@ -58,7 +58,7 @@ public class _DateTime
         }
         catch (Exception ex)
         {
-            DisplayError.Show(ex.Source, ex.Message, mstrModuleName, System.Reflection.MethodBase.GetCurrentMethod().Name);
+            throw ex;
             return dt;
         }
         
@@ -75,7 +75,7 @@ public class _DateTime
         }
         catch (Exception ex)
         {
-            DisplayError.Show(ex.Source, ex.Message, mstrModuleName, System.Reflection.MethodBase.GetCurrentMethod().Name);
+            throw ex;
         }
 
         return strDate;
@@ -92,7 +92,7 @@ public class _DateTime
         }
         catch (Exception ex)
         {
-            DisplayError.Show(ex.Source, ex.Message, mstrModuleName, System.Reflection.MethodBase.GetCurrentMethod().Name);
+            throw ex;
         }
 
         return strDate;

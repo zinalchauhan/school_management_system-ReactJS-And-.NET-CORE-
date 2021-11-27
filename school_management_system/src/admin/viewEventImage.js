@@ -14,6 +14,7 @@ export class viewEventImage extends Component {
       eventImageIdPk: 0,
       eventIdFk: 0,
       isActive: 0,
+      files: [],
     };
   }
 
@@ -62,6 +63,31 @@ export class viewEventImage extends Component {
           }
         });
     }
+  }
+
+  setFile(e) {
+    this.setState({ files: e.target.files });
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state.files.length);
+    for (let index = 0; index < this.state.files.length; index++) {
+      this.insertImage(this.state.files[index]);
+    }
+    this.props.history.push("/edit-eventImage/"+this.state.eventIdFk);
+  };
+
+  insertImage(file) {
+
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+    formData.append("eventIdFk", this.state.eventIdFk);
+
+    fetch(Variables.API_URL + "insertEventImgList", {
+      method: "POST",
+      body: formData,
+    });
   }
 
   render() {
@@ -169,31 +195,60 @@ export class viewEventImage extends Component {
                           </tr>
                         </center>
                         <br />
-                  <br />
+                        <br />
                       </figure>
-                      
+
                     ))}
-                    <button
-                    type="button"
-                    class="btn  btn-success block btn-lg"
-                    data-toggle="modal"
-                    data-target="#iconFileUpload"
-                  >
-                    <Link
-                      to={{
-                        pathname: `/edit-event/${this.state.eventIdFk}`,
-                      }}
-                    >{" "}
+                    <button type="button" class="btn  btn-success block btn-lg" data-toggle="modal"
+                      data-target="#iconFileUpload">
                       Upload Image
-                    </Link>{" "}
-                  </button>
+                    </button>
+
+
                     <br />
                   </div>
-                  
-                  
+
+
                 </div>
               </div>
             </section>
+            <div class="modal fade text-xs-left" id="iconFileUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel34"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel34">Event Image Upload</h3>
+                  </div>
+
+                  <form onSubmit={this.onSubmit.bind(this)}>
+                    <div class="modal-body">
+                      <div class="form-group">
+
+                        <div class="controls">
+                          <input
+                            type="file"
+                            name="img"
+                            multiple
+                            onChange={(e) => this.setFile(e)}
+                            className="form-control"
+                            aria-invalid="false"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close" />
+                      <input type="submit" class="btn btn-outline-primary btn-lg" value="Upload" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <Footer></Footer>
