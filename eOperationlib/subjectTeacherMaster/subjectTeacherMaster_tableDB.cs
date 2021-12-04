@@ -71,9 +71,59 @@ public  class subjectTeacherMaster_tableDB : clsDB_Operation
             }
         }
 
+    public List<subjectTeacherMaster_tableEntities> OnGetTeacherListdt( int classId)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+
+        List<subjectTeacherMaster_tableEntities> oList = new List<subjectTeacherMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT sbtc.* , t.teacherName , sub.subjectName , s.standardName , d.divisionName
+                            FROM [subjectTeacherMaster] sbtc 
+                            JOIN [classMaster] cl ON sbtc.[classIdFk] = cl.[classIdPk]
+                            JOIN [standardMaster] s ON cl.[standardIdFk] = s.[standardIdPk]
+                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
+                            JOIN [teacherMaster] t ON sbtc.[teacherIdFk] = t.[teacherIdPk]
+                            JOIN [subjectMaster] sub ON sbtc.[subjectIdFk] = sub.[subjectIdPk]
+                            WHERE [classIdFk] = @classIdFk
+                            and sbtc.[isActive] = 1 ";
+
+            OnClearParameter();
+            AddParameter("classIdFk", SqlDbType.Int, 2, classId , ParameterDirection.Input);
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
 
-        public int OnDelete(int ID)
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+
+    public int OnDelete(int ID)
         {
             string strQ = "";
             try

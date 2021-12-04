@@ -5,21 +5,21 @@ import { Component } from "react/cjs/react.production.min";
 import { Variables } from "../Variables";
 import { Link } from "react-router-dom";
 
-export class viewEventImage extends Component {
+export class viewPaperImage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      eventImages: [],
-      eventImageIdPk: 0,
-      eventIdFk: 0,
+      paperImages: [],
+      paperImageIdPk: 0,
+      questionPaperIdFk: 0,
       isActive: 0,
       files: [],
     };
   }
 
   onGetImages(id) {
-    fetch(Variables.API_URL + "eventImageList/" + id, {
+    fetch(Variables.API_URL + "getPaperImageList/" + id, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -31,7 +31,7 @@ export class viewEventImage extends Component {
         (result) => {
           console.log(result);
           this.setState({
-            eventImages: result.data,
+            paperImages: result.data,
           });
         },
         (error) => {
@@ -42,14 +42,14 @@ export class viewEventImage extends Component {
 
   componentDidMount() {
     if (this.props.match.params.id !== undefined) {
-      this.setState({ eventIdFk: this.props.match.params.id });
+      this.setState({ questionPaperIdFk: this.props.match.params.id });
       this.onGetImages(this.props.match.params.id);
     }
   }
 
   delete(id) {
     if (window.confirm("Are you sure?")) {
-      fetch(Variables.API_URL + "deleteEventImgList/" + id, {
+      fetch(Variables.API_URL + "deleteQueImgList/" + id, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -59,7 +59,7 @@ export class viewEventImage extends Component {
         .then((response) => response.json())
         .then((res) => {
           if (res.result === "success") {
-            this.onGetImages(this.state.eventIdFk);
+            this.onGetImages(this.state.questionPaperIdFk);
           }
         });
     }
@@ -75,24 +75,24 @@ export class viewEventImage extends Component {
     for (let index = 0; index < this.state.files.length; index++) {
       this.insertImage(this.state.files[index]);
     }
-    this.props.history.push("/edit-eventImage/"+this.state.eventIdFk);
+    this.props.history.push("/edit-quePaperImage/" + this.state.questionPaperIdFk);
   };
 
   insertImage(file) {
 
     const formData = new FormData();
     formData.append("file", file, file.name);
-    formData.append("eventIdFk", this.state.eventIdFk);
+    formData.append("questionPaperIdFk", this.state.questionPaperIdFk);
 
-    fetch(Variables.API_URL + "insertEventImgList", {
+    fetch(Variables.API_URL + "insertQueImgList", {
       method: "POST",
       body: formData,
     })
-    .then((res) => res.json())
+      .then((res) => res.json())
       .then(
         (result) => {
           console.log(result);
-          
+
         },
         (error) => {
           console.log(error);
@@ -102,7 +102,7 @@ export class viewEventImage extends Component {
   }
 
   render() {
-    const { eventImages, eventIdFk } = this.state;
+    const { paperImages, questionPaperIdFk } = this.state;
     return (
       <div>
         <Header></Header>
@@ -110,7 +110,7 @@ export class viewEventImage extends Component {
           <div className="content-wrapper">
             <div className="content-header row">
               <div className="content-header-left col-md-6 col-xs-12">
-                <h2 className="content-header-title mb-0">Event Image List</h2>
+                <h2 className="content-header-title mb-0">Question Paper Image List</h2>
                 <div className="row breadcrumbs-top">
                   <div className="breadcrumb-wrapper col-xs-12">
                     <ol className="breadcrumb">
@@ -118,7 +118,7 @@ export class viewEventImage extends Component {
                         <Link to="/">Home</Link>
                       </li>
                       <li className="breadcrumb-item active">
-                        Event Image List
+                        Question Paper Image List
                       </li>
                     </ol>
                   </div>
@@ -129,7 +129,7 @@ export class viewEventImage extends Component {
             <div className="content-body"></div>
             <section id="image-gallery" class="card">
               <div class="card-header">
-                <h4 class="card-title">Event Image gallery</h4>
+                <h4 class="card-title">Question Paper Image gallery</h4>
                 <a class="heading-elements-toggle">
                   <i class="icon-ellipsis font-medium-3"></i>
                 </a>
@@ -166,7 +166,7 @@ export class viewEventImage extends Component {
                   style={{ overflow: "scroll" }}
                 >
                   <div class="row">
-                    {eventImages.map((img, index) => (
+                    {paperImages.map((img, index) => (
                       <figure
                         class="col-lg-3 col-md-6 col-xs-12"
                         itemprop="associatedMedia"
@@ -174,14 +174,14 @@ export class viewEventImage extends Component {
                         itemtype="http://schema.org/ImageObject"
                       >
                         <a
-                          href={Variables.PHOTO_URL + img.eventImage}
+                          href={Variables.PHOTO_URL + img.paperImageName}
                           itemprop="contentUrl"
                           data-size="300x300"
                         >
                           <tr key={index}>
                             <td>
                               <img
-                                src={Variables.PHOTO_URL + img.eventImage}
+                                src={Variables.PHOTO_URL + img.paperImageName}
                                 className="img-thumbnail img-fluid"
                                 height="600px"
                                 width="600px"
@@ -197,7 +197,7 @@ export class viewEventImage extends Component {
                           <tr>
                             <button
                               type="button"
-                              onClick={() => this.delete(img.eventImageIdPk)}
+                              onClick={() => this.delete(img.paperImageIdPk)}
                               class="btn btn-outline-danger remove-item-btn"
                             >
                               {" "}
@@ -231,7 +231,7 @@ export class viewEventImage extends Component {
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <h3 class="modal-title" id="myModalLabel34">Event Image Upload</h3>
+                    <h3 class="modal-title" id="myModalLabel34">Question Paper Image Upload</h3>
                   </div>
 
                   <form onSubmit={this.onSubmit.bind(this)}>
@@ -268,4 +268,4 @@ export class viewEventImage extends Component {
   }
 }
 
-export default viewEventImage;
+export default viewPaperImage;

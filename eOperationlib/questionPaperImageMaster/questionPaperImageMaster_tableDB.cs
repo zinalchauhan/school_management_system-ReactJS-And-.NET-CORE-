@@ -37,7 +37,52 @@ public  class questionPaperImageMaster_tableDB : clsDB_Operation
             }
         }
 
-        public int OnUpdate(questionPaperImageMaster_tableEntities obj)
+    public List<questionPaperImageMaster_tableEntities> OnGetImageListdt(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<questionPaperImageMaster_tableEntities> oList = new List<questionPaperImageMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT qpi.*
+                            FROM [questionPaperImageMaster] qpi 
+                            JOIN [questionPaperMaster] qp ON qpi.[questionPaperIdFk] = qp.[questionPaperIdPk]
+                            WHERE [questionPaperIdFk] = @questionPaperIdFk
+                            AND qpi.[isActive] = 1 ";
+            OnClearParameter();
+            AddParameter("questionPaperIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+    public int OnUpdate(questionPaperImageMaster_tableEntities obj)
         {
             string strQ = "";
             try

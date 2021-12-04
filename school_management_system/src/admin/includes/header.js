@@ -3,6 +3,18 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 
 export class Header extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  logout() {
+    sessionStorage.clear();
+    window.location.href = `/`;
+  }
+
+  componentDidMount(){}
+
   render() {
     return (
       <div>
@@ -17,10 +29,12 @@ export class Header extends Component {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="index-2.html" class="navbar-brand nav-link">
+                  <a href="/admin" class="navbar-brand nav-link">
                     <img
                       alt="branding logo"
-                      src="./assets/robust-assets/images/logo/robust-logo-light.png"
+                      src="../assets/logo.png"
+                      height="80px"
+                      width="80px"
                       data-expand="./assets/robust-assets/images/logo/robust-logo-light.png"
                       data-collapse="./assets/robust-assets/images/logo/robust-logo-small.png"
                       class="brand-logo"
@@ -341,7 +355,7 @@ export class Header extends Component {
                       <span class="user-name">John Doe</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a href="#" class="dropdown-item">
+                      {/* <a href="#" class="dropdown-item">
                         <i class="icon-head"></i> Edit Profile
                       </a>
                       <a href="#" class="dropdown-item">
@@ -352,9 +366,9 @@ export class Header extends Component {
                       </a>
                       <a href="#" class="dropdown-item">
                         <i class="icon-calendar5"></i> Calender
-                      </a>
+                      </a> */}
                       <div class="dropdown-divider"></div>
-                      <a href="#" class="dropdown-item">
+                      <a onClick={() => this.logout()} >
                         <i class="icon-power3"></i> Logout
                       </a>
                     </div>
@@ -406,7 +420,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addStudentManually"
+                      to="/admin/addStudentManually"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -415,7 +429,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/addStudent"
+                      to="/admin/addStudent"
                       data-i18n="nav.page_layouts.2_columns"
                       class="menu-item"
                     >
@@ -424,7 +438,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.2_columns"
                       class="menu-item"
                     >
@@ -433,7 +447,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/oldStudent"
+                      to="/admin/oldStudent"
                       data-i18n="nav.page_layouts.2_columns"
                       class="menu-item"
                     >
@@ -452,7 +466,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewRemark"
+                      to="/admin/viewRemark"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -471,7 +485,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewAttendence"
+                      to="/admin/viewAttendence"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -501,7 +515,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addTeacher"
+                      to="/admin/addTeacher"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -510,7 +524,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewTeacher"
+                      to="/admin/viewTeacher"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -529,7 +543,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addClassTeacher"
+                      to="/admin/addClassTeacher"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -538,7 +552,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewClassTeacher"
+                      to="/admin/viewClassTeacher"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -557,7 +571,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addPrincipal"
+                      to="/admin/addPrincipal"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -566,7 +580,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewPrincipal"
+                      to="/admin/viewPrincipal"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -594,7 +608,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addSubject"
+                      to="/admin/addSubject"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -603,7 +617,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewSubject"
+                      to="/admin/viewSubject"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -622,7 +636,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -631,7 +645,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/addSubjectTeacher"
+                      to="/admin/addSubjectTeacher"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -659,7 +673,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addTimeTableSetting"
+                      to="/admin/addTimeTableSetting"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -668,7 +682,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewTimeTableSetting"
+                      to="/admin/viewTimeTableSetting"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -687,7 +701,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addTimeTable"
+                      to="/admin/addTimeTable"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -696,7 +710,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -724,7 +738,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addExam"
+                      to="/admin/addExam"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -733,7 +747,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewExam"
+                      to="/admin/viewExam"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -752,7 +766,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addExamTimeTable"
+                      to="/admin/addExamTimeTable"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -761,7 +775,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -780,7 +794,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -789,7 +803,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/addResult"
+                      to="/admin/addResult"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -798,7 +812,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/addResultManually"
+                      to="/admin/addResultManually"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -807,7 +821,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -816,7 +830,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -835,7 +849,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addQuePaper"
+                      to="/admin/addQuePaper"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -844,7 +858,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -874,7 +888,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addEvent"
+                      to="/admin/addEvent"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -883,7 +897,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewEvent"
+                      to="/admin/viewEvent"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -911,7 +925,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandard"
+                      to="/admin/viewStandard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -930,7 +944,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewDivision"
+                      to="/admin/viewDivision"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -949,7 +963,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addClass"
+                      to="/admin/addClass"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -958,7 +972,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewClass"
+                      to="/admin/viewClass"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -986,7 +1000,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewFeedback"
+                      to="/admin/viewFeedback"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -1005,7 +1019,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewMedium"
+                      to="/admin/viewMedium"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -1024,7 +1038,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStudent"
+                      to="/admin/viewStudent"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -1043,7 +1057,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewEngMedTeacher"
+                      to="/admin/viewEngMedTeacher"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -1052,7 +1066,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewGujMedTeacher"
+                      to="/admin/viewGujMedTeacher"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -1061,7 +1075,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewPrincipalLoginData"
+                      to="/admin/viewPrincipalLoginData"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -1070,7 +1084,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >

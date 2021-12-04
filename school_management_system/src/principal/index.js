@@ -3,7 +3,7 @@ import { Component } from "react";
 import Footer from "./includes/footer";
 import Header from "./includes/header";
 
-export class teacherIndex extends Component {
+export class principalIndex extends Component {
   render() {
     return (
       <div>
@@ -722,4 +722,4 @@ export class teacherIndex extends Component {
   }
 }
 
-export default teacherIndex;
+export default principalIndex;

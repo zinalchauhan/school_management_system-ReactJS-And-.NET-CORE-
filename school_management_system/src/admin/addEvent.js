@@ -17,7 +17,7 @@ export class AddEvent extends Component {
       mediumIdFk: 0,
       eventName: "",
       eventDetail: "",
-      eventDate : "",
+      eventDate: "",
       eventImage: "",
       isActive: 0,
       files: [],
@@ -81,15 +81,15 @@ export class AddEvent extends Component {
     }
   };
 
-  insertImage(file,eventId) {
+  insertImage(file, eventId) {
 
     const formData = new FormData();
-    formData.append("file",file,file.name);
-    formData.append("eventIdFk",eventId);
+    formData.append("file", file, file.name);
+    formData.append("eventIdFk", eventId);
 
     fetch(Variables.API_URL + "insertEventImgList", {
       method: "POST",
-      body:formData,
+      body: formData,
     });
   }
 
@@ -112,8 +112,8 @@ export class AddEvent extends Component {
         (result) => {
           console.log(result);
           console.log(this.state.files.length);
-          for(let index = 0; index < this.state.files.length ; index++){
-            this.insertImage(this.state.files[index] , result.data); 
+          for (let index = 0; index < this.state.files.length; index++) {
+            this.insertImage(this.state.files[index], result.data);
           }
           this.props.history.push("/viewEvent");
         },
@@ -142,7 +142,7 @@ export class AddEvent extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/edit-eventImage/" + this.state.eventIdPk);
+          this.props.history.push("/viewEvent");
         },
         (error) => {
           alert("Failed");
@@ -187,7 +187,7 @@ export class AddEvent extends Component {
       mediumIdFk,
       eventName,
       eventDetail,
-      eventDate ,
+      eventDate,
       eventImage,
     } = this.state;
 
@@ -255,7 +255,7 @@ export class AddEvent extends Component {
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                  <select
+                                    <select
                                       name="med"
                                       id="med"
                                       className="form-control"
@@ -328,24 +328,24 @@ export class AddEvent extends Component {
                                   </div>
                                 </div>
                                 {this.state.eventIdPk === 0 ? (
-                                <div className="form-group">
-                                  <h5>
-                                    Event Image :{" "}
-                                    <span className="required"></span>
-                                  </h5>
-                                  <div className="controls">
-                                  <input
-                                      type="file"
-                                      name="img"
-                                      multiple
-                                      onChange={(e) => this.setFile(e)}
-                                      className="form-control"
-                                      aria-invalid = "false"
-                                      required
-                                    />
+                                  <div className="form-group">
+                                    <h5>
+                                      Event Image :{" "}
+                                      <span className="required"></span>
+                                    </h5>
+                                    <div className="controls">
+                                      <input
+                                        type="file"
+                                        name="img"
+                                        multiple
+                                        onChange={(e) => this.setFile(e)}
+                                        className="form-control"
+                                        aria-invalid="false"
+                                        required
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                                ):(<></>)}
+                                ) : (<></>)}
                               </div>
                             </div>
                             <hr />

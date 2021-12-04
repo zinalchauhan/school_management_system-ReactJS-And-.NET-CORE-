@@ -41,6 +41,21 @@ namespace schoolManagementSystemAPI.Controllers
         noticeMaster_tableDB noticeObj = new();
         remarkMaster_tableDB remarkObj = new();
         oldStudentMaster_tableDB oldStudObj = new();
+        authMaster_tableDB authObj = new();
+
+        [HttpPost("Login")]
+        public JsonResult Login(authMaster_tableEntities auth)
+        {
+            authMaster_tableEntities result = authObj.OnGetLoginData(auth.UserName , auth.UserPassword);
+            if (result.AuthIdPk != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
 
         [HttpGet("stateList")]
         public JsonResult stateList()
@@ -636,6 +651,19 @@ namespace schoolManagementSystemAPI.Controllers
             int result = studentObj.OnInsert(student);
             if (result == 1)
             {
+
+                int studId = studentObj.OnLastRecordInserted();
+
+                authMaster_tableEntities auth = new authMaster_tableEntities();
+
+                auth.UserIdFk = studId;
+                auth.UserType = "student";
+                auth.UserName = student.StudentFname + student.StudentMname;
+                auth.UserPassword = student.StudentGrNo.ToString();
+                auth.IsActive = 1;
+
+                authObj.OnInsert(auth);
+
                 return new JsonResult(new { result = "success", message = "Data Inserted", data = result });
             }
             else
@@ -1524,21 +1552,21 @@ namespace schoolManagementSystemAPI.Controllers
 
         [HttpPost("insertQuePaperList")]
 
-        public JsonResult insertQuePaperList(questionPaperMaster_tableEntities quepaper)
+        public JsonResult insertQuePaperList(questionPaperMaster_tableEntities papers)
         {
 
-            int result = qpObj.OnInsert(quepaper);
+            int result = qpObj.OnInsert(papers);
 
             if (result == 1)
             {
-                return new JsonResult(new { result = "success", message = "Data Inserted", data = quepaper });
+                int paperid = qpObj.OnLastRecordInserted();
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = paperid });
             }
             else
             {
                 return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
             }
         }
-
         [HttpGet("getQuePaper/{id}")]
         public JsonResult getQuePaper(int id)
         {
@@ -1604,16 +1632,53 @@ namespace schoolManagementSystemAPI.Controllers
         }
 
 
-        [HttpPost("insertQueImgList")]
+        //[HttpPost("insertQueImgList")]
 
-        public JsonResult insertQueImgList(questionPaperImageMaster_tableEntities queImg)
+        //public JsonResult insertQueImgList(questionPaperImageMaster_tableEntities queImg)
+        //{
+
+        //    int result = qpimgObj.OnInsert(queImg);
+
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Inserted", data = queImg });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+        //    }
+        //}
+
+        [HttpGet("getPaperImageList/{id}")]
+        public JsonResult getPaperImageList(int id)
         {
 
-            int result = qpimgObj.OnInsert(queImg);
+            List<questionPaperImageMaster_tableEntities> img = qpimgObj.OnGetImageListdt(id);
 
+            if (img.Count > 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = img });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+
+        [HttpPost("insertQueImgList"), DisableRequestSizeLimit]
+        public JsonResult insertQueImgList()
+        {
+            questionPaperImageMaster_tableEntities img = new questionPaperImageMaster_tableEntities();
+            String photo_path = photoUpload(Request.Form.Files, "quepapers");
+
+            img.QuestionPaperIdFk = Int32.Parse(Request.Form["questionPaperIdFk"]);
+            img.PaperImageName = photo_path;
+
+            int result = qpimgObj.OnInsert(img);
             if (result == 1)
             {
-                return new JsonResult(new { result = "success", message = "Data Inserted", data = queImg });
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = result });
             }
             else
             {
@@ -1621,26 +1686,32 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
-        [HttpGet("getQueImg/{id}")]
-        public JsonResult getQueImg(int id)
+        [HttpPost("updateQueImgList"), DisableRequestSizeLimit]
+        public JsonResult updateQueImgList()
         {
-            questionPaperImageMaster_tableEntities result = qpimgObj.OnGetData(id);
-            if (result.PaperImageIdPk != 0)
+            questionPaperImageMaster_tableEntities img = new questionPaperImageMaster_tableEntities();
+            if (Request.Form.Files.Count != 0)
             {
-                return new JsonResult(new { result = "success", message = "Data Found", data = result });
+
+                if (Request.Form.Files[0].Length > 0)
+                {
+                    String photo_path = photoUpload(Request.Form.Files, "quepapers");
+                    img.PaperImageName = photo_path;
+                }
+                else
+                {
+                    img.PaperImageName = Request.Form["paperImageName"];
+                }
             }
             else
             {
-                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+                img.PaperImageName = Request.Form["paperImageName"];
             }
-        }
 
-        [HttpPost("updateQueImgList")]
+            img.PaperImageIdPk = Int32.Parse(Request.Form["paperImageIdPk"]);
+            img.QuestionPaperIdFk = Int32.Parse(Request.Form["questionPaperIDF"]);
 
-        public JsonResult updateQueImgList(questionPaperImageMaster_tableEntities queImg)
-        {
-
-            int result = qpimgObj.OnUpdate(queImg);
+            int result = qpimgObj.OnUpdate(img);
 
             if (result == 1)
             {
@@ -1651,6 +1722,24 @@ namespace schoolManagementSystemAPI.Controllers
                 return new JsonResult(new { result = "failure", message = "Data Not Updated" });
             }
         }
+
+
+        //[HttpPost("updateQueImgList")]
+
+        //public JsonResult updateQueImgList(questionPaperImageMaster_tableEntities queImg)
+        //{
+
+        //    int result = qpimgObj.OnUpdate(queImg);
+
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+        //    }
+        //}
 
         [HttpDelete("deleteQueImgList/{id}")]
 

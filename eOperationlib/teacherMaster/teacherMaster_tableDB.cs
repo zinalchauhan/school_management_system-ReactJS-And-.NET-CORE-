@@ -88,7 +88,7 @@ public  class teacherMaster_tableDB : clsDB_Operation
 
 
 
-        public int OnDelete(int ID)
+    public int OnDelete(int ID)
         {
             string strQ = "";
             try
@@ -151,47 +151,47 @@ public  class teacherMaster_tableDB : clsDB_Operation
 
 
 
-        public teacherMaster_tableEntities OnLastRecordInserted()
+    public int OnLastRecordInserted()
+    {
+        Exception exForce;
+        DataTable dtTable;
+
+        int lastId = 0;
+        string strQ = "";
+
+        try
         {
-            Exception exForce;
-            DataTable dtTable;
+            strQ = @"SELECT IDENT_CURRENT('teacherMaster') ";
 
-            teacherMaster_tableEntities obj = new teacherMaster_tableEntities();
+            OnClearParameter();
 
-            string strQ = "";
+            //DB_Config.OnStartConnection();
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
-            try
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                strQ = @"SELECT IDENT_CURRENT('teacherMaster') ";
-
-                OnClearParameter();
-
-                //DB_Config.OnStartConnection();
-                dtTable = OnExecQuery(strQ, "list").Tables[0];
-
-
-                if (!string.IsNullOrEmpty(ErrorMessage))
-                {
-                    exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
-                    throw exForce;
-                }
-
-
-                if (dtTable.Rows.Count != 0)
-                {
-                    obj = BuildEntities(dtTable.Rows[0]);
-                }
-
-                return obj;
-
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
             }
-            catch (Exception ex)
+
+
+            if (dtTable.Rows.Count != 0)
             {
-                throw ex;
+                lastId = Int32.Parse(dtTable.Rows[0].ItemArray[0].ToString());
             }
+
+            return lastId;
+
         }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
 
-        public teacherMaster_tableEntities OnGetData(int ID)
+
+    public teacherMaster_tableEntities OnGetData(int ID)
         {
             Exception exForce;
             DataTable dtTable;

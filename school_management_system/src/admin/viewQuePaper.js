@@ -26,9 +26,10 @@ export class ViewQuePaper extends Component {
   }
 
   refreshList() {
-    fetch(Variables.API_URL + "eventList")
+    fetch(Variables.API_URL + "quePaperList")
       .then((response) => response.json())
       .then((res) => {
+        console.log(res);
         if (res.result == "success") {
           this.setState({ quepapers: res.data });
         }
@@ -37,7 +38,7 @@ export class ViewQuePaper extends Component {
 
   delete(id) {
     if (window.confirm("Are you sure?")) {
-      fetch(Variables.API_URL + "deleteEventList/" + id, {
+      fetch(Variables.API_URL + "deleteQuePaperList/" + id, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -153,22 +154,27 @@ export class ViewQuePaper extends Component {
                                   <td> {que.mediumName} </td>
                                   <td> {que.academicYear} </td>
                                   <td> {que.subjectName} </td>
-                                  <td>  </td>
+                                  <td> 
+                                  <Link to = {{ 
+                                    pathname: `/edit-quePaperImage/${que.questionPaperIdPk}`,
+                                  }}>
+                                        Galary
+                                      </Link>{" "}  </td>
                                   <td> 
                                   <button class="btn btn-outline-primary edit-item-btn">
-                                      {/* <Link
+                                      <Link
                                         to={{
-                                          pathname: `/edit-event/${evt.eventIdPk}`,
+                                          pathname: `/edit-quepaper/${que.questionPaperIdPk}`,
                                         }}
-                                      > */}
+                                      > 
                                         Edit
-                                      {/* </Link>{" "} */}
+                                      </Link>{" "} 
                                     </button> </td>
                                   <td> 
                                   <button
                                       type="button"
                                       onClick={() =>
-                                        this.delete(evt.eventIdPk)
+                                        this.delete(que.questionPaperIdPk)
                                       }
                                       class="btn btn-outline-danger remove-item-btn"
                                     >
@@ -207,4 +213,4 @@ export class ViewQuePaper extends Component {
   }
 }
 
-export default ViewEvent;
+export default ViewQuePaper;

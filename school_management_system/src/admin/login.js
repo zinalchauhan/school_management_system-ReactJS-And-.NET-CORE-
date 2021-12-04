@@ -1,8 +1,99 @@
 import react from "react";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
 
 export class Login extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      login: [],
+      modelTitle: "",
+      userName: "",
+      userPassword: "",
+      userIdFk: 0,
+      isActive: 0,
+      authIdPk: 0,
+    };
+  }
+
+  changeUserName = (e) => {
+    this.setState({ userName: e.target.value });
+  };
+
+  changeUserPassword = (e) => {
+    this.setState({ userPassword: e.target.value });
+  };
+
+  componentDidMount() {
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ authIdPk: this.props.match.params.id });
+      this.onGetData(this.props.match.params.id);
+    } else {
+      this.setState({ authIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    fetch(Variables.API_URL + "Login/" , {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify ({
+        userName : this.state.userName,
+        userPassword : this.state.userPassword,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          sessionStorage.setItem("isLogin","true");
+          sessionStorage.setItem("userId",result.data.userIdFk);
+          sessionStorage.setItem("userType",result.data.userType);
+
+          if(result.data.userType === "admin")
+          {
+            this.props.history.push("/admin");
+          }
+          else if(result.data.userType === "student")
+          {
+            this.props.history.push("/student");
+          }
+          else if(result.data.userType === "teacher")
+          {
+            this.props.history.push("/teacher");
+          }
+          else if(result.data.userType === "principal")
+          {
+            this.props.history.push("/principal");
+          }
+          else 
+          {
+            this.props.history.push("/");
+          }
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  };
+
+
   render() {
+
+    const { 
+      login,
+      modelTitle,
+      userName,
+      userIdFk,
+      userPassword,
+    } = this.state;
+
     return (
       <div>
         <div class="robust-content content container-fluid">
@@ -29,6 +120,7 @@ export class Login extends Component {
                           class="form-horizontal form-simple"
                           action="http://demo.pixinvent.com/robust-admin/ltr/vertical-multi-level-menu-template/index.html"
                           novalidate
+                          onSubmit={this.onSubmit.bind(this)}
                         >
                           <fieldset class="form-group has-feedback has-icon-left mb-0">
                             <input
@@ -36,6 +128,8 @@ export class Login extends Component {
                               class="form-control form-control-lg input-lg"
                               id="user-name"
                               placeholder="Your Username"
+                              value={userName}
+                              onChange={this.changeUserName}
                               required
                             />
                             <div class="form-control-position">
@@ -49,6 +143,8 @@ export class Login extends Component {
                               class="form-control form-control-lg input-lg"
                               id="user-password"
                               placeholder="Enter Password"
+                              value={userPassword}
+                              onChange={this.changeUserPassword}
                               required
                             />
                             <div class="form-control-position">

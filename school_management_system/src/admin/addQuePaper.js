@@ -2,9 +2,223 @@ import react from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
+import { Variables } from "../Variables";
 
 export class AddQuePaper extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      quepapers: [],
+      mediums: [],
+      standards: [],
+      subjects: [],
+      modelTitle: "",
+      questionPaperIdPk: 0,
+      questionPaperIdFk: 0,
+      mediumIdFk: 0,
+      subjectIdFk: 0,
+      standardIdFk: 0,
+      academicYear: 0,
+      paperImageName : "",
+      files: [],
+      isActive: 0,
+    };
+  }
+
+  setFile(e) {
+    this.setState({ files: e.target.files });
+  }
+
+  getMediumList() {
+    fetch(Variables.API_URL + "mediumList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ mediums: res.data });
+        }
+      });
+  }
+
+  getStandardList() {
+    fetch(Variables.API_URL + "standardList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ standards: res.data });
+        }
+      });
+  }
+
+  getSubjectList() {
+    fetch(Variables.API_URL + "subjectList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          this.setState({ subjects: res.data });
+        }
+      });
+  }
+
+  changeMediumName = (e) => {
+    console.log(e.target.value);
+    this.setState({ mediumIdFk: e.target.value });
+  };
+
+  changeSubjectName = (e) => {
+    console.log(e.target.value);
+    this.setState({ subjectIdFk: e.target.value });
+  };
+
+  changeStandardName = (e) => {
+    console.log(e.target.value);
+    this.setState({ standardIdFk: e.target.value });
+  };
+
+  changeAcademicYear = (e) => {
+    console.log(e.target.value);
+    this.setState({ academicYear: e.target.value });
+  };
+
+  changePaperImage = (e) => {
+    this.setState({ files: e.target.fiels });
+  };
+
+  componentDidMount() {
+    this.getMediumList();
+    this.getStandardList();
+    this.getSubjectList();
+    if (this.props.match.params.id !== undefined) {
+      this.setState({ questionPaperIdPk: this.props.match.params.id });
+      this.onGetData(this.props.match.params.id);
+    } else {
+      this.setState({ questionPaperIdPk: 0 });
+    }
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.questionPaperIdPk !== 0) {
+      this.update(event);
+    } else {
+      this.insert(event);
+    }
+  };
+
+  insertImage(file,paperId) {
+
+    const formData = new FormData();
+    formData.append("file",file,file.name);
+    formData.append("questionPaperIdFk",paperId);
+
+    fetch(Variables.API_URL + "insertQueImgList", {
+      method: "POST",
+      body:formData,
+    });
+  }
+
+  insert() {
+    fetch(Variables.API_URL + "insertQuePaperList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        subjectIdFk: this.state.subjectIdFk,
+        standardIdFk: this.state.standardIdFk,
+        mediumIdFk: this.state.mediumIdFk,
+        academicYear: this.state.academicYear,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          console.log(this.state.files.length);
+          for(let index = 0; index < this.state.files.length ; index++){
+            this.insertImage(this.state.files[index] , result.data); 
+          }
+          this.props.history.push("/viewQuePaper");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  update() {
+    fetch(Variables.API_URL + "updateQuePaperList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        questionPaperIdPk: this.state.questionPaperIdPk,
+        subjectIdFk: this.state.subjectIdFk,
+        standardIdFk: this.state.standardIdFk,
+        mediumIdFk: this.state.mediumIdFk,
+        academicYear: this.state.academicYear,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/viewQuePaper");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+  onGetData(id) {
+    fetch(Variables
+      .API_URL + "getQuePaper/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            mediumIdFk: result.data.mediumIdFk,
+            standardIdFk: result.data.standardIdFk,
+            subjectIdFk: result.data.subjectIdFk,
+            academicYear: result.data.academicYear,
+            paperImageName: result.data.paperImageName,
+          });
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
   render() {
+
+    const {
+      quepapers,
+      mediums,
+      standards,
+      subjects,
+      modelTitle,
+      questionPaperIdPk,
+      questionPaperIdFk,
+      mediumIdFk,
+      subjectIdFk,
+      standardIdFk,
+      academicYear,
+      paperImageName ,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -61,25 +275,33 @@ export class AddQuePaper extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block ">
-                          <form className="form-horizontal" novalidate>
+                          <form className="form-horizontal" novalidate onSubmit={this.onSubmit.bind(this)} >
                             <div className="row">
-                              <div className="col-md-9">
+                              <div className="col-md-12">
                                 <div className="form-group">
                                   <h5>
                                     Select Medium :{" "}
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                  <select
+                                      name="med"
+                                      id="med"
                                       className="form-control"
+                                      onChange={this.changeMediumName}
+                                      value={mediumIdFk}
                                     >
-                                      <option value="">Select Medium</option>
-                                      <option value="1">Gujarati</option>
-                                      <option value="2">Hindi</option>
-                                      <option value="3">English</option>
+                                      <option value="0">Select Medium</option>
+                                      {mediums.map((med) => (
+                                        <option
+                                          value={med.mediumIdPk}
+                                          selected={
+                                            mediumIdFk === med.mediumIdPk
+                                          }
+                                        >
+                                          {med.mediumName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -94,25 +316,24 @@ export class AddQuePaper extends Component {
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                  <select
+                                      name="std"
+                                      id="std"
                                       className="form-control"
+                                      onChange={this.changeStandardName}
+                                      value={standardIdFk}
                                     >
-                                      <option value="">Select Standard</option>
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                      <option value="6">6</option>
-                                      <option value="7">7</option>
-                                      <option value="8">8</option>
-                                      <option value="9">9</option>
-                                      <option value="10">10</option>
-                                      <option value="11">11</option>
-                                      <option value="12">12</option>
+                                      <option value="0">Select Standard</option>
+                                      {standards.map((std) => (
+                                        <option
+                                          value={std.standardIdPk}
+                                          selected={
+                                            standardIdFk === std.standardIdPk
+                                          }
+                                        >
+                                          {std.standardName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -123,23 +344,24 @@ export class AddQuePaper extends Component {
                                     <span className="required"></span>
                                   </h5>
                                   <div className="controls">
-                                    <select
-                                      name="select"
-                                      id="select"
-                                      required
+                                  <select
+                                      name="sub"
+                                      id="sub"
                                       className="form-control"
+                                      onChange={this.changeSubjectName}
+                                      value={subjectIdFk}
                                     >
-                                      <option value="">Select Subject</option>
-                                      <option value="1">Hindi</option>
-                                      <option value="2">Gujarati</option>
-                                      <option value="3">English</option>
-                                      <option value="4">Polity  </option>
-                                      <option value="5">History</option>
-                                      <option value="6">Geography</option>
-                                      <option value="7">Science</option>
-                                      <option value="8">Maths</option>
-                                      <option value="9">Computer</option>
-                                      <option value="10">Yoga</option>
+                                      <option value="0">Select Subject</option>
+                                      {subjects.map((sub) => (
+                                        <option
+                                          value={sub.subjectIdPk}
+                                          selected={
+                                            subjectIdFk === sub.subjectIdFk
+                                          }
+                                        >
+                                          {sub.subjectName}
+                                        </option>
+                                      ))}
                                     </select>
                                   </div>
                                 </div>
@@ -152,12 +374,15 @@ export class AddQuePaper extends Component {
                                       type="text"
                                       name="text"
                                       placeholder="Paper Year"
+                                      value={this.state.academicYear}
+                                      onChange={this.changeAcademicYear}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
                                     />
                                   </div>
                                 </div>
+                                {this.state.questionPaperIdPk === 0 ? (
                                 <div className="form-group">
                                   <h5>
                                     Paper images :{" "}
@@ -167,12 +392,15 @@ export class AddQuePaper extends Component {
                                     <input
                                       type="file"
                                       name="img"
+                                      multiple
+                                      onChange={(e) => this.setFile(e)}
                                       className="form-control"
+                                      aria-invalid = "false"
                                       required
                                     />
                                   </div>
                                 </div>
-                              
+                                ):(<></>)}
                               </div>
                             </div>
                             <hr />

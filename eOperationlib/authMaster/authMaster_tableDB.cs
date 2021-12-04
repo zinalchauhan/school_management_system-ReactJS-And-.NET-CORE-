@@ -211,7 +211,54 @@ public  class authMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<authMaster_tableEntities> OnGetListdt()
+    public authMaster_tableEntities OnGetLoginData(string username , string password)
+    {
+        Exception exForce;
+        DataTable dtTable;
+
+        authMaster_tableEntities obj = new authMaster_tableEntities();
+
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT *
+                            FROM [authMaster] 
+                            WHERE [userName] = @username
+                            and [userPassword] = @password
+                            and [isActive]='1' ";
+
+            OnClearParameter();
+            AddParameter("username", SqlDbType.VarChar, 50, username, ParameterDirection.Input);
+            AddParameter("password", SqlDbType.VarChar, 50, password, ParameterDirection.Input);
+
+            //DB_Config.OnStartConnection();
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+
+
+            if (dtTable.Rows.Count != 0)
+            {
+                obj = BuildEntities(dtTable.Rows[0]);
+            }
+
+            return obj;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return obj;
+        }
+    }
+
+    public List<authMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

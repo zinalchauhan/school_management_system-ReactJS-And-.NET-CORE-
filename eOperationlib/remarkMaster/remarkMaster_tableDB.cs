@@ -223,7 +223,58 @@ public  class remarkMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<remarkMaster_tableEntities> OnGetListdt()
+    public List<remarkMaster_tableEntities> OnGetRemarkListdt(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+
+        List<remarkMaster_tableEntities> oList = new List<remarkMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT r.* , s.studentMname , s.studentFname , sb.subjectName , t.teacherName
+                            FROM [remarkMaster] r 
+                            JOIN [studentMaster] s ON r.[studentIdFk] = s.[studentIdPk]
+                            JOIN [subjectTeacherMaster] st ON r.[subjectTeacherIdFk] = st.[subjectTeacherIdPk]
+							JOIN [subjectMaster] sb ON st.[subjectIdFk] = sb.[subjectIdPk]
+                            JOIN [teacherMaster] t ON st.[teacherIdFk] = t.[teacherIdPk]
+                            WHERE [studentIdFk] = @studentIdFk
+                            AND r.[isActive] = 1 ";
+
+            OnClearParameter();
+            AddParameter("studentIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+
+    public List<remarkMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;
@@ -243,7 +294,6 @@ public  class remarkMaster_tableDB : clsDB_Operation
                 OnClearParameter();
 
                 dtTable = OnExecQuery(strQ, "list").Tables[0];
-
 
 
                 if (!string.IsNullOrEmpty(ErrorMessage))

@@ -17,12 +17,12 @@ export class Header extends Component {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="index-2.html" class="navbar-brand nav-link">
+                  <a href="/student" class="navbar-brand nav-link">
                     <img
                       alt="branding logo"
-                      src="./assets/robust-assets/images/logo/robust-logo-light.png"
-                      data-expand="./assets/robust-assets/images/logo/robust-logo-light.png"
-                      data-collapse="./assets/robust-assets/images/logo/robust-logo-small.png"
+                      src="../assets/logo.png"
+                      height="80px"
+                      width="80px"
                       class="brand-logo"
                     />
                   </a>
@@ -387,7 +387,7 @@ export class Header extends Component {
                 </Link>
               </li>
               <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">STUDENTS</span>
+                <span data-i18n="nav.category.layouts">STUDENT</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
@@ -406,38 +406,11 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addStudentManually"
+                      to="/student/viewProfile"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
-                      Add Student Manually
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/addStudent"
-                      data-i18n="nav.page_layouts.2_columns"
-                      class="menu-item"
-                    >
-                      Add Student
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewStandardCard"
-                      data-i18n="nav.page_layouts.2_columns"
-                      class="menu-item"
-                    >
-                      View Student
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/oldStudent"
-                      data-i18n="nav.page_layouts.2_columns"
-                      class="menu-item"
-                    >
-                      Old Student
+                      View Profile
                     </Link>
                   </li>
                 </ul>
@@ -452,7 +425,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewRemark"
+                      to="student/viewRemarkList"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -471,11 +444,30 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewAttendence"
+                      to="admin/viewAttendenceList"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
                       View Attendence
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li class=" nav-item">
+                <a href="#">
+                  <i class="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                    Notice
+                  </span>
+                </a>
+                <ul class="menu-content">
+                  <li>
+                    <Link
+                      to="/viewStandardCard"
+                      data-i18n="nav.page_layouts.1_column"
+                      class="menu-item"
+                    >
+                      View Notice
                     </Link>
                   </li>
                 </ul>
@@ -501,48 +493,11 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Teacher
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewTeacher"
+                      to="/student/viewTeacherList"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
                       View Teacher
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Class Teacher
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addClassTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Class Teacher
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewClassTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Class Teacher
                     </Link>
                   </li>
                 </ul>
@@ -557,85 +512,11 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addPrincipal"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Principal
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       to="/viewPrincipal"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
                       View Principal
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">SUBJECT</span>
-                <i
-                  data-toggle="tooltip"
-                  data-placement="right"
-                  data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
-                ></i>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Subject
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addSubject"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Subject
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewSubject"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Subject
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Standard Subject
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Standard Subject
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/addSubjectTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Subject Teacher
                     </Link>
                   </li>
                 </ul>
@@ -653,47 +534,10 @@ export class Header extends Component {
                 <a href="#">
                   <i class="icon-stack-2"></i>
                   <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Time-Table Setting
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addTimeTableSetting"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Time-Table Setting
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewTimeTableSetting"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Time-Table Setting
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
                     Time-Table
                   </span>
                 </a>
                 <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addTimeTable"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Time-Table
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/viewStandardCard"
@@ -718,47 +562,10 @@ export class Header extends Component {
                 <a href="#">
                   <i class="icon-stack-2"></i>
                   <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Exam
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addExam"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Exam
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewExam"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Exam
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
                     Exam Time-Table
                   </span>
                 </a>
                 <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addExamTimeTable"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Exam Time-Table
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/viewStandardCard"
@@ -784,42 +591,6 @@ export class Header extends Component {
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
-                      Add Final Result
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/addResult"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Result
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/addResultManually"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Result Manually
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Final Result
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
                       View Result
                     </Link>
                   </li>
@@ -833,15 +604,6 @@ export class Header extends Component {
                   </span>
                 </a>
                 <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addQuePaper"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Question Paper
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/viewStandardCard"
@@ -874,15 +636,6 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/addEvent"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Event
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       to="/viewEvent"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
@@ -893,76 +646,7 @@ export class Header extends Component {
                 </ul>
               </li>
               <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">CLASS & STANDARD</span>
-                <i
-                  data-toggle="tooltip"
-                  data-placement="right"
-                  data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
-                ></i>
-              </li>
-              <li class=" nav-item">
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewStandard"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Standard
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Division
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewDivision"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Division
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Class
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/addClass"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Add Class
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewClass"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Class
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">ADMIN</span>
+                <span data-i18n="nav.category.layouts">Feedback</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
@@ -984,82 +668,35 @@ export class Header extends Component {
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
-                      Feedback
+                      Give Feedback
                     </Link>
                   </li>
                 </ul>
+              </li>
+              <li class=" navigation-header">
+                <span data-i18n="nav.category.layouts">Leave Request</span>
+                <i
+                  data-toggle="tooltip"
+                  data-placement="right"
+                  data-original-title="Layouts"
+                  class="icon-ellipsis icon-ellipsis"
+                ></i>
               </li>
               <li class=" nav-item">
                 <a href="#">
                   <i class="icon-stack-2"></i>
                   <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Medium
+                    Leave Request
                   </span>
                 </a>
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewMedium"
+                      to="/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
-                      View Medium
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Student
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewStudent"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Student
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Login Data
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewEngMedTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      English Medium Teacher Data
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewGujMedTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Gujarati Medium Teacher Data
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/viewPrincipalLoginData"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      Principal Data
+                      Add Leave Request
                     </Link>
                   </li>
                   <li>
@@ -1068,7 +705,7 @@ export class Header extends Component {
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
-                      Student Data
+                      View Leave Request
                     </Link>
                   </li>
                 </ul>
