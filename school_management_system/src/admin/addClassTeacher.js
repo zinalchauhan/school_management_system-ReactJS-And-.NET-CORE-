@@ -108,7 +108,7 @@ export class AddClassTeacher extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewClassTeacher");
+          this.props.history.push("/admin/viewClassTeacher");
         },
         (error) => {
           console.log(error);
@@ -136,7 +136,7 @@ export class AddClassTeacher extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewClassTeacher");
+          this.props.history.push("/admin/viewClassTeacher");
         },
         (error) => {
           alert("Failed");

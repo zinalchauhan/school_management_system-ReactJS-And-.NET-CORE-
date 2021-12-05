@@ -107,7 +107,7 @@ export class ViewTimeTableSetting extends Component {
                         <h4 className="card-title">Time Table Setting List</h4>
                         <br />
                         <Link
-                          to="/addTimeTableSetting"
+                          to="/admin/addTimeTableSetting"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Time Table Setting

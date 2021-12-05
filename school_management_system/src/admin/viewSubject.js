@@ -83,7 +83,7 @@ export class ViewSubject extends Component {
                         <h4 className="card-title">Subject List</h4>
                         <br />
                         <Link
-                          to="/addSubject"
+                          to="/admin/addSubject"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Subject

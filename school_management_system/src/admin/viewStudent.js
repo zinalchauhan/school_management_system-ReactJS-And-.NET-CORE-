@@ -120,7 +120,7 @@ export class ViewStudent extends Component {
                         </a>
                         <br />
                         <Link
-                          to="/addStudentManually"
+                          to="/admin/addStudentManually"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Student
@@ -176,18 +176,14 @@ export class ViewStudent extends Component {
                                 <tr key={index}>
                                   <td> {index + 1} </td>
                                   <td>
-                                    <button
-                                      type="button"
-                                      class="btn btn-outline-primary edit-item-btn"
-                                    >
                                       <Link
+                                      class="btn btn-outline-primary edit-item-btn"
                                         to={{
-                                          pathname: `/edit-student/${stud.studentIdPk}`,
+                                          pathname: `/admin/edit-student/${stud.studentIdPk}`,
                                         }}
                                       >
                                         Edit
                                       </Link>{" "}
-                                    </button>
                                     <br />
                                     <br />
                                     <button

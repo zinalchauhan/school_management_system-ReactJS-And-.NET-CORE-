@@ -352,7 +352,7 @@ export class Header extends Component {
                         />
                         <i></i>
                       </span>
-                      <span class="user-name">John Doe</span>
+                      <span class="user-name"> Admin </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                       {/* <a href="#" class="dropdown-item">
@@ -367,7 +367,7 @@ export class Header extends Component {
                       <a href="#" class="dropdown-item">
                         <i class="icon-calendar5"></i> Calender
                       </a> */}
-                      <div class="dropdown-divider"></div>
+                      
                       <a onClick={() => this.logout()} >
                         <i class="icon-power3"></i> Logout
                       </a>
@@ -438,7 +438,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/admin/viewStandardCard"
+                      to="/admin/viewStudent"
                       data-i18n="nav.page_layouts.2_columns"
                       class="menu-item"
                     >
@@ -710,7 +710,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/admin/viewStandardCard"
+                      to="/admin/viewTimeTable"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >

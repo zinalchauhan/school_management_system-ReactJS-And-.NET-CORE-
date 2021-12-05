@@ -101,7 +101,7 @@ export class ViewClassTeacher extends Component {
                         <h4 className="card-title">Class Teacher List</h4>
                         <br />
                         <Link
-                          to="/addClassTeacher"
+                          to="/admin/addClassTeacher"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Class Teacher

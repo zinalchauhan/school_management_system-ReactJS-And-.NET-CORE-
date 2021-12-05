@@ -56,7 +56,7 @@ export class AddSubject extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewSubject");
+          this.props.history.push("/admin/viewSubject");
         },
         (error) => {
           alert("Failed");
@@ -80,7 +80,7 @@ export class AddSubject extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewSubject");
+          this.props.history.push("/admin/viewSubject");
         },
         (error) => {
           alert("Failed");

@@ -112,7 +112,7 @@ export class ViewPrincipal extends Component {
                         <h4 className="card-title">Principal List</h4>
                         <br />
                         <Link
-                          to="/addPrincipal"
+                          to="/admin/addPrincipal"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Principal

@@ -1,7 +1,7 @@
 import react from "react";
+import { Component } from "react";
 import Header from "./includes/header";
 import Footer from "./includes/footer";
-import { Component } from "react/cjs/react.production.min";
 import { Variables } from "../Variables";
 
 export class AddStudentManually extends Component {
@@ -122,10 +122,13 @@ export class AddStudentManually extends Component {
   };
 
   componentDidMount() {
+    alert("Load");
     this.getMediumList();
     this.getClassList();
     this.getCategoryList();
+   
     if (this.props.match.params.id !== undefined) {
+      console.log("ID ::: "+this.props.match.params.id);
       this.setState({ studentIdPk: this.props.match.params.id });
       this.OnGetData(this.props.match.params.id);
     } else {
@@ -172,7 +175,7 @@ export class AddStudentManually extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewStudent");
+          this.props.history.push("/admin/viewStudent");
         },
         (error) => {
           alert("Failed");
@@ -209,7 +212,7 @@ export class AddStudentManually extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewStudent");
+          this.props.history.push("/admin/viewStudent");
         },
         (error) => {
           alert("Failed");
@@ -298,7 +301,7 @@ export class AddStudentManually extends Component {
                   <div className="breadcrumb-wrapper col-xs-12">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
-                        <a href="index-2.html">Home</a>
+                        <a >Home</a>
                       </li>
                       <li className="breadcrumb-item active">
                         Add Student Manually

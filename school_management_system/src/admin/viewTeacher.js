@@ -113,7 +113,7 @@ export class ViewTeacher extends Component {
                         <h4 className="card-title">Teacher List</h4>
                         <br />
                         <Link
-                          to="/addTeacher"
+                          to="/admin/addTeacher"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Teacher

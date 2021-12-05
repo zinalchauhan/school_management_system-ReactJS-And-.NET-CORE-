@@ -104,7 +104,7 @@ export class ViewSubject extends Component {
                         <h4 className="card-title">Time Table List</h4>
                         <br />
                         <Link
-                          to="/addTimeTable"
+                          to="/admin/addTimeTable"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Time Table

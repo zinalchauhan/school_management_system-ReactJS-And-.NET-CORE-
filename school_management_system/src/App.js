@@ -26,6 +26,7 @@ import AddSubjectTeacher from "./admin/addSubjectTeacher";
 import AddTimeTableSetting from "./admin/addTimeTableSetting";
 import ViewTimeTableSetting from "./admin/viewTimeTableSetting";
 import AddTimeTable from "./admin/addTimeTable";
+import viewTimeTable from "./admin/viewTimeTable";
 import AddExam from "./admin/addExam";
 import ViewExam from "./admin/viewExam";
 import AddExamTimeTable from "./admin/addExamTimeTable";
@@ -75,47 +76,49 @@ function App() {
 
         
         
-          <Route path="/admin" exact component={Index} />
-          <Route path="/admin/addStudentManually" component={AddStudentManually} />
-          <Route path="/admin/addStudent" component={AddStudent} />
-          <Route path="/admin/viewStudent" component={ViewStudent} />
-          <Route path="/admin/ViewStandardCard" component={ViewStandardCard} />
-          <Route path="/admin/viewRemark" component={ViewRemark} />
-          <Route path="/admin/addTeacher" component={AddTeacher} />
-          <Route path="/admin/oldStudent" component={OldStudent} />
-          <Route path="/admin/viewAttendence" component={ViewAttendence} />
-          <Route path="/admin/viewTeacher" component={ViewTeacher} />
-          <Route path="/admin/addClassTeacher" component={AddClassTeacher} />
-          <Route path="/admin/viewClassTeacher" component={ViewClassTeacher} />
-          <Route path="/admin/addPrincipal" component={AddPrincipal} />
-          <Route path="/admin/viewPrincipal" component={ViewPrincipal} />
-          <Route path="/admin/addSubject" component={AddSubject} />
-          <Route path="/admin/viewSubject" component={ViewSubject} />
-          <Route path="/admin/addStandardSubject" component={AddStandardSubject} />
-          <Route path="/admin/addSubjectTeacher" component={AddSubjectTeacher} />
-          <Route path="/admin/addTimeTableSetting" component={AddTimeTableSetting} />
-          <Route path="/admin/viewTimeTableSetting" component={ViewTimeTableSetting} />
-          <Route path="/admin/addTimeTable" component={AddTimeTable} />
-          <Route path="/admin/addExam" component={AddExam} />
-          <Route path="/admin/viewExam" component={ViewExam} />
-          <Route path="/admin/addExamTimeTable" component={AddExamTimeTable} />
-          <Route path="/admin/addResult" component={AddResult} />
-          <Route path="/admin/addResultManually" component={AddResultManually} />
-          <Route path="/admin/addQuePaper" component={AddQuePaper} />
-          <Route path="/admin/addStandard" component={AddStandard} />
-          <Route path="/admin/viewStandard" component={ViewStandard} />
-          <Route path="/admin/addDivision" component={AddDivision} />
-          <Route path="/admin/viewDivision" component={ViewDivision} />
-          <Route path="/admin/addClass" component={AddClass} />
-          <Route path="/admin/viewClass" component={ViewClass} />
-          <Route path="/admin/addEvent" component={AddEvent} />
-          <Route path="/admin/viewEvent" component={ViewEvent} />
-          <Route path="/admin/viewFeedback" component={ViewFeedback} />
-          <Route path="/admin/addMedium" component={AddMedium} />
-          <Route path="/admin/viewMedium" component={ViewMedium} />
-          <Route path="/admin/viewEngMedTeacher" component={ViewEngMedTeacher} />
-          <Route path="/admin/viewGujMedTeacher" component={ViewGujMedTeacher} />
-          <Route path="/admin/viewPrincipalLoginData" component={ViewPrincipalLoginData} />
+      <Route path="/admin" exact component={Index} />
+      <Route path="/admin/addStudentManually" component={AddStudentManually}/>
+      <Route path="/admin/edit-student/:id" commponent={AddStudentManually} />
+      <Route path="/admin/addStudent" component={AddStudent} />
+      <Route path="/admin/viewStudent" component={ViewStudent} />
+      <Route path="/admin/ViewStandardCard" component={ViewStandardCard} />
+      <Route path="/admin/viewRemark" component={ViewRemark} />
+      <Route path="/admin/addTeacher" component={AddTeacher} />
+      <Route path="/admin/oldStudent" component={OldStudent} />
+      <Route path="/admin/viewAttendence" component={ViewAttendence} />
+      <Route path="/admin/viewTeacher" component={ViewTeacher} />
+      <Route path="/admin/addClassTeacher" component={AddClassTeacher} />
+      <Route path="/admin/viewClassTeacher" component={ViewClassTeacher} />
+      <Route path="/admin/addPrincipal" component={AddPrincipal} />
+      <Route path="/admin/viewPrincipal" component={ViewPrincipal} />
+      <Route path="/admin/addSubject" component={AddSubject} />
+      <Route path="/admin/viewSubject" component={ViewSubject} />
+      <Route path="/admin/addStandardSubject" component={AddStandardSubject} />
+      <Route path="/admin/addSubjectTeacher" component={AddSubjectTeacher} />
+      <Route path="/admin/addTimeTableSetting" component={AddTimeTableSetting} />
+      <Route path="/admin/viewTimeTableSetting" component={ViewTimeTableSetting} />
+      <Route path="/admin/addTimeTable" component={AddTimeTable} />
+      <Route path="/admin/viewTimeTable" component={viewTimeTable} />
+      <Route path="/admin/addExam" component={AddExam} />
+      <Route path="/admin/viewExam" component={ViewExam} />
+      <Route path="/admin/addExamTimeTable" component={AddExamTimeTable} />
+      <Route path="/admin/addResult" component={AddResult} />
+      <Route path="/admin/addResultManually" component={AddResultManually} />
+      <Route path="/admin/addQuePaper" component={AddQuePaper} />
+      <Route path="/admin/addStandard" component={AddStandard} />
+      <Route path="/admin/viewStandard" component={ViewStandard} />
+      <Route path="/admin/addDivision" component={AddDivision} />
+      <Route path="/admin/viewDivision" component={ViewDivision} />
+      <Route path="/admin/addClass" component={AddClass} />
+      <Route path="/admin/viewClass" component={ViewClass} />
+      <Route path="/admin/addEvent" component={AddEvent} />
+      <Route path="/admin/viewEvent" component={ViewEvent} />
+      <Route path="/admin/viewFeedback" component={ViewFeedback} />
+      <Route path="/admin/addMedium" component={AddMedium} />
+      <Route path="/admin/viewMedium" component={ViewMedium} />
+      <Route path="/admin/viewEngMedTeacher" component={ViewEngMedTeacher} />
+      <Route path="/admin/viewGujMedTeacher" component={ViewGujMedTeacher} />
+      <Route path="/admin/viewPrincipalLoginData" component={ViewPrincipalLoginData} />
         
         <Route path="/student" exact component={studentIndex} />
         <Route path="/student/viewTeacherList" exact component={viewTeacherList} />

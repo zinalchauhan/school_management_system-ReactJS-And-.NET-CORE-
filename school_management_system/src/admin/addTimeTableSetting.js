@@ -118,7 +118,7 @@ export class AddTimeTableSetting extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewTimeTableSetting");
+          this.props.history.push("/admin/viewTimeTableSetting");
         },
         (error) => {
           
@@ -150,7 +150,7 @@ export class AddTimeTableSetting extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewTimeTableSetting");
+          this.props.history.push("/admin/viewTimeTableSetting");
         },
         (error) => {
           alert("Failed");
