@@ -122,7 +122,6 @@ export class AddStudentManually extends Component {
   };
 
   componentDidMount() {
-    alert("Load");
     this.getMediumList();
     this.getClassList();
     this.getCategoryList();

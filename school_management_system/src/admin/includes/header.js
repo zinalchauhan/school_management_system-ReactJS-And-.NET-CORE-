@@ -19,17 +19,17 @@ export class Header extends Component {
     return (
       <div>
         {/* <!-- navbar-fixed-top--> */}
-        <nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-dark navbar-shadow navbar-border">
-          <div class="navbar-wrapper">
-            <div class="navbar-header">
-              <ul class="nav navbar-nav">
-                <li class="nav-item mobile-menu hidden-md-up float-xs-left">
-                  <a class="nav-link nav-menu-main menu-toggle hidden-xs">
-                    <i class="icon-menu5 font-large-1"></i>
+        <nav className="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-dark navbar-shadow navbar-border">
+          <div className="navbar-wrapper">
+            <div className="navbar-header">
+              <ul className="nav navbar-nav">
+                <li className="nav-item mobile-menu hidden-md-up float-xs-left">
+                  <a className="nav-link nav-menu-main menu-toggle hidden-xs">
+                    <i className="icon-menu5 font-large-1"></i>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="/admin" class="navbar-brand nav-link">
+                <li className="nav-item">
+                  <a href="/admin" className="navbar-brand nav-link">
                     <img
                       alt="branding logo"
                       src="../assets/logo.png"
@@ -37,66 +37,66 @@ export class Header extends Component {
                       width="80px"
                       data-expand="./assets/robust-assets/images/logo/robust-logo-light.png"
                       data-collapse="./assets/robust-assets/images/logo/robust-logo-small.png"
-                      class="brand-logo"
+                      className="brand-logo"
                     />
                   </a>
                 </li>
-                <li class="nav-item hidden-md-up float-xs-right">
+                <li className="nav-item hidden-md-up float-xs-right">
                   <a
                     data-toggle="collapse"
                     data-target="#navbar-mobile"
-                    class="nav-link open-navbar-container"
+                    className="nav-link open-navbar-container"
                   >
-                    <i class="icon-ellipsis pe-2x icon-icon-rotate-right-right"></i>
+                    <i className="icon-ellipsis pe-2x icon-icon-rotate-right-right"></i>
                   </a>
                 </li>
               </ul>
             </div>
-            <div class="navbar-container content container-fluid">
-              <div id="navbar-mobile" class="collapse navbar-toggleable-sm">
-                <ul class="nav navbar-nav">
-                  <li class="nav-item hidden-sm-down">
-                    <a class="nav-link nav-menu-main menu-toggle hidden-xs">
-                      <i class="icon-menu5"></i>
+            <div className="navbar-container content container-fluid">
+              <div id="navbar-mobile" className="collapse navbar-toggleable-sm">
+                <ul className="nav navbar-nav">
+                  <li className="nav-item hidden-sm-down">
+                    <a className="nav-link nav-menu-main menu-toggle hidden-xs">
+                      <i className="icon-menu5"></i>
                     </a>
                   </li>
                 </ul>
-                <ul class="nav navbar-nav float-xs-right">
-                  <li class="dropdown dropdown-notification nav-item">
+                <ul className="nav navbar-nav float-xs-right">
+                  <li className="dropdown dropdown-notification nav-item">
                     <a
                       href="#"
                       data-toggle="dropdown"
-                      class="nav-link nav-link-label"
+                      className="nav-link nav-link-label"
                     >
-                      <i class="ficon icon-bell4"></i>
-                      <span class="tag tag-pill tag-default tag-danger tag-default tag-up">
+                      <i className="ficon icon-bell4"></i>
+                      <span className="tag tag-pill tag-default tag-danger tag-default tag-up">
                         5
                       </span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                      <li class="dropdown-menu-header">
-                        <h6 class="dropdown-header m-0">
-                          <span class="grey darken-2">Notifications</span>
-                          <span class="notification-tag tag tag-default tag-danger float-xs-right m-0">
+                    <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                      <li className="dropdown-menu-header">
+                        <h6 className="dropdown-header m-0">
+                          <span className="grey darken-2">Notifications</span>
+                          <span className="notification-tag tag tag-default tag-danger float-xs-right m-0">
                             5 New
                           </span>
                         </h6>
                       </li>
-                      <li class="list-group scrollable-container">
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-cart3 icon-bg-circle bg-cyan"></i>
+                      <li className="list-group scrollable-container">
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left valign-middle">
+                              <i className="icon-cart3 icon-bg-circle bg-cyan"></i>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">You have new order!</h6>
-                              <p class="notification-text font-small-3 text-muted">
+                            <div className="media-body">
+                              <h6 className="media-heading">You have new order!</h6>
+                              <p className="notification-text font-small-3 text-muted">
                                 Lorem ipsum dolor sit amet, consectetuer elit.
                               </p>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   30 minutes ago
                                 </time>
@@ -104,22 +104,22 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-monitor3 icon-bg-circle bg-red bg-darken-1"></i>
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left valign-middle">
+                              <i className="icon-monitor3 icon-bg-circle bg-red bg-darken-1"></i>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading red darken-1">
+                            <div className="media-body">
+                              <h6 className="media-heading red darken-1">
                                 99% Server load
                               </h6>
-                              <p class="notification-text font-small-3 text-muted">
+                              <p className="notification-text font-small-3 text-muted">
                                 Aliquam tincidunt mauris eu risus.
                               </p>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   Five hour ago
                                 </time>
@@ -127,22 +127,22 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-server2 icon-bg-circle bg-yellow bg-darken-3"></i>
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left valign-middle">
+                              <i className="icon-server2 icon-bg-circle bg-yellow bg-darken-3"></i>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading yellow darken-3">
+                            <div className="media-body">
+                              <h6 className="media-heading yellow darken-3">
                                 Warning notifixation
                               </h6>
-                              <p class="notification-text font-small-3 text-muted">
+                              <p className="notification-text font-small-3 text-muted">
                                 Vestibulum auctor dapibus neque.
                               </p>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   Today
                                 </time>
@@ -150,17 +150,17 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-check2 icon-bg-circle bg-green bg-accent-3"></i>
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left valign-middle">
+                              <i className="icon-check2 icon-bg-circle bg-green bg-accent-3"></i>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Complete the task</h6>
+                            <div className="media-body">
+                              <h6 className="media-heading">Complete the task</h6>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   Last week
                                 </time>
@@ -168,19 +168,19 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-bar-graph-2 icon-bg-circle bg-teal"></i>
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left valign-middle">
+                              <i className="icon-bar-graph-2 icon-bg-circle bg-teal"></i>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">
+                            <div className="media-body">
+                              <h6 className="media-heading">
                                 Generate monthly report
                               </h6>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   Last month
                                 </time>
@@ -189,41 +189,41 @@ export class Header extends Component {
                           </div>
                         </a>
                       </li>
-                      <li class="dropdown-menu-footer">
+                      <li className="dropdown-menu-footer">
                         <a
-                          href="javascript:void(0)"
-                          class="dropdown-item text-muted text-xs-center"
+                          
+                          className="dropdown-item text-muted text-xs-center"
                         >
                           Read all notifications
                         </a>
                       </li>
                     </ul>
                   </li>
-                  <li class="dropdown dropdown-notification nav-item">
+                  <li className="dropdown dropdown-notification nav-item">
                     <a
                       href="#"
                       data-toggle="dropdown"
-                      class="nav-link nav-link-label"
+                      className="nav-link nav-link-label"
                     >
-                      <i class="ficon icon-mail6"></i>
-                      <span class="tag tag-pill tag-default tag-info tag-default tag-up">
+                      <i className="ficon icon-mail6"></i>
+                      <span className="tag tag-pill tag-default tag-info tag-default tag-up">
                         8
                       </span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                      <li class="dropdown-menu-header">
-                        <h6 class="dropdown-header m-0">
-                          <span class="grey darken-2">Messages</span>
-                          <span class="notification-tag tag tag-default tag-info float-xs-right m-0">
+                    <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                      <li className="dropdown-menu-header">
+                        <h6 className="dropdown-header m-0">
+                          <span className="grey darken-2">Messages</span>
+                          <span className="notification-tag tag tag-default tag-info float-xs-right m-0">
                             4 New
                           </span>
                         </h6>
                       </li>
-                      <li class="list-group scrollable-container">
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-online rounded-circle">
+                      <li className="list-group scrollable-container">
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left">
+                              <span className="avatar avatar-sm avatar-online rounded-circle">
                                 <img
                                   src="./assets/robust-assets/images/portrait/small/avatar-s-1.png"
                                   alt="avatar"
@@ -231,15 +231,15 @@ export class Header extends Component {
                                 <i></i>
                               </span>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Margaret Govan</h6>
-                              <p class="notification-text font-small-3 text-muted">
+                            <div className="media-body">
+                              <h6 className="media-heading">Margaret Govan</h6>
+                              <p className="notification-text font-small-3 text-muted">
                                 I like your portfolio, let's start the project.
                               </p>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   Today
                                 </time>
@@ -247,10 +247,10 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-busy rounded-circle">
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left">
+                              <span className="avatar avatar-sm avatar-busy rounded-circle">
                                 <img
                                   src="./assets/robust-assets/images/portrait/small/avatar-s-2.png"
                                   alt="avatar"
@@ -258,15 +258,15 @@ export class Header extends Component {
                                 <i></i>
                               </span>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Bret Lezama</h6>
-                              <p class="notification-text font-small-3 text-muted">
+                            <div className="media-body">
+                              <h6 className="media-heading">Bret Lezama</h6>
+                              <p className="notification-text font-small-3 text-muted">
                                 I have seen your work, there is
                               </p>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   Tuesday
                                 </time>
@@ -274,10 +274,10 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-online rounded-circle">
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left">
+                              <span className="avatar avatar-sm avatar-online rounded-circle">
                                 <img
                                   src="./assets/robust-assets/images/portrait/small/avatar-s-3.png"
                                   alt="avatar"
@@ -285,15 +285,15 @@ export class Header extends Component {
                                 <i></i>
                               </span>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Carie Berra</h6>
-                              <p class="notification-text font-small-3 text-muted">
+                            <div className="media-body">
+                              <h6 className="media-heading">Carie Berra</h6>
+                              <p className="notification-text font-small-3 text-muted">
                                 Can we have call in this week ?
                               </p>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   Friday
                                 </time>
@@ -301,10 +301,10 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-away rounded-circle">
+                        <a  className="list-group-item">
+                          <div className="media">
+                            <div className="media-left">
+                              <span className="avatar avatar-sm avatar-away rounded-circle">
                                 <img
                                   src="./assets/robust-assets/images/portrait/small/avatar-s-6.png"
                                   alt="avatar"
@@ -312,15 +312,15 @@ export class Header extends Component {
                                 <i></i>
                               </span>
                             </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Eric Alsobrook</h6>
-                              <p class="notification-text font-small-3 text-muted">
+                            <div className="media-body">
+                              <h6 className="media-heading">Eric Alsobrook</h6>
+                              <p className="notification-text font-small-3 text-muted">
                                 We have project party this saturday night.
                               </p>
                               <small>
                                 <time
                                   dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
+                                  className="media-meta text-muted"
                                 >
                                   last month
                                 </time>
@@ -329,47 +329,47 @@ export class Header extends Component {
                           </div>
                         </a>
                       </li>
-                      <li class="dropdown-menu-footer">
+                      <li className="dropdown-menu-footer">
                         <a
-                          href="javascript:void(0)"
-                          class="dropdown-item text-muted text-xs-center"
+                          
+                          className="dropdown-item text-muted text-xs-center"
                         >
                           Read all messages
                         </a>
                       </li>
                     </ul>
                   </li>
-                  <li class="dropdown dropdown-user nav-item">
+                  <li className="dropdown dropdown-user nav-item">
                     <a
                       href="#"
                       data-toggle="dropdown"
-                      class="dropdown-toggle nav-link dropdown-user-link"
+                      className="dropdown-toggle nav-link dropdown-user-link"
                     >
-                      <span class="avatar avatar-online">
+                      <span className="avatar avatar-online">
                         <img
                           src="./assets/robust-assets/images/portrait/small/avatar-s-1.png"
                           alt="avatar"
                         />
                         <i></i>
                       </span>
-                      <span class="user-name"> Admin </span>
+                      <span className="user-name"> Admin </span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      {/* <a href="#" class="dropdown-item">
-                        <i class="icon-head"></i> Edit Profile
+                    <div className="dropdown-menu dropdown-menu-right">
+                      {/* <a href="#" className="dropdown-item">
+                        <i className="icon-head"></i> Edit Profile
                       </a>
-                      <a href="#" class="dropdown-item">
-                        <i class="icon-mail6"></i> My Inbox
+                      <a href="#" className="dropdown-item">
+                        <i className="icon-mail6"></i> My Inbox
                       </a>
-                      <a href="#" class="dropdown-item">
-                        <i class="icon-clipboard2"></i> Task
+                      <a href="#" className="dropdown-item">
+                        <i className="icon-clipboard2"></i> Task
                       </a>
-                      <a href="#" class="dropdown-item">
-                        <i class="icon-calendar5"></i> Calender
+                      <a href="#" className="dropdown-item">
+                        <i className="icon-calendar5"></i> Calender
                       </a> */}
                       
                       <a onClick={() => this.logout()} >
-                        <i class="icon-power3"></i> Logout
+                        <i className="icon-power3"></i> Logout
                       </a>
                     </div>
                   </li>
@@ -382,47 +382,47 @@ export class Header extends Component {
         {/* <!-- ////////////////////////////////////////////////////////////////////////////--> */}
 
         {/* <!-- main menu--> */}
-        <div class="main-menu menu-dark menu-fixed menu-shadow menu-border menu-accordion">
+        <div className="main-menu menu-dark menu-fixed menu-shadow menu-border menu-accordion">
           {/* <!-- main menu header--> */}
           {/* <!-- / main menu header--> */}
           {/* <!-- main menu content--> */}
-          <div class="main-menu-content">
+          <div className="main-menu-content">
             <ul
               id="main-menu-navigation"
               data-menu="menu-navigation"
-              class="navigation navigation-main"
+              className="navigation navigation-main"
             >
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <Link to="/">
-                  <i class="icon-home3"></i>
-                  <span data-i18n="nav.dash.main" class="menu-title">
+                  <i className="icon-home3"></i>
+                  <span data-i18n="nav.dash.main" className="menu-title">
                     Dashboard
                   </span>
                 </Link>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">STUDENTS</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
 
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Student
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addStudentManually"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Student Manually
                     </Link>
@@ -431,7 +431,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/addStudent"
                       data-i18n="nav.page_layouts.2_columns"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Student
                     </Link>
@@ -440,7 +440,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewStudent"
                       data-i18n="nav.page_layouts.2_columns"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Student
                     </Link>
@@ -449,52 +449,52 @@ export class Header extends Component {
                     <Link
                       to="/admin/oldStudent"
                       data-i18n="nav.page_layouts.2_columns"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Old Student
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Remark
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewRemark"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Remark
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Attendence
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewAttendence"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Attendence
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">
                   TEACHER & PRINCIPAL
                 </span>
@@ -502,22 +502,22 @@ export class Header extends Component {
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Teacher
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addTeacher"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Teacher
                     </Link>
@@ -526,26 +526,26 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewTeacher"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Teacher
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Class Teacher
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addClassTeacher"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Class Teacher
                     </Link>
@@ -554,26 +554,26 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewClassTeacher"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Class Teacher
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Principal
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addPrincipal"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Principal
                     </Link>
@@ -582,35 +582,35 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewPrincipal"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Principal
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">SUBJECT</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Subject
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addSubject"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Subject
                     </Link>
@@ -619,26 +619,26 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewSubject"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Subject
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Standard Subject
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Standard Subject
                     </Link>
@@ -647,35 +647,35 @@ export class Header extends Component {
                     <Link
                       to="/admin/addSubjectTeacher"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Subject Teacher
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">TIMETABLE</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Time-Table Setting
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addTimeTableSetting"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Time-Table Setting
                     </Link>
@@ -684,26 +684,26 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewTimeTableSetting"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Time-Table Setting
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Time-Table
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addTimeTable"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Time-Table
                     </Link>
@@ -712,35 +712,35 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewTimeTable"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Time-Table
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">EXAM & RESULT</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Exam
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addExam"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Exam
                     </Link>
@@ -749,26 +749,26 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewExam"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Exam
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Exam Time-Table
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addExamTimeTable"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Exam Time-Table
                     </Link>
@@ -777,26 +777,26 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Exam Time-Table
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Result
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Final Result
                     </Link>
@@ -805,7 +805,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/addResult"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Result
                     </Link>
@@ -814,7 +814,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/addResultManually"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Result Manually
                     </Link>
@@ -823,7 +823,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Final Result
                     </Link>
@@ -832,26 +832,26 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Result
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Question Paper
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addQuePaper"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Question Paper
                     </Link>
@@ -860,14 +860,14 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Question Paper
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">
                   EVENTS & ACTIVITIES
                 </span>
@@ -875,22 +875,22 @@ export class Header extends Component {
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Event
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addEvent"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Event
                     </Link>
@@ -899,73 +899,73 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewEvent"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Event
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">CLASS & STANDARD</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Standard
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewStandard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Standard
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Division
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewDivision"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Division
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Class
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/addClass"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Add Class
                     </Link>
@@ -974,92 +974,92 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewClass"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Class
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">ADMIN</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
                   data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
+                  className="icon-ellipsis icon-ellipsis"
                 ></i>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Feedback
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewFeedback"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Feedback
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Medium
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewMedium"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Medium
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Student
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewStudent"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       View Student
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
+              <li className=" nav-item">
                 <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
+                  <i className="icon-stack-2"></i>
+                  <span data-i18n="nav.page_layouts.main" className="menu-title">
                     Login Data
                   </span>
                 </a>
-                <ul class="menu-content">
+                <ul className="menu-content">
                   <li>
                     <Link
                       to="/admin/viewEngMedTeacher"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       English Medium Teacher Data
                     </Link>
@@ -1068,7 +1068,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewGujMedTeacher"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Gujarati Medium Teacher Data
                     </Link>
@@ -1077,7 +1077,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewPrincipalLoginData"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Principal Data
                     </Link>
@@ -1086,7 +1086,7 @@ export class Header extends Component {
                     <Link
                       to="/admin/viewStandardCard"
                       data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
+                      className="menu-item"
                     >
                       Student Data
                     </Link>
@@ -1097,59 +1097,59 @@ export class Header extends Component {
           </div>
           {/* <!-- /main menu content--> */}
           {/* <!-- main menu footer--> */}
-          <div class="main-menu-footer footer-close">
-            <div class="header text-xs-center">
-              <a href="#" class="col-xs-12 footer-toggle">
-                <i class="icon-ios-arrow-up"></i>
+          <div className="main-menu-footer footer-close">
+            <div className="header text-xs-center">
+              <a href="#" className="col-xs-12 footer-toggle">
+                <i className="icon-ios-arrow-up"></i>
               </a>
             </div>
-            <div class="content">
-              <div class="insights">
-                <div class="col-xs-12">
+            <div className="content">
+              <div className="insights">
+                <div className="col-xs-12">
                   <p>Product Delivery</p>
                   <progress
                     value="25"
                     max="100"
-                    class="progress progress-xs progress-success"
+                    className="progress progress-xs progress-success"
                   >
                     25%
                   </progress>
                 </div>
-                <div class="col-xs-12">
+                <div className="col-xs-12">
                   <p>Targeted Sales</p>
                   <progress
                     value="70"
                     max="100"
-                    class="progress progress-xs progress-info"
+                    className="progress progress-xs progress-info"
                   >
                     70%
                   </progress>
                 </div>
               </div>
-              <div class="actions">
+              <div className="actions">
                 <a
-                  href="javascript: void(0);"
+                  
                   data-placement="top"
                   data-toggle="tooltip"
                   data-original-title="Settings"
                 >
-                  <span aria-hidden="true" class="icon-cog3"></span>
+                  <span aria-hidden="true" className="icon-cog3"></span>
                 </a>
                 <a
-                  href="javascript: void(0);"
+                  
                   data-placement="top"
                   data-toggle="tooltip"
                   data-original-title="Lock"
                 >
-                  <span aria-hidden="true" class="icon-lock4"></span>
+                  <span aria-hidden="true" className="icon-lock4"></span>
                 </a>
                 <a
-                  href="javascript: void(0);"
+                  
                   data-placement="top"
                   data-toggle="tooltip"
                   data-original-title="Logout"
                 >
-                  <span aria-hidden="true" class="icon-power3"></span>
+                  <span aria-hidden="true" className="icon-power3"></span>
                 </a>
               </div>
             </div>

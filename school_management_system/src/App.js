@@ -78,7 +78,7 @@ function App() {
         
       <Route path="/admin" exact component={Index} />
       <Route path="/admin/addStudentManually" component={AddStudentManually}/>
-      <Route path="/admin/edit-student/:id" commponent={AddStudentManually} />
+      <Route path="/admin/edit-student/:id" component={AddStudentManually}></Route>
       <Route path="/admin/addStudent" component={AddStudent} />
       <Route path="/admin/viewStudent" component={ViewStudent} />
       <Route path="/admin/ViewStandardCard" component={ViewStandardCard} />

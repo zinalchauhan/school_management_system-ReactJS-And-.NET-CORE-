@@ -69,7 +69,7 @@ export class Header extends Component {
                         </h6>
                       </li>
                       <li class="list-group scrollable-container">
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left valign-middle">
                               <i class="icon-cart3 icon-bg-circle bg-cyan"></i>
@@ -90,7 +90,7 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left valign-middle">
                               <i class="icon-monitor3 icon-bg-circle bg-red bg-darken-1"></i>
@@ -113,7 +113,7 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left valign-middle">
                               <i class="icon-server2 icon-bg-circle bg-yellow bg-darken-3"></i>
@@ -136,7 +136,7 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left valign-middle">
                               <i class="icon-check2 icon-bg-circle bg-green bg-accent-3"></i>
@@ -154,7 +154,7 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left valign-middle">
                               <i class="icon-bar-graph-2 icon-bg-circle bg-teal"></i>
@@ -177,7 +177,7 @@ export class Header extends Component {
                       </li>
                       <li class="dropdown-menu-footer">
                         <a
-                          href="javascript:void(0)"
+                          
                           class="dropdown-item text-muted text-xs-center"
                         >
                           Read all notifications
@@ -206,7 +206,7 @@ export class Header extends Component {
                         </h6>
                       </li>
                       <li class="list-group scrollable-container">
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left">
                               <span class="avatar avatar-sm avatar-online rounded-circle">
@@ -233,7 +233,7 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left">
                               <span class="avatar avatar-sm avatar-busy rounded-circle">
@@ -260,7 +260,7 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left">
                               <span class="avatar avatar-sm avatar-online rounded-circle">
@@ -287,7 +287,7 @@ export class Header extends Component {
                             </div>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a  class="list-group-item">
                           <div class="media">
                             <div class="media-left">
                               <span class="avatar avatar-sm avatar-away rounded-circle">
@@ -317,7 +317,7 @@ export class Header extends Component {
                       </li>
                       <li class="dropdown-menu-footer">
                         <a
-                          href="javascript:void(0)"
+                          
                           class="dropdown-item text-muted text-xs-center"
                         >
                           Read all messages

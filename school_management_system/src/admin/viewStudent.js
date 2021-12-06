@@ -121,7 +121,7 @@ export class ViewStudent extends Component {
                         <br />
                         <Link
                           to="/admin/addStudentManually"
-                          class="btn btn-outline-primary edit-item-btn"
+                          className="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Student
                         </Link>
@@ -176,14 +176,14 @@ export class ViewStudent extends Component {
                                 <tr key={index}>
                                   <td> {index + 1} </td>
                                   <td>
-                                      <Link
-                                      class="btn btn-outline-primary edit-item-btn"
-                                        to={{
-                                          pathname: `/admin/edit-student/${stud.studentIdPk}`,
-                                        }}
-                                      >
-                                        Edit
-                                      </Link>{" "}
+                                    <Link
+                                      className="btn btn-outline-primary edit-item-btn"
+                                      to={{
+                                        pathname: `/admin/edit-student/${stud.studentIdPk}`,
+                                      }}
+                                    >
+                                      Edit  
+                                    </Link>{" "}
                                     <br />
                                     <br />
                                     <button
@@ -191,7 +191,7 @@ export class ViewStudent extends Component {
                                       onClick={() =>
                                         this.delete(stud.studentIdPk)
                                       }
-                                      class="btn btn-outline-danger remove-item-btn"
+                                      className="btn btn-outline-danger remove-item-btn"
                                     >
                                       {" "}
                                       Delete{" "}
@@ -206,7 +206,7 @@ export class ViewStudent extends Component {
                                   <td>
                                     <b> Roll No. : </b>
                                     <input
-                                      class="form-control round rno"
+                                      className="form-control round rno"
                                       value={stud.studentRollNo}
                                       type="number"
                                     />
