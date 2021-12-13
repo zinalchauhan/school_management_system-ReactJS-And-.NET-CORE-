@@ -112,7 +112,7 @@ export class AddExam extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewExam");
+          this.props.history.push("/admin/viewExam");
         },
         (error) => {
           
@@ -143,7 +143,7 @@ export class AddExam extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewExam");
+          this.props.history.push("/admin/viewExam");
         },
         (error) => {
           alert("Failed");

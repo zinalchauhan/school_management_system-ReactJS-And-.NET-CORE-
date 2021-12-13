@@ -87,7 +87,7 @@ export class AddClass extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewClass");
+          this.props.history.push("/admin/viewClass");
         },
         (error) => {
           
@@ -113,7 +113,7 @@ export class AddClass extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewClass");
+          this.props.history.push("/admin/viewClass");
         },
         (error) => {
           alert("Failed");
@@ -168,7 +168,7 @@ export class AddClass extends Component {
                   <div className="breadcrumb-wrapper col-xs-12">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
-                        <a href="index-2.html">Home</a>
+                        <a>Home</a>
                       </li>
                       <li className="breadcrumb-item active">Add Class</li>
                     </ol>

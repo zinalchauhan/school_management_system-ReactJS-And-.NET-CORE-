@@ -74,9 +74,53 @@ public  class eventMaster_tableDB : clsDB_Operation
             }
         }
 
+    public List<eventMaster_tableEntities> eventList(int id)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<eventMaster_tableEntities> oList = new List<eventMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT e.* , m.mediumName
+                            FROM [eventMaster] e 
+                            JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk] 
+                            WHERE e.[mediumIdFk] = @mediumIdFk
+                            and e.[isActive] = 1";
+            OnClearParameter();
+            AddParameter("@mediumIdFk", SqlDbType.Int, 2, id, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
 
 
-        public int OnDelete(int ID)
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+    public int OnDelete(int ID)
         {
             string strQ = "";
             try

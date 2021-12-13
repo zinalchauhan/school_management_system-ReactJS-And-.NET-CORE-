@@ -102,7 +102,7 @@ export class ViewExam extends Component {
                         <h4 className="card-title">Exam List</h4>
                         <br />
                         <Link
-                          to="/addExam"
+                          to="/admin/addExam"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Exam
@@ -174,7 +174,7 @@ export class ViewExam extends Component {
                                     >
                                       <Link
                                         to={{
-                                          pathname: `/edit-exam/${exm.examIdPk}`,
+                                          pathname: `/admin/edit-exam/${exm.examIdPk}`,
                                         }}
                                       >
                                         Edit

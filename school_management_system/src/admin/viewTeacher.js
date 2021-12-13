@@ -184,13 +184,13 @@ export class ViewTeacher extends Component {
                                   <td>
                                     {" "}
                                     <img
-                                      src="../assets/italy-pizza.jpg"
+                                      src={Variables.PHOTO_URL + tech.teacherImage}
                                       className="img"
                                     />{" "}
                                   </td>
                                   <td>
                                     <b> Medium : </b> <br/> &nbsp;&nbsp;&nbsp;  {tech.mediumName} <br/>
-                                    <b> subjects : </b> <br/> &nbsp;&nbsp;&nbsp;{tech.subjects}
+                                    <b> subjects : </b> <br/> &nbsp;&nbsp;&nbsp;{tech.teacherSubject}
                                   </td>
                                   <td>
                                     <b> Name : </b> <br/>&nbsp;&nbsp;&nbsp;{tech.teacherName} <br/>

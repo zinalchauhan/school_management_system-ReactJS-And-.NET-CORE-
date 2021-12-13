@@ -19,9 +19,9 @@ public  class teacherMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"INSERT INTO [teacherMaster]
-                                   ([teacherName],[teacherEmail],[teacherMobile],[teacherQualification],[teacherImage],[teacherAddress],[cityIdFk],[mediumIdFk],[subjects])
+                                   ([teacherName],[teacherEmail],[teacherMobile],[teacherQualification],[teacherImage],[teacherAddress],[cityIdFk],[mediumIdFk],[teacherSubject])
                              VALUES
-                                   (@teacherName,@teacherEmail,@teacherMobile,@teacherQualification,@teacherImage,@teacherAddress,@cityIdFk,@mediumIdFk,@subjects)";
+                                   (@teacherName,@teacherEmail,@teacherMobile,@teacherQualification,@teacherImage,@teacherAddress,@cityIdFk,@mediumIdFk,@teacherSubject)";
 
                 OnClearParameter();
                 AddParameter("@teacherName", SqlDbType.VarChar, 50, obj.TeacherName, ParameterDirection.Input);
@@ -32,7 +32,7 @@ public  class teacherMaster_tableDB : clsDB_Operation
                 AddParameter("@teacherAddress", SqlDbType.VarChar, 50, obj.TeacherAddress, ParameterDirection.Input);
                 AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CityIdFk, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@subjects", SqlDbType.VarChar, 50, obj.Subjects, ParameterDirection.Input);
+                AddParameter("@teacherSubject", SqlDbType.VarChar, 50, obj.TeacherSubject, ParameterDirection.Input);
             //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
@@ -60,7 +60,7 @@ public  class teacherMaster_tableDB : clsDB_Operation
                                     [teacherAddress]=@teacherAddress,
                                     [cityIdFk]=@cityIdFk,
                                     [mediumIdFk]=@mediumIdFk,
-                                    [subjects]=@subjects,
+                                    [teacherSubject]=@teacherSubject,
                                     [isActive] = 1    
                          WHERE [teacherIdPk]=@teacherIdPk";
 
@@ -74,7 +74,7 @@ public  class teacherMaster_tableDB : clsDB_Operation
                 AddParameter("@teacherAddress", SqlDbType.VarChar, 50, obj.TeacherAddress, ParameterDirection.Input);
                 AddParameter("@cityIdFk", SqlDbType.Int, 50, obj.CityIdFk, ParameterDirection.Input);
                 AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@subjects", SqlDbType.VarChar, 50, obj.Subjects, ParameterDirection.Input);
+                AddParameter("@teacherSubject", SqlDbType.VarChar, 50, obj.TeacherSubject, ParameterDirection.Input);
                 AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
@@ -127,7 +127,7 @@ public  class teacherMaster_tableDB : clsDB_Operation
                 obj.StateName = (drRow["stateName"].Equals(DBNull.Value)) ? "" : (string)drRow["stateName"];
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
-                obj.Subjects = (drRow["subjects"].Equals(DBNull.Value)) ? "" : (string)drRow["subjects"];
+                obj.TeacherSubject = (drRow["teacherSubject"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherSubject"];
                 obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
 
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))

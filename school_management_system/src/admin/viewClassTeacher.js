@@ -161,7 +161,7 @@ export class ViewClassTeacher extends Component {
                                     >
                                <Link
                                         to={{
-                                          pathname: `/edit-classTeacher/${cltc.classTeacherIdPk}`,
+                                          pathname: `/admin/edit-classTeacher/${cltc.classTeacherIdPk}`,
                                         }}
                                       >
                                         Edit

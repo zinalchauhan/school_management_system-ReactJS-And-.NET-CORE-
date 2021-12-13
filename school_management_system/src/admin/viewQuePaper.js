@@ -102,6 +102,12 @@ export class ViewQuePaper extends Component {
                       <div className="card-header">
                         <h4 className="card-title">Question Paper List</h4>
                         <br />
+                        <Link
+                          to="/admin/addQuePaper"
+                          class="btn btn-outline-primary edit-item-btn"
+                        >
+                          Add New Question Paper
+                        </Link>
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
                         </a>
@@ -135,7 +141,7 @@ export class ViewQuePaper extends Component {
                           className="card-block card-dashboard"
                           style={{ overflow: "scroll" }}
                         >
-                          <table className="table table-striped table-bordered file-export">
+                          <table className="table table-striped table-bordered">
                             <thead>
                               <tr>
                                 <th>#</th>
@@ -156,7 +162,7 @@ export class ViewQuePaper extends Component {
                                   <td> {que.subjectName} </td>
                                   <td> 
                                   <Link to = {{ 
-                                    pathname: `/edit-quePaperImage/${que.questionPaperIdPk}`,
+                                    pathname: `/admin/edit-quePaperImage/${que.questionPaperIdPk}`,
                                   }}>
                                         Galary
                                       </Link>{" "}  </td>
@@ -164,7 +170,7 @@ export class ViewQuePaper extends Component {
                                   <button class="btn btn-outline-primary edit-item-btn">
                                       <Link
                                         to={{
-                                          pathname: `/edit-quepaper/${que.questionPaperIdPk}`,
+                                          pathname: `/admin/edit-quepaper/${que.questionPaperIdPk}`,
                                         }}
                                       > 
                                         Edit

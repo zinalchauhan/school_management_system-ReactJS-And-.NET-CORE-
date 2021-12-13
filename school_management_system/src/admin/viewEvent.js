@@ -98,7 +98,7 @@ export class ViewEvent extends Component {
                         <h4 className="card-title">Event List</h4>
                         <br />
                         <Link
-                          to="/addEvent"
+                          to="/admin/addEvent"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Event
@@ -159,7 +159,7 @@ export class ViewEvent extends Component {
                                   <td> {evt.eventDate} </td>
                                   <td> 
                                   <Link to = {{ 
-                                    pathname: `/edit-eventImage/${evt.eventIdPk}`,
+                                    pathname: `/admin/edit-eventImage/${evt.eventIdPk}`,
                                   }}>
                                         Galary
                                       </Link>{" "} </td>
@@ -167,7 +167,7 @@ export class ViewEvent extends Component {
                                   <button class="btn btn-outline-primary edit-item-btn">
                                       <Link
                                         to={{
-                                          pathname: `/edit-event/${evt.eventIdPk}`,
+                                          pathname: `/admin/edit-event/${evt.eventIdPk}`,
                                         }}
                                       >
                                         Edit

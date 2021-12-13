@@ -19,6 +19,14 @@ namespace schoolManagementSystemAPI.Controllers
         subjectTeacherMaster_tableDB subtechObj = new();
         studentMaster_tableDB studObj = new();
         noticeMaster_tableDB noticeObj = new();
+        timetableMaster_tableDB ttObj = new();
+        timetableSettingMaster_tableDB ttsObj = new();
+        questionPaperMaster_tableDB qpObj = new();
+        questionPaperImageMaster_tableDB qpiObj = new();
+        eventMaster_tableDB eventObj = new();
+        eventImageMaster_tableDB eimgObj = new();
+        feedbackMaster_tableDB feedbackObj = new();
+        leaveRequestMaster_tableDB leaveObj = new();
 
         [HttpGet("remarkList/{studentId}")]
         public JsonResult remarkList(int studentId)
@@ -53,10 +61,10 @@ namespace schoolManagementSystemAPI.Controllers
         }
 
         [HttpGet("studentList/{id}")]
-        public JsonResult studentList(int ID)
+        public JsonResult studentList(int id)
         {
 
-            studentMaster_tableEntities stud = studObj.OnGetData(ID);
+            studentMaster_tableEntities stud = studObj.OnGetData(id);
 
             if (stud.StudentIdPk != 0)
             {
@@ -77,6 +85,102 @@ namespace schoolManagementSystemAPI.Controllers
             if (notice.Count != 0)
             {
                 return new JsonResult(new { result = "success", message = "Data Found", data = notice });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("timetableSettingList/{medId}")]
+        public JsonResult timetableSettingList(int medId)
+        {
+
+            List<timetableSettingMaster_tableEntities> tts = ttsObj.OnGetDataByMed(medId);
+
+            if (tts.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = tts });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("timetableList/{cls}/{tts}")]
+        public JsonResult timetableList(int cls , int tts)
+        {
+
+            List<timetableMaster_tableEntities> tt = ttObj.timeTableList(cls,tts);
+
+            if (tt.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = tt });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("questionpaperList/{std}")]
+        public JsonResult questionpaperList(int std)
+        {
+
+            List<questionPaperMaster_tableEntities> qp = qpObj.QuestionpaperList(std);
+
+            if (qp.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = qp });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("getPaperImageList/{id}")]
+        public JsonResult getPaperImageList(int id)
+        {
+
+            List<questionPaperImageMaster_tableEntities> img = qpiObj.OnGetImageListdt(id);
+
+            if (img.Count > 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = img });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("eventList/{med}")]
+        public JsonResult eventList(int med)
+        {
+
+            List<eventMaster_tableEntities> evt = eventObj.eventList(med);
+
+            if (evt.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = evt });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("getEventImageList/{id}")]
+        public JsonResult getEventImageList(int id)
+        {
+
+            List<eventImageMaster_tableEntities> img = eimgObj.OnGetImageListdt(id);
+
+            if (img.Count > 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = img });
             }
             else
             {

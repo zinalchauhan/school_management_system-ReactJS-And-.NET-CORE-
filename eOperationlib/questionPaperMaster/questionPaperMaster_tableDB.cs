@@ -215,7 +215,56 @@ public  class questionPaperMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<questionPaperMaster_tableEntities> OnGetListdt()
+    public List<questionPaperMaster_tableEntities> QuestionpaperList(int id)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<questionPaperMaster_tableEntities> oList = new List<questionPaperMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT qp.* , st.standardName , sb.subjectName , m.mediumName
+                            FROM [questionPaperMaster] qp
+                            JOIN [standardMaster] st ON qp.[standardIdFk] = st.[standardIdPk]
+                            JOIN [subjectMaster] sb ON qp.[subjectIdFk] = sb.[subjectIdPk]
+                            JOIN [mediumMaster] m ON qp.[mediumIdFk] = m.[mediumIdPk]
+                            WHERE qp.[standardIdFk] = @standardIdFk 
+                            and qp.[isActive]='1'";
+            OnClearParameter();
+            AddParameter("@standardIdFk", SqlDbType.Int, 2, id, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+
+    public List<questionPaperMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

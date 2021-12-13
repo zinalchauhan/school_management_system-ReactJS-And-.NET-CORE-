@@ -13,6 +13,7 @@ using System.Threading.Tasks;
         private int mediumIdFk = 0;
         private string mediumName = "";
         private int classIdFk = 0;
+        private int standardIdPk = 0;
         private string standardName = "";
         private string divisionName = "";
         private string studentFname = "";
@@ -46,6 +47,6 @@ using System.Threading.Tasks;
         public int IsActive { get => isActive; set => isActive = value; }
         public string StandardName { get => standardName; set => standardName = value; }
         public string DivisionName { get => divisionName; set => divisionName = value; }
-   
+    public int StandardIdPk { get => standardIdPk; set => standardIdPk = value; }
 }
 

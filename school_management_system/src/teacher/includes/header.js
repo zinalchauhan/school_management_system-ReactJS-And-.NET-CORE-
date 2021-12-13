@@ -341,18 +341,6 @@ export class Header extends Component {
                       <span class="user-name">John Doe</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a href="#" class="dropdown-item">
-                        <i class="icon-head"></i> Edit Profile
-                      </a>
-                      <a href="#" class="dropdown-item">
-                        <i class="icon-mail6"></i> My Inbox
-                      </a>
-                      <a href="#" class="dropdown-item">
-                        <i class="icon-clipboard2"></i> Task
-                      </a>
-                      <a href="#" class="dropdown-item">
-                        <i class="icon-calendar5"></i> Calender
-                      </a>
                       <div class="dropdown-divider"></div>
                       <a href="#" class="dropdown-item">
                         <i class="icon-power3"></i> Logout
@@ -387,7 +375,7 @@ export class Header extends Component {
                 </Link>
               </li>
               <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">STUDENT</span>
+                <span data-i18n="nav.category.layouts">TEACHER</span>
                 <i
                   data-toggle="tooltip"
                   data-placement="right"
@@ -400,13 +388,13 @@ export class Header extends Component {
                 <a href="#">
                   <i class="icon-stack-2"></i>
                   <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Student
+                    Teacher
                   </span>
                 </a>
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/student/viewProfile"
+                      to="/teacher/viewProfile"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -425,7 +413,16 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="student/viewRemarkList"
+                      to="/teacher/addRemark"
+                      data-i18n="nav.page_layouts.1_column"
+                      class="menu-item"
+                    >
+                      Add Remark
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/teacher/viewRemark"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -444,11 +441,11 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="admin/viewAttendenceList"
+                      to="/teacher/takeAttendance"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
-                      View Attendence
+                      Take Attendence
                     </Link>
                   </li>
                 </ul>
@@ -463,60 +460,11 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/teacher/viewNotice"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
                       View Notice
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">
-                  TEACHER & PRINCIPAL
-                </span>
-                <i
-                  data-toggle="tooltip"
-                  data-placement="right"
-                  data-original-title="Layouts"
-                  class="icon-ellipsis icon-ellipsis"
-                ></i>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Teacher
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/student/viewTeacherList"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Teacher
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Principal
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewPrincipal"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Principal
                     </Link>
                   </li>
                 </ul>
@@ -540,11 +488,20 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/teacher/viewTimeTable"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
                       View Time-Table
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/teacher/viewMyTimeTable"
+                      data-i18n="nav.page_layouts.1_column"
+                      class="menu-item"
+                    >
+                      My Time-Table
                     </Link>
                   </li>
                 </ul>
@@ -568,7 +525,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/teacher/viewExamTimeTable"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -587,7 +544,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/teacher/viewResult"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -606,7 +563,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/teacher/viewQuestionPaper"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -636,7 +593,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewEvent"
+                      to="/teacher/viewEvent"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -664,7 +621,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewFeedback"
+                      to="/teacher/giveFeedback"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -692,7 +649,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/teacher/addLeaveRequest"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -701,7 +658,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/teacher/viewLeaveRequest"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -712,68 +669,9 @@ export class Header extends Component {
               </li>
             </ul>
           </div>
-          {/* <!-- /main menu content--> */}
-          {/* <!-- main menu footer--> */}
-          <div class="main-menu-footer footer-close">
-            <div class="header text-xs-center">
-              <a href="#" class="col-xs-12 footer-toggle">
-                <i class="icon-ios-arrow-up"></i>
-              </a>
-            </div>
-            <div class="content">
-              <div class="insights">
-                <div class="col-xs-12">
-                  <p>Product Delivery</p>
-                  <progress
-                    value="25"
-                    max="100"
-                    class="progress progress-xs progress-success"
-                  >
-                    25%
-                  </progress>
-                </div>
-                <div class="col-xs-12">
-                  <p>Targeted Sales</p>
-                  <progress
-                    value="70"
-                    max="100"
-                    class="progress progress-xs progress-info"
-                  >
-                    70%
-                  </progress>
-                </div>
-              </div>
-              <div class="actions">
-                <a
-                  href="javascript: void(0);"
-                  data-placement="top"
-                  data-toggle="tooltip"
-                  data-original-title="Settings"
-                >
-                  <span aria-hidden="true" class="icon-cog3"></span>
-                </a>
-                <a
-                  href="javascript: void(0);"
-                  data-placement="top"
-                  data-toggle="tooltip"
-                  data-original-title="Lock"
-                >
-                  <span aria-hidden="true" class="icon-lock4"></span>
-                </a>
-                <a
-                  href="javascript: void(0);"
-                  data-placement="top"
-                  data-toggle="tooltip"
-                  data-original-title="Logout"
-                >
-                  <span aria-hidden="true" class="icon-power3"></span>
-                </a>
-              </div>
-            </div>
-          </div>
-          {/* <!-- main menu footer--> */}
+          
         </div>
-        {/* <!-- / main menu--> */}
+       
       </div>
     );
   }

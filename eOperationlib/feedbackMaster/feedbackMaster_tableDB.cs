@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 
-
 public  class feedbackMaster_tableDB : clsDB_Operation
 {
         private const string mstrModuleName = "feedbackMaster";
@@ -35,7 +34,6 @@ public  class feedbackMaster_tableDB : clsDB_Operation
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -156,7 +154,6 @@ public  class feedbackMaster_tableDB : clsDB_Operation
                     exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
                     throw exForce;
                 }
-
 
                 if (dtTable.Rows.Count != 0)
                 {

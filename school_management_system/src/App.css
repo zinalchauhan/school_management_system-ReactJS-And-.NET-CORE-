@@ -56,3 +56,10 @@
   width: 100px;
   margin-right: 35%;
 }
+
+.profile{
+  float: right;
+  height: 300px;
+  width: 300px;
+  margin-right: 25%;
+}

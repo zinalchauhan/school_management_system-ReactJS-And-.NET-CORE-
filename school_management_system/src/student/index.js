@@ -9,15 +9,16 @@ export class studentIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students : [],
-      studentIdFk : 0,
+      students: [],
+      studentIdFk: 0,
       standardIdFk: 0,
       studentMname: "",
-      classIdFk : 0,
+      mediumIdFk: 0,
+      classIdFk: 0,
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.OnGetData(sessionStorage.getItem("userId").toString());
   }
 
@@ -35,12 +36,14 @@ export class studentIndex extends Component {
           console.log(result);
           this.setState({
             classIdFk: result.data.classIdFk,
-            standardIdFk : result.data.standardIdFk,
-            studentMname : result.data.studentMname,
+            standardIdFk: result.data.standardIdPk,
+            studentMname: result.data.studentMname,
+            mediumIdFk: result.data.mediumIdFk,
           });
-           sessionStorage.setItem("classId",result.data.classIdFk);
-           sessionStorage.setItem("standardId",result.data.studentIdPk);
-           sessionStorage.setItem("mname",result.data.studentMname);
+          sessionStorage.setItem("classId", result.data.classIdFk);
+          sessionStorage.setItem("standardId", result.data.standardIdPk);
+          sessionStorage.setItem("mname", result.data.studentMname);
+          sessionStorage.setItem("medId", result.data.mediumIdFk);
         },
         (error) => {
           alert("Failed");
@@ -49,6 +52,13 @@ export class studentIndex extends Component {
   }
 
   render() {
+
+    const {
+      students,
+      studentIdFk,
+  }= this.state;
+
+
     return (
       <div>
         <Header></Header>
@@ -60,16 +70,18 @@ export class studentIndex extends Component {
               <div class="row">
                 <div class="col-xs-12">
                   <div class="card">
-                    <div class="card-body">
-                      <div class="card-block">
-        
+                    <div class="card-body  collapse in">
+                    <div class="card-block">
+                      <div className="row">
+                      
+                      </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              
+
+
             </div>
           </div>
         </div>

@@ -166,7 +166,7 @@ export class ViewSubject extends Component {
                                     <button class="btn btn-outline-primary edit-item-btn">
                                       <Link
                                         to={{
-                                          pathname: `/edit-timetable/${ttbl.timeTableIdPk}`,
+                                          pathname: `/admin/edit-timetable/${ttbl.timeTableIdPk}`,
                                         }}
                                       >
                                         Edit

@@ -174,7 +174,7 @@ export class ViewTimeTableSetting extends Component {
                                     <button class="btn btn-outline-primary edit-item-btn">
                                       <Link
                                         to={{
-                                          pathname: `/edit-timeTableSetting/${tt.settingIdPk}`,
+                                          pathname: `/admin/edit-timeTableSetting/${tt.settingIdPk}`,
                                         }}
                                       >
                                         Edit

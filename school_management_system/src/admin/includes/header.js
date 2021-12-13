@@ -354,22 +354,10 @@ export class Header extends Component {
                       </span>
                       <span className="user-name"> Admin </span>
                     </a>
-                    <div className="dropdown-menu dropdown-menu-right">
-                      {/* <a href="#" className="dropdown-item">
-                        <i className="icon-head"></i> Edit Profile
-                      </a>
-                      <a href="#" className="dropdown-item">
-                        <i className="icon-mail6"></i> My Inbox
-                      </a>
-                      <a href="#" className="dropdown-item">
-                        <i className="icon-clipboard2"></i> Task
-                      </a>
-                      <a href="#" className="dropdown-item">
-                        <i className="icon-calendar5"></i> Calender
-                      </a> */}
-                      
-                      <a onClick={() => this.logout()} >
-                        <i className="icon-power3"></i> Logout
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-divider"></div>
+                      <a href="#" class="dropdown-item">
+                        <i class="icon-power3"></i> Logout
                       </a>
                     </div>
                   </li>
@@ -608,15 +596,6 @@ export class Header extends Component {
                 <ul className="menu-content">
                   <li>
                     <Link
-                      to="/admin/addSubject"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      Add Subject
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       to="/admin/viewSubject"
                       data-i18n="nav.page_layouts.1_column"
                       className="menu-item"
@@ -626,7 +605,7 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-              <li className=" nav-item">
+              {/* <li className=" nav-item">
                 <a href="#">
                   <i className="icon-stack-2"></i>
                   <span data-i18n="nav.page_layouts.main" className="menu-title">
@@ -653,7 +632,7 @@ export class Header extends Component {
                     </Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li className=" navigation-header">
                 <span data-i18n="nav.category.layouts">TIMETABLE</span>
                 <i
@@ -775,7 +754,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/admin/viewStandardCard"
+                      to="/admin/viewExamTimeTable"
                       data-i18n="nav.page_layouts.1_column"
                       className="menu-item"
                     >
@@ -858,7 +837,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/admin/viewStandardCard"
+                      to="/admin/viewQuePaper"
                       data-i18n="nav.page_layouts.1_column"
                       className="menu-item"
                     >
@@ -1095,68 +1074,8 @@ export class Header extends Component {
               </li>
             </ul>
           </div>
-          {/* <!-- /main menu content--> */}
-          {/* <!-- main menu footer--> */}
-          <div className="main-menu-footer footer-close">
-            <div className="header text-xs-center">
-              <a href="#" className="col-xs-12 footer-toggle">
-                <i className="icon-ios-arrow-up"></i>
-              </a>
-            </div>
-            <div className="content">
-              <div className="insights">
-                <div className="col-xs-12">
-                  <p>Product Delivery</p>
-                  <progress
-                    value="25"
-                    max="100"
-                    className="progress progress-xs progress-success"
-                  >
-                    25%
-                  </progress>
-                </div>
-                <div className="col-xs-12">
-                  <p>Targeted Sales</p>
-                  <progress
-                    value="70"
-                    max="100"
-                    className="progress progress-xs progress-info"
-                  >
-                    70%
-                  </progress>
-                </div>
-              </div>
-              <div className="actions">
-                <a
-                  
-                  data-placement="top"
-                  data-toggle="tooltip"
-                  data-original-title="Settings"
-                >
-                  <span aria-hidden="true" className="icon-cog3"></span>
-                </a>
-                <a
-                  
-                  data-placement="top"
-                  data-toggle="tooltip"
-                  data-original-title="Lock"
-                >
-                  <span aria-hidden="true" className="icon-lock4"></span>
-                </a>
-                <a
-                  
-                  data-placement="top"
-                  data-toggle="tooltip"
-                  data-original-title="Logout"
-                >
-                  <span aria-hidden="true" className="icon-power3"></span>
-                </a>
-              </div>
-            </div>
-          </div>
-          {/* <!-- main menu footer--> */}
+          
         </div>
-        {/* <!-- / main menu--> */}
       </div>
     );
   }

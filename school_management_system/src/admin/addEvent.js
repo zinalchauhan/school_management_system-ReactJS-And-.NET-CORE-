@@ -115,7 +115,7 @@ export class AddEvent extends Component {
           for (let index = 0; index < this.state.files.length; index++) {
             this.insertImage(this.state.files[index], result.data);
           }
-          this.props.history.push("/viewEvent");
+          this.props.history.push("/admin/viewEvent");
         },
         (error) => {
           alert("Failed");
@@ -142,7 +142,7 @@ export class AddEvent extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewEvent");
+          this.props.history.push("/admin/viewEvent");
         },
         (error) => {
           alert("Failed");

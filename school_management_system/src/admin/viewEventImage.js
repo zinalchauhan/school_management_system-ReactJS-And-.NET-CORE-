@@ -75,7 +75,7 @@ export class viewEventImage extends Component {
     for (let index = 0; index < this.state.files.length; index++) {
       this.insertImage(this.state.files[index]);
     }
-    this.props.history.push("/edit-eventImage/"+this.state.eventIdFk);
+    this.props.history.push("/admin/edit-eventImage/"+this.state.eventIdFk);
   };
 
   insertImage(file) {

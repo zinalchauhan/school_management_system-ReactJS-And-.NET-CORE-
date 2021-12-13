@@ -19,7 +19,7 @@ using System.Threading.Tasks;
         private string stateName = "";
         private string mediumName = "";
         private int mediumIdFk = 0;
-        private string subjects = "";
+        private string teacherSubject = "";
         private int isActive = 0;
 
     public int TeacherIdPk { get => teacherIdPk; set => teacherIdPk = value; }
@@ -34,7 +34,7 @@ using System.Threading.Tasks;
     public string StateName { get => stateName; set => stateName = value; }
     public string MediumName { get => mediumName; set => mediumName = value; }
     public int MediumIdFk { get => mediumIdFk; set => mediumIdFk = value; }
-    public string Subjects { get => subjects; set => subjects = value; }
     public int IsActive { get => isActive; set => isActive = value; }
+    public string TeacherSubject { get => teacherSubject; set => teacherSubject = value; }
 }
 

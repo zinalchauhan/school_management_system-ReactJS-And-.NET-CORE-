@@ -46,8 +46,6 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
             string strQ = "";
             try
             {
-
-
                 strQ = @"UPDATE [leaveRequestMaster]
                              SET    [studentIdFk]=@studentIdFk,
                                     [userType]=@userType,

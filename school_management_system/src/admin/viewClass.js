@@ -95,7 +95,7 @@ export class ViewClass extends Component {
                         <h4 className="card-title">Class List</h4>
                         <br />
                         <Link
-                          to="/addClass"
+                          to="/admin/addClass"
                           class="btn btn-outline-primary edit-item-btn"
                         >
                           Add New Class

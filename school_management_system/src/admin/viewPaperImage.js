@@ -75,7 +75,7 @@ export class viewPaperImage extends Component {
     for (let index = 0; index < this.state.files.length; index++) {
       this.insertImage(this.state.files[index]);
     }
-    this.props.history.push("/edit-quePaperImage/" + this.state.questionPaperIdFk);
+    this.props.history.push("/admin/edit-quePaperImage/" + this.state.questionPaperIdFk);
   };
 
   insertImage(file) {

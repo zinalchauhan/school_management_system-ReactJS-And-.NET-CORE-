@@ -229,7 +229,64 @@ public  class timetableMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<timetableMaster_tableEntities> OnGetListdt()
+    public List<timetableMaster_tableEntities> timeTableList(int cls , int ttId)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<timetableMaster_tableEntities> oList = new List<timetableMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT tt.* ,  sb.subjectName , tts.day , st.standardName , d.divisionName , sb.subjectName , t.teacherName , m.mediumName 
+                            FROM [timetableMaster] tt 
+                            JOIN [classMaster] cl ON tt.[classIdFk] = cl.[classIdPk]
+                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
+                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
+                            JOIN [subjectTeacherMaster] sbtc ON tt.[subjectTeacherIdFk] = sbtc.[subjectTeacherIdPk]
+                            JOIN [teacherMaster] t ON sbtc.[teacherIdFk] = t.[teacherIdPk]
+                            JOIN [subjectMaster] sb ON sbtc.[subjectIdFk] = sb.[subjectIdPk]
+                            JOIN [mediumMaster] m ON sbtc.[mediumIdFk] = m.[mediumIdPk]
+                            JOIN [timetableSettingMaster] tts ON tt.[settingIdFk] = tts.[settingIdPk]
+                            WHERE tt.[classIdFk] = @classIdFk
+                            and tt.[settingIdFk] = @settingIdFk
+							and tt.[isActive] = 1 ";
+
+            OnClearParameter();
+
+            AddParameter("@classIdFk", SqlDbType.Int, 2, cls, ParameterDirection.Input);
+            AddParameter("@settingIdFk", SqlDbType.Int, 2, ttId, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+    public List<timetableMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

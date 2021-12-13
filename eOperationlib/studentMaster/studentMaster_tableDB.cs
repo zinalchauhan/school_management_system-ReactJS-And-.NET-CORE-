@@ -133,6 +133,7 @@ public  class studentMaster_tableDB : clsDB_Operation
                 obj.MediumIdFk = (drRow["mediumIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["mediumIdFk"];
                 obj.MediumName = (drRow["mediumName"].Equals(DBNull.Value)) ? "" : (string)drRow["mediumName"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
+                obj.StandardIdPk = (drRow["standardIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["standardIdPk"];
                 obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
                 obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
                 obj.StudentFname = (drRow["studentFname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentFname"];
@@ -217,7 +218,7 @@ public  class studentMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT s.* , m.mediumName , ct.categoryName , st.standardName , d.divisionName
+                strQ = @"SELECT s.*, m.mediumName , ct.categoryName, st.standardIdPk , st.standardName , d.divisionName
                             FROM [studentMaster] s 
                             JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
                             JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk]
@@ -266,7 +267,7 @@ public  class studentMaster_tableDB : clsDB_Operation
 
             try
             {
-                strQ = @"SELECT s.* , m.mediumName , ct.categoryName , st.standardName , d.divisionName
+                strQ = @"SELECT s.*, m.mediumName , ct.categoryName,st.standardIdPk  , st.standardName , d.divisionName
                             FROM [studentMaster] s 
                             JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
                             JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk]

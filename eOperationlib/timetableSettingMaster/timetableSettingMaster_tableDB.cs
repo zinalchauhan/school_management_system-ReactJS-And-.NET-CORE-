@@ -82,9 +82,7 @@ public  class timetableSettingMaster_tableDB : clsDB_Operation
             }
         }
 
-
-
-        public int OnDelete(int ID)
+    public int OnDelete(int ID)
         {
             string strQ = "";
             try

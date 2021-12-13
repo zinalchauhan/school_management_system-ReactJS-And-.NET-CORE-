@@ -212,7 +212,7 @@ export class AddTimeTable extends Component {
       );
     }
 
-    this.props.history.push("/viewTimeTable");
+    this.props.history.push("/admin/viewTimeTable");
     
   }
 
@@ -236,7 +236,7 @@ export class AddTimeTable extends Component {
       .then(
         (result) => {
           console.log(result);
-          this.props.history.push("/viewTimeTable");
+          this.props.history.push("/admin /viewTimeTable");
         },
         (error) => {
           alert("Failed");

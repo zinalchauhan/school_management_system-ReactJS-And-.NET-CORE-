@@ -82,12 +82,6 @@ export class ViewSubject extends Component {
                       <div className="card-header">
                         <h4 className="card-title">Subject List</h4>
                         <br />
-                        <Link
-                          to="/admin/addSubject"
-                          class="btn btn-outline-primary edit-item-btn"
-                        >
-                          Add New Subject
-                        </Link>
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
                         </a>
@@ -126,7 +120,6 @@ export class ViewSubject extends Component {
                               <tr>
                                 <th>#</th>
                                 <th>Subject Name</th>
-                                <th> Edit </th>
                                 <th>Delete</th>
                               </tr>
                             </thead>
@@ -135,17 +128,6 @@ export class ViewSubject extends Component {
                                 <tr key={index}>
                                   <td>{index + 1}</td>
                                   <td>{sub.subjectName}</td>
-                                  <td>
-                                    <button class="btn btn-outline-primary edit-item-btn">
-                                      <Link
-                                        to={{
-                                          pathname: `/edit-subject/${sub.subjectIdPk}`,
-                                        }}
-                                      >
-                                        Edit
-                                      </Link>{" "}
-                                    </button>
-                                  </td>
                                   <td>
                                     <button
                                       type="button"
@@ -165,7 +147,6 @@ export class ViewSubject extends Component {
                               <tr>
                                 <th>#</th>
                                 <th>Subject Name</th>
-                                <th> Edit </th>
                                 <th>Delete</th>
                               </tr>
                             </tfoot>
