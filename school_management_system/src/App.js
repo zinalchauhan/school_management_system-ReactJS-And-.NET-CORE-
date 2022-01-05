@@ -66,6 +66,8 @@ import AddLeaveRequest from "./student/addLeaveRequest";
 import viewLeaveRequestList from "./student/viewLeaveRequest";
 import viewEventList from "./student/viewEventList";
 import viewEventImageList from "./student/viewEventImageList";
+import viewAttendanceList from "./student/viewAttendanceList";
+import viewExamttList from "./student/viewExamttList";
 
 //--- TEACHER URLS ---
 import teacherIndex from "./teacher";
@@ -86,77 +88,73 @@ import teacherViewLeaveRequest from "./teacher/viewLeaveRequest";
 
 //--- PRINCIPAL URLS ---
 import principalIndex from "./principal";
+import viewPrincipalProfile from "./principal/viewPrincipalProfile";
+import addRemarkStud from "./principal/addRemarkStud";
+import leaveRequest from "./principal/leaveRequest";
 
 function App() {
   return (
     <BrowserRouter forceRefresh={true}>
-      
+
       <Switch>
 
-      <Route path="/" exact component={Login} />
+        <Route path="/" exact component={Login} />
 
-      {/* if(sessionStorage.getItem("isLogin") === "true") {
-        if(sessionStorage.getItem("userType" === "admin")){
+        <Route path="/admin" exact component={Index} />
+        <Route path="/admin/addStudentManually" component={AddStudentManually} />
+        <Route path="/admin/edit-student/:id" component={AddStudentManually}></Route>
+        <Route path="/admin/addStudent" component={AddStudent} />
+        <Route path="/admin/viewStudent" component={ViewStudent} />
+        <Route path="/admin/ViewStandardCard" component={ViewStandardCard} />
+        <Route path="/admin/viewRemark" component={ViewRemark} />
+        <Route path="/admin/addTeacher" component={AddTeacher} />
+        <Route path="/admin/edit-teacher/:id" component={AddTeacher}></Route>
+        <Route path="/admin/oldStudent" component={OldStudent} />
+        <Route path="/admin/viewAttendence" component={ViewAttendence} />
+        <Route path="/admin/viewTeacher" component={ViewTeacher} />
+        <Route path="/admin/addClassTeacher" component={AddClassTeacher} />
+        <Route path="/admin/edit-classTeacher/:id" component={AddClassTeacher}></Route>
+        <Route path="/admin/viewClassTeacher" component={ViewClassTeacher} />
+        <Route path="/admin/addPrincipal" component={AddPrincipal} />
+        <Route path="/admin/viewPrincipal" component={ViewPrincipal} />
+        <Route path="/admin/addSubject" component={AddSubject} />
+        <Route path="/admin/viewSubject" component={ViewSubject} />
+        <Route path="/admin/addStandardSubject" component={AddStandardSubject} />
+        <Route path="/admin/addSubjectTeacher" component={AddSubjectTeacher} />
+        <Route path="/admin/addTimeTableSetting" component={AddTimeTableSetting} />
+        <Route path="/admin/edit-timeTableSetting/:id" component={AddTimeTableSetting}></Route>
+        <Route path="/admin/viewTimeTableSetting" component={ViewTimeTableSetting} />
+        <Route path="/admin/addTimeTable" component={AddTimeTable} />
+        <Route path="/admin/edit-timetable/:id" component={AddTimeTable}></Route>
+        <Route path="/admin/viewTimeTable" component={viewTimeTable} />
+        <Route path="/admin/addExam" component={AddExam} />
+        <Route path="/admin/edit-exam/:id" component={AddExam}></Route>
+        <Route path="/admin/viewExam" component={ViewExam} />
+        <Route path="/admin/addExamTimeTable" component={AddExamTimeTable} />
+        <Route path="/admin/viewExamTimeTable" component={viewExamTimeTable} />
+        <Route path="/admin/addResult" component={AddResult} />
+        <Route path="/admin/addResultManually" component={AddResultManually} />
+        <Route path="/admin/addQuePaper" component={AddQuePaper} />
+        <Route path="/admin/edit-quepaper/:id" component={AddQuePaper}></Route>
+        <Route path="/admin/viewQuePaper" component={ViewQuePaper} />
+        <Route path="/admin/edit-quePaperImage/:id" exact component={viewPaperImage} />
+        <Route path="/admin/addStandard" component={AddStandard} />
+        <Route path="/admin/viewStandard" component={ViewStandard} />
+        <Route path="/admin/addDivision" component={AddDivision} />
+        <Route path="/admin/viewDivision" component={ViewDivision} />
+        <Route path="/admin/addClass" component={AddClass} />
+        <Route path="/admin/viewClass" component={ViewClass} />
+        <Route path="/admin/addEvent" component={AddEvent} />
+        <Route path="/admin/edit-event/:id" component={AddEvent}></Route>
+        <Route path="/admin/edit-eventImage/:id" exact component={viewEventImage} />
+        <Route path="/admin/viewEvent" component={ViewEvent} />
+        <Route path="/admin/viewFeedback" component={ViewFeedback} />
+        <Route path="/admin/addMedium" component={AddMedium} />
+        <Route path="/admin/viewMedium" component={ViewMedium} />
+        <Route path="/admin/viewEngMedTeacher" component={ViewEngMedTeacher} />
+        <Route path="/admin/viewGujMedTeacher" component={ViewGujMedTeacher} />
+        <Route path="/admin/viewPrincipalLoginData" component={ViewPrincipalLoginData} />
 
-        }
-      }  */}
-
-        
-        
-      <Route path="/admin" exact component={Index} />
-      <Route path="/admin/addStudentManually" component={AddStudentManually}/>
-      <Route path="/admin/edit-student/:id" component={AddStudentManually}></Route>
-      <Route path="/admin/addStudent" component={AddStudent} />
-      <Route path="/admin/viewStudent" component={ViewStudent} />
-      <Route path="/admin/ViewStandardCard" component={ViewStandardCard} />
-      <Route path="/admin/viewRemark" component={ViewRemark} />
-      <Route path="/admin/addTeacher" component={AddTeacher} />
-      <Route path="/admin/oldStudent" component={OldStudent} />
-      <Route path="/admin/viewAttendence" component={ViewAttendence} />
-      <Route path="/admin/viewTeacher" component={ViewTeacher} />
-      <Route path="/admin/addClassTeacher" component={AddClassTeacher} />
-      <Route path="/admin/edit-classTeacher/:id" component={AddClassTeacher}></Route>
-      <Route path="/admin/viewClassTeacher" component={ViewClassTeacher} />
-      <Route path="/admin/addPrincipal" component={AddPrincipal} />
-      <Route path="/admin/viewPrincipal" component={ViewPrincipal} />
-      <Route path="/admin/addSubject" component={AddSubject} />
-      <Route path="/admin/viewSubject" component={ViewSubject} />
-      <Route path="/admin/addStandardSubject" component={AddStandardSubject} />
-      <Route path="/admin/addSubjectTeacher" component={AddSubjectTeacher} />
-      <Route path="/admin/addTimeTableSetting" component={AddTimeTableSetting} />
-      <Route path="/admin/edit-timeTableSetting/:id" component={AddTimeTableSetting}></Route>
-      <Route path="/admin/viewTimeTableSetting" component={ViewTimeTableSetting} />
-      <Route path="/admin/addTimeTable" component={AddTimeTable} />
-      <Route path="/admin/edit-timetable/:id" component={AddTimeTable}></Route>
-      <Route path="/admin/viewTimeTable" component={viewTimeTable} />
-      <Route path="/admin/addExam" component={AddExam} />
-      <Route path="/admin/edit-exam/:id" component={AddExam}></Route>
-      <Route path="/admin/viewExam" component={ViewExam} />
-      <Route path="/admin/addExamTimeTable" component={AddExamTimeTable} />
-      <Route path="/admin/viewExamTimeTable" component={viewExamTimeTable} />
-      <Route path="/admin/addResult" component={AddResult} />
-      <Route path="/admin/addResultManually" component={AddResultManually} />
-      <Route path="/admin/addQuePaper" component={AddQuePaper} />
-      <Route path="/admin/edit-quepaper/:id" component={AddQuePaper}></Route>
-      <Route path="/admin/viewQuePaper" component={ViewQuePaper} />
-      <Route path="/admin/edit-quePaperImage/:id" exact component={viewPaperImage} />
-      <Route path="/admin/addStandard" component={AddStandard} />
-      <Route path="/admin/viewStandard" component={ViewStandard} />
-      <Route path="/admin/addDivision" component={AddDivision} />
-      <Route path="/admin/viewDivision" component={ViewDivision} />
-      <Route path="/admin/addClass" component={AddClass} />
-      <Route path="/admin/viewClass" component={ViewClass} />
-      <Route path="/admin/addEvent" component={AddEvent} />
-      <Route path="/admin/edit-event/:id" component={AddEvent}></Route>
-      <Route path="/admin/edit-eventImage/:id" exact component={viewEventImage} />
-      <Route path="/admin/viewEvent" component={ViewEvent} />
-      <Route path="/admin/viewFeedback" component={ViewFeedback} />
-      <Route path="/admin/addMedium" component={AddMedium} />
-      <Route path="/admin/viewMedium" component={ViewMedium} />
-      <Route path="/admin/viewEngMedTeacher" component={ViewEngMedTeacher} />
-      <Route path="/admin/viewGujMedTeacher" component={ViewGujMedTeacher} />
-      <Route path="/admin/viewPrincipalLoginData" component={ViewPrincipalLoginData} />
-        
         <Route path="/student" exact component={studentIndex} />
         <Route path="/student/viewTeacherList" component={viewTeacherList} />
         <Route path="/student/viewRemarkList" component={viewRemarkList} />
@@ -170,6 +168,8 @@ function App() {
         <Route path="/student/viewLeaveRequest" component={viewLeaveRequestList} />
         <Route path="/student/viewEventList" component={viewEventList} />
         <Route path="/student/viewEventImage/:id" component={viewEventImageList} />
+        <Route path="/student/viewAttendanceList" component={viewAttendanceList} />
+        <Route path="/student/viewExamttList" component={viewExamttList} />
 
         <Route path="/teacher" exact component={teacherIndex} />
         <Route path="/teacher/viewProfile" component={viewTeacherProfile} />
@@ -188,7 +188,10 @@ function App() {
         <Route path="/teacher/viewLeaveRequest" component={teacherViewLeaveRequest} />
 
         <Route path="/principal" exact component={principalIndex} />
-        
+        <Route path="/principal/viewProfile" component={viewPrincipalProfile} />
+        <Route path="/principal/addRemark" component={addRemarkStud} />
+        <Route path="/principal/viewLeaveRequest" component={leaveRequest} />
+
       </Switch>
     </BrowserRouter>
   );

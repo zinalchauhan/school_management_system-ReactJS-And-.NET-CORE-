@@ -225,7 +225,61 @@ public  class attendenceMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<attendenceMaster_tableEntities> OnGetListdt()
+    public attendenceMaster_tableEntities OnGetListdtAttendence(int studid , string adate)
+    {
+        Exception exForce;
+        DataTable dtTable;
+
+        attendenceMaster_tableEntities obj = new attendenceMaster_tableEntities();
+
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT a.* , s.studentMname , st.standardName , d.divisionName , t.teacherName 
+                            FROM [attendenceMaster] a 
+                            JOIN [studentMaster] s ON a.[studentIdFk] = s.[studentIdPk]
+                            JOIN [classMaster] cl ON a.[classIdFk] = cl.[classIdPk] 
+                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
+                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
+                            JOIN [classTeacherMaster] ct ON a.[classTeacherIdFk] = ct.[classTeacherIdPk]
+                            JOIN [teacherMaster] t ON ct.[teacherIdFk] = t.[teacherIdPk]
+                            WHERE a.[studentIdFk] = @studentIdfk
+							and a.[attendenceDate] = @attendenceDate
+							and a.[isActive] = 1";
+
+            OnClearParameter();
+            AddParameter("@studentIdFk", SqlDbType.Int, 2, studid, ParameterDirection.Input);
+            AddParameter("@attendenceDate", SqlDbType.VarChar, 50, adate, ParameterDirection.Input);
+
+            //DB_Config.OnStartConnection();
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+
+
+            if (dtTable.Rows.Count != 0)
+            {
+                obj = BuildEntities(dtTable.Rows[0]);
+            }
+
+            return obj;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return obj;
+        }
+    }
+
+
+    public List<attendenceMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

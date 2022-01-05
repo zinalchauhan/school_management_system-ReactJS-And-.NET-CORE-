@@ -217,7 +217,58 @@ public  class classTeacherMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<classTeacherMaster_tableEntities> OnGetListdt()
+    public classTeacherMaster_tableEntities isClassTeacher(int ID)
+    {
+        Exception exForce;
+        DataTable dtTable;
+
+        classTeacherMaster_tableEntities obj = new classTeacherMaster_tableEntities();
+
+        string strQ = "";
+
+        try
+        {   
+            strQ = @"SELECT cltc.* , t.teacherName , s.standardName , d.divisionName , m.mediumName
+                            FROM [classTeacherMaster] cltc 
+                            JOIN [classMaster] cl ON cltc.[classIdFk] = cl.[classIdPk]
+                            JOIN [standardMaster] s ON cl.[standardIdFk] = s.[standardIdPk]
+                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
+                            JOIN [teacherMaster] t ON cltc.[teacherIdFk] = t.[teacherIdPk]
+                            JOIN [mediumMaster] m ON cltc.[mediumIdFk] = m.[mediumIdPk]
+                            WHERE cltc.[teacherIdFk] = @teacherIdFk
+                            and cltc.[isActive] = 1";
+
+            OnClearParameter();
+            AddParameter("@teacherIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+
+            //DB_Config.OnStartConnection();
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+
+
+            if (dtTable.Rows.Count != 0)
+            {
+                obj = BuildEntities(dtTable.Rows[0]);
+            }
+
+            return obj;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return obj;
+        }
+    }
+
+
+    public List<classTeacherMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

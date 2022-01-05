@@ -370,7 +370,7 @@ export class Header extends Component {
         {/* <!-- ////////////////////////////////////////////////////////////////////////////--> */}
 
         {/* <!-- main menu--> */}
-        <div className="main-menu menu-dark menu-fixed menu-shadow menu-border menu-accordion">
+        <div style={{"position":"fixed"}} className="main-menu menu-dark menu-fixed menu-shadow menu-border menu-accordion">
           {/* <!-- main menu header--> */}
           {/* <!-- / main menu header--> */}
           {/* <!-- main menu content--> */}
@@ -412,18 +412,10 @@ export class Header extends Component {
                       data-i18n="nav.page_layouts.1_column"
                       className="menu-item"
                     >
-                      Add Student Manually
+                      Add Student 
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      to="/admin/addStudent"
-                      data-i18n="nav.page_layouts.2_columns"
-                      className="menu-item"
-                    >
-                      Add Student
-                    </Link>
-                  </li>
+                  
                   <li>
                     <Link
                       to="/admin/viewStudent"
@@ -433,15 +425,7 @@ export class Header extends Component {
                       View Student
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      to="/admin/oldStudent"
-                      data-i18n="nav.page_layouts.2_columns"
-                      className="menu-item"
-                    >
-                      Old Student
-                    </Link>
-                  </li>
+                  
                 </ul>
               </li>
               <li className=" nav-item">
@@ -763,61 +747,7 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-              <li className=" nav-item">
-                <a href="#">
-                  <i className="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" className="menu-title">
-                    Result
-                  </span>
-                </a>
-                <ul className="menu-content">
-                  <li>
-                    <Link
-                      to="/admin/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      Add Final Result
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/addResult"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      Add Result
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/addResultManually"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      Add Result Manually
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      View Final Result
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      View Result
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+             
               <li className=" nav-item">
                 <a href="#">
                   <i className="icon-stack-2"></i>
@@ -983,7 +913,7 @@ export class Header extends Component {
                       data-i18n="nav.page_layouts.1_column"
                       className="menu-item"
                     >
-                      Feedback
+                      View Feedback
                     </Link>
                   </li>
                 </ul>
@@ -1007,71 +937,7 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-              <li className=" nav-item">
-                <a href="#">
-                  <i className="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" className="menu-title">
-                    Student
-                  </span>
-                </a>
-                <ul className="menu-content">
-                  <li>
-                    <Link
-                      to="/admin/viewStudent"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      View Student
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li className=" nav-item">
-                <a href="#">
-                  <i className="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" className="menu-title">
-                    Login Data
-                  </span>
-                </a>
-                <ul className="menu-content">
-                  <li>
-                    <Link
-                      to="/admin/viewEngMedTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      English Medium Teacher Data
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/viewGujMedTeacher"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      Gujarati Medium Teacher Data
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/viewPrincipalLoginData"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      Principal Data
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      className="menu-item"
-                    >
-                      Student Data
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+             
             </ul>
           </div>
           

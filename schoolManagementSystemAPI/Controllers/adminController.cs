@@ -528,23 +528,62 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
-
-        [HttpPost("insertTeacherList")]
-
-        public JsonResult insertTeacherList(teacherMaster_tableEntities teacher)
+        [HttpPost("insertTeacherList"), DisableRequestSizeLimit]
+        public JsonResult insertTeacherList()
         {
+            teacherMaster_tableEntities teacher = new teacherMaster_tableEntities();
+            String photo_path = photoUpload(Request.Form.Files, "teacherImages");
+
+            teacher.TeacherName = Request.Form["teacherName"];
+            teacher.TeacherEmail = Request.Form["teacherEmail"];
+            teacher.MediumIdFk = Int32.Parse(Request.Form["mediumIdFk"]);
+            teacher.CityIdFk = Int32.Parse(Request.Form["cityIdFk"]);
+            teacher.TeacherMobile = Request.Form["teacherMobile"];
+            teacher.TeacherQualification = Request.Form["teacherQualification"];
+            teacher.TeacherImage = photo_path;
+            teacher.TeacherAddress = Request.Form["teacherAddress"];
+            teacher.TeacherSubject = Request.Form["sub"];
 
             int result = teacherObj.OnInsert(teacher);
-
             if (result == 1)
             {
-                return new JsonResult(new { result = "success", message = "Data Inserted", data = teacher });
+
+                int techId = teacherObj.OnLastRecordInserted();
+
+                authMaster_tableEntities auth = new authMaster_tableEntities();
+
+                auth.UserIdFk = techId;
+                auth.UserType = "teacher";
+                auth.UserName = teacher.TeacherName.Replace(" ","");
+                auth.UserPassword = "teacher";
+                auth.IsActive = 1;
+
+                authObj.OnInsert(auth);
+
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = result });
             }
             else
             {
                 return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
             }
         }
+
+        //[HttpPost("insertTeacherList")]
+
+        //public JsonResult insertTeacherList(teacherMaster_tableEntities teacher)
+        //{
+
+        //    int result = teacherObj.OnInsert(teacher);
+
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Inserted", data = teacher });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+        //    }
+        //}
 
         [HttpGet("getTeacher/{id}")]
         public JsonResult getTeacher(int id)
@@ -560,10 +599,36 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
-        [HttpPost("updateTeacherList")]
-
-        public JsonResult updateTeacherList(teacherMaster_tableEntities teacher)
+        [HttpPost("updateTeacherList"), DisableRequestSizeLimit]
+        public JsonResult updateTeacherList()
         {
+            teacherMaster_tableEntities teacher = new teacherMaster_tableEntities();
+            if (Request.Form.Files.Count != 0)
+            {
+
+                if (Request.Form.Files[0].Length > 0)
+                {
+                    String photo_path = photoUpload(Request.Form.Files, "teacherImages");
+                    teacher.TeacherImage = photo_path;
+                }
+                else
+                {
+                    teacher.TeacherImage = Request.Form["teacherImage"];
+                }
+            }
+            else
+            {
+                teacher.TeacherImage = Request.Form["teacherImage"];
+            }
+
+            teacher.TeacherName = Request.Form["teacherName"];
+            teacher.TeacherEmail = Request.Form["teacherEmail"];
+            teacher.MediumIdFk = Int32.Parse(Request.Form["mediumIdFk"]);
+            teacher.CityIdFk = Int32.Parse(Request.Form["cityIdFk"]);
+            teacher.TeacherMobile = Request.Form["teacherMobile"];
+            teacher.TeacherQualification = Request.Form["teacherQualification"];
+            teacher.TeacherAddress = Request.Form["teacherAddress"];
+            teacher.TeacherSubject = Request.Form["sub"];
 
             int result = teacherObj.OnUpdate(teacher);
 
@@ -576,6 +641,23 @@ namespace schoolManagementSystemAPI.Controllers
                 return new JsonResult(new { result = "failure", message = "Data Not Updated" });
             }
         }
+
+        //[HttpPost("updateTeacherList")]
+
+        //public JsonResult updateTeacherList(teacherMaster_tableEntities teacher)
+        //{
+
+        //    int result = teacherObj.OnUpdate(teacher);
+
+        //    if (result == 1)
+        //    {
+        //        return new JsonResult(new { result = "success", message = "Data Updated", data = result });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = "failure", message = "Data Not Updated" });
+        //    }
+        //}
 
         [HttpDelete("deleteTeacherList/{id}")]
 

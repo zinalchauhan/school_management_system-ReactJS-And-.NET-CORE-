@@ -63,3 +63,18 @@
   width: 300px;
   margin-right: 25%;
 }
+
+.my-card{
+  border: 1px solid gray !important;
+  padding: 20px;
+}
+
+.my-card-active{
+  border: 10px solid black !important;
+  padding: 20px;
+}
+
+.timetable{
+  background-color: grey;
+  color: black;
+}

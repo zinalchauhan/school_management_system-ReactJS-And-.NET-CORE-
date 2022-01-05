@@ -50,6 +50,7 @@ export class viewTimeTableList extends Component {
       }
     
       getTimeTable(id, tid,day) {
+        console.log("ID::::"+id);
         this.setState({ currentDay: day });
         fetch(Variables.STUD_API_URL + "timeTableList/" + id + "/" + tid, {
           method: "GET",
@@ -137,8 +138,8 @@ export class viewTimeTableList extends Component {
                             <div class="row">
                             {ttSettings.map((t, index) => (
                                 <div class="col-xl-2 col-lg-6 col-xs-12">
-                                    <div class="card bg-purple" onClick={() => this.getTimeTable(sessionStorage.getItem("classId")?.toString(),t.settingIdPk,t.day)}>
-                                        <div class="card-body" className={"timetable-item my-card"+(currentDay === t.day ? "-active" :"")}>
+                                    <div className="timetable" onClick={() => this.getTimeTable(sessionStorage.getItem("classId")?.toString(),t.settingIdPk,t.day)}>
+                                        <div class="card-body" className={"timetable-item my-card"+(currentDay === t.day ? "-active" :"")} style={{padding:"5px"}}>
                                             <div class="card-block">
                                                 <div class="media">
                                                     <div class="media-body white text-xs-center">

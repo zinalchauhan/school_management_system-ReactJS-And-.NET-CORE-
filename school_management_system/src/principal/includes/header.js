@@ -394,7 +394,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/student/viewProfile"
+                      to="/principal/viewProfile"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -413,7 +413,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="student/viewRemarkList"
+                      to="/principal/addRemark"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -573,25 +573,7 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Result
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Result
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+             
               <li class=" navigation-header">
                 <span data-i18n="nav.category.layouts">
                   EVENTS & ACTIVITIES
@@ -678,7 +660,7 @@ export class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/principal/viewLeaveRequest"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >

@@ -2,8 +2,47 @@ import react from "react";
 import { Component } from "react";
 import Footer from "./includes/footer";
 import Header from "./includes/header";
+import { Variables } from "../Variables";
 
 export class principalIndex extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      prs: [],
+      principalIdFk: 0,
+      mediumIdFk: 0,
+    }
+  }
+
+  componentDidMount() {
+    this.OnGetData(sessionStorage.getItem("userId").toString());
+    console.log(sessionStorage.getItem("userId").toString());
+  }
+
+  OnGetData(id) {
+    fetch(Variables.PRINCIPAL_API_URL + "principalList/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            mediumIdFk: result.data.mediumIdFk,
+          });
+          sessionStorage.setItem("medId", result.data.mediumIdFk);
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
   render() {
     return (
       <div>

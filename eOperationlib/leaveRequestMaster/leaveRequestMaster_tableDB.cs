@@ -19,9 +19,9 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"INSERT INTO [leaveRequestMaster]
-                                   ([studentIdFk],[userType],[classIdFk],[leaveRequestTitle],[leaveRequestDetail])
+                                   ([studentIdFk],[userType],[classIdFk],[leaveRequestTitle],[leaveRequestDetail],[status])
                              VALUES
-                                   (@studentIdFk,@userType,@classIdFk,@leaveRequestTitle,@leaveRequestDetail)";
+                                   (@studentIdFk,@userType,@classIdFk,@leaveRequestTitle,@leaveRequestDetail,@status)";
 
                 OnClearParameter();
 
@@ -31,6 +31,7 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
                 AddParameter("@leaveRequestTitle", SqlDbType.VarChar, 50, obj.LeaveRequestTitle, ParameterDirection.Input);
                 AddParameter("@leaveRequestDetail", SqlDbType.VarChar, 50, obj.LeaveRequestDetail, ParameterDirection.Input);
                 AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
+            AddParameter("@status", SqlDbType.Int, 50, obj.Status, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
             }
@@ -47,23 +48,13 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
             try
             {
                 strQ = @"UPDATE [leaveRequestMaster]
-                             SET    [studentIdFk]=@studentIdFk,
-                                    [userType]=@userType,
-                                    [classIdFk]=@classIdFk,
-                                    [leaveRequestTitle]=@leaveRequestTitle,
-                                    [leaveRequestDetail]=@leaveRequestDetail,
-                                    [isActive] = 1    
+                                  set  [status]=@status
                          WHERE [leaveRequestIdPk]=@leaveRequestIdPk";
 
                 OnClearParameter();
                 AddParameter("@leaveRequestIdPk", SqlDbType.Int, 50, obj.LeaveRequestIdPk, ParameterDirection.Input);
-                AddParameter("@studentIdFk", SqlDbType.Int, 50, obj.StudentIdFk, ParameterDirection.Input);
-                AddParameter("@userType", SqlDbType.VarChar, 50, obj.UserType, ParameterDirection.Input);
-                AddParameter("@classIdFk", SqlDbType.Int, 50, obj.ClassIdFk, ParameterDirection.Input);
-                AddParameter("@leaveRequestTitle", SqlDbType.VarChar, 50, obj.LeaveRequestTitle, ParameterDirection.Input);
-                AddParameter("@leaveRequestDetail", SqlDbType.VarChar, 50, obj.LeaveRequestDetail, ParameterDirection.Input);
-                AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
-                //AddParameter("@isActive", SqlDbType.Int, 50, obj.IsActive, ParameterDirection.Input);
+                
+                AddParameter("@status", SqlDbType.Int, 50, obj.Status, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
 
@@ -105,16 +96,30 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
 
                 obj.LeaveRequestIdPk = (drRow["leaveRequestIdPk"].Equals(DBNull.Value)) ? 0 : (int)drRow["leaveRequestIdPk"];
                 obj.StudentIdFk = (drRow["studentIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentIdFk"];
-                obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
                 obj.UserType = (drRow["userType"].Equals(DBNull.Value)) ? "" : (string)drRow["userType"];
                 obj.LeaveRequestTitle = (drRow["leaveRequestTitle"].Equals(DBNull.Value)) ? "" : (string)drRow["leaveRequestTitle"];
                 obj.LeaveRequestDetail = (drRow["leaveRequestDetail"].Equals(DBNull.Value)) ? "" : (string)drRow["leaveRequestDetail"];
                 obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : drRow["addedOn"].ToString();
                 obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
+            obj.Status = (drRow["status"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["status"].ToString());
+            if (obj.ClassIdFk != 0)
+            {
+                studentMaster_tableDB objStud = new studentMaster_tableDB();
+                studentMaster_tableEntities student = objStud.OnGetData(obj.StudentIdFk);
+                //obj. = (drRow["semName"].Equals(DBNull.Value)) ? "" : (string)drRow["semName"];
+                obj.StudentMname = student.StudentMname;
+                obj.StudentFName = student.StudentFname;
+                classMaster_tableDB objClass = new classMaster_tableDB();
+                classMaster_tableEntities classData = objClass.OnGetData(obj.ClassIdFk);
+                obj.StandardName = classData.StandardName;
+                obj.DivisionName = classData.DivisionName;
 
+            }
+            else
+            {
+                obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
+            }
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
             //    obj.Addon = dtdata;
@@ -223,7 +228,106 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<leaveRequestMaster_tableEntities> OnGetListdt()
+    public List<leaveRequestMaster_tableEntities> getLeaveList(int id)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<leaveRequestMaster_tableEntities> oList = new List<leaveRequestMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT lr.* , s.studentMname , st.standardName , d.divisionName , s.studentFname
+                            FROM [leaveRequestMaster] lr 
+                            JOIN [studentMaster] s ON lr.[studentIdFk] = s.[studentIdPk]
+                            JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
+                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
+                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
+                            WHERE lr.studentIdFk = @studentIdFK
+							and lr.[isActive] = 1 ";
+            OnClearParameter();
+            AddParameter("@studentIdFk", SqlDbType.Int, 2, id, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+    public List<leaveRequestMaster_tableEntities> getLeaveByClass(int id)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<leaveRequestMaster_tableEntities> oList = new List<leaveRequestMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT lr.* , s.studentMname , st.standardName , d.divisionName , s.studentFname
+                            FROM [leaveRequestMaster] lr 
+                            JOIN [studentMaster] s ON lr.[studentIdFk] = s.[studentIdPk]
+                            JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk] 
+                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
+                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
+                            WHERE lr.[classIdFk] = @classIdFk
+							and lr.[isActive] = 1 ";
+            OnClearParameter();
+            AddParameter("@classIdFk", SqlDbType.Int, 2, id, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+
+    public List<leaveRequestMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;
@@ -269,7 +373,51 @@ public  class leaveRequestMaster_tableDB : clsDB_Operation
                 //    DB_Config.OnStopConnection();
             }
         }
-        public List<ComboboxItem> OnGetListForCombo()
+
+    public List<leaveRequestMaster_tableEntities> OnGetListTeacher()
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<leaveRequestMaster_tableEntities> oList = new List<leaveRequestMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT lr.* , t.teacherName 
+                            FROM [leaveRequestMaster] lr 
+                            JOIN [teacherMaster] t ON lr.[studentIdFk] = t.teacherIdPk
+                            WHERE lr.[isActive] = 1 and lr.[userType]='teacher' ";
+            OnClearParameter();
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+    public List<ComboboxItem> OnGetListForCombo()
         {
             Exception exForce;
             DataTable dtTable;

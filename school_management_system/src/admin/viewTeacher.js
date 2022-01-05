@@ -57,7 +57,7 @@ export class ViewTeacher extends Component {
         .then((response) => response.json())
         .then((res) => {
           if (res.result === "success") {
-            this.refreshList();
+            this.props.history.push("/admin/viewTeacher");
           }
         });
     }
@@ -163,12 +163,14 @@ export class ViewTeacher extends Component {
                                 <tr key={index}>
                                   <td> {index + 1} </td>
                                   <td>
-                                    <button
-                                      type="button"
-                                      class="btn btn-outline-primary edit-item-btn"
+                                  <Link
+                                      className="btn btn-outline-primary edit-item-btn"
+                                      to={{
+                                        pathname: `/admin/edit-teacher/${tech.teacherIdPk}`,
+                                      }}
                                     >
-                                      Edit
-                                    </button>{" "}
+                                      Edit  
+                                    </Link>{" "}
                                     <br /> <br />
                                     <button
                                       type="button"
@@ -190,7 +192,7 @@ export class ViewTeacher extends Component {
                                   </td>
                                   <td>
                                     <b> Medium : </b> <br/> &nbsp;&nbsp;&nbsp;  {tech.mediumName} <br/>
-                                    <b> subjects : </b> <br/> &nbsp;&nbsp;&nbsp;{tech.teacherSubject}
+                                    <b> Subjects : </b> <br/> &nbsp;&nbsp;&nbsp;{tech.subjects}
                                   </td>
                                   <td>
                                     <b> Name : </b> <br/>&nbsp;&nbsp;&nbsp;{tech.teacherName} <br/>

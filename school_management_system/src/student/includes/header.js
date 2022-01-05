@@ -1,9 +1,42 @@
 import react from "react";
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import { Variables } from "../../Variables";
 
 export class Header extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        students: [],
+        studentIdFk: 0,
+        standardIdFk: 0,
+        studentMname: "",
+        mediumIdFk: 0,
+        classIdFk: 0,
+    }
+}
+
+refreshList(id) {
+    fetch(Variables.STUD_API_URL + "studentList/" + id)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.result === "success") {
+                console.log(res);
+                this.setState({ students: res.data });
+            }
+        });
+}
+
+componentDidMount() {
+    this.refreshList(sessionStorage.getItem("userId")?.toString());
+}
+
   render() {
+    const {
+      students,
+      studentIdFk,
+  } = this.state;
     return (
       <div>
         {/* <!-- navbar-fixed-top--> */}
@@ -48,284 +81,7 @@ export class Header extends Component {
                   </li>
                 </ul>
                 <ul class="nav navbar-nav float-xs-right">
-                  <li class="dropdown dropdown-notification nav-item">
-                    <a
-                      href="#"
-                      data-toggle="dropdown"
-                      class="nav-link nav-link-label"
-                    >
-                      <i class="ficon icon-bell4"></i>
-                      <span class="tag tag-pill tag-default tag-danger tag-default tag-up">
-                        5
-                      </span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                      <li class="dropdown-menu-header">
-                        <h6 class="dropdown-header m-0">
-                          <span class="grey darken-2">Notifications</span>
-                          <span class="notification-tag tag tag-default tag-danger float-xs-right m-0">
-                            5 New
-                          </span>
-                        </h6>
-                      </li>
-                      <li class="list-group scrollable-container">
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-cart3 icon-bg-circle bg-cyan"></i>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">You have new order!</h6>
-                              <p class="notification-text font-small-3 text-muted">
-                                Lorem ipsum dolor sit amet, consectetuer elit.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  30 minutes ago
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-monitor3 icon-bg-circle bg-red bg-darken-1"></i>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading red darken-1">
-                                99% Server load
-                              </h6>
-                              <p class="notification-text font-small-3 text-muted">
-                                Aliquam tincidunt mauris eu risus.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  Five hour ago
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-server2 icon-bg-circle bg-yellow bg-darken-3"></i>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading yellow darken-3">
-                                Warning notifixation
-                              </h6>
-                              <p class="notification-text font-small-3 text-muted">
-                                Vestibulum auctor dapibus neque.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  Today
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-check2 icon-bg-circle bg-green bg-accent-3"></i>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Complete the task</h6>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  Last week
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left valign-middle">
-                              <i class="icon-bar-graph-2 icon-bg-circle bg-teal"></i>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">
-                                Generate monthly report
-                              </h6>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  Last month
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="dropdown-menu-footer">
-                        <a
-                          
-                          class="dropdown-item text-muted text-xs-center"
-                        >
-                          Read all notifications
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="dropdown dropdown-notification nav-item">
-                    <a
-                      href="#"
-                      data-toggle="dropdown"
-                      class="nav-link nav-link-label"
-                    >
-                      <i class="ficon icon-mail6"></i>
-                      <span class="tag tag-pill tag-default tag-info tag-default tag-up">
-                        8
-                      </span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                      <li class="dropdown-menu-header">
-                        <h6 class="dropdown-header m-0">
-                          <span class="grey darken-2">Messages</span>
-                          <span class="notification-tag tag tag-default tag-info float-xs-right m-0">
-                            4 New
-                          </span>
-                        </h6>
-                      </li>
-                      <li class="list-group scrollable-container">
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-online rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-1.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Margaret Govan</h6>
-                              <p class="notification-text font-small-3 text-muted">
-                                I like your portfolio, let's start the project.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  Today
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-busy rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-2.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Bret Lezama</h6>
-                              <p class="notification-text font-small-3 text-muted">
-                                I have seen your work, there is
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  Tuesday
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-online rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-3.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Carie Berra</h6>
-                              <p class="notification-text font-small-3 text-muted">
-                                Can we have call in this week ?
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  Friday
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  class="list-group-item">
-                          <div class="media">
-                            <div class="media-left">
-                              <span class="avatar avatar-sm avatar-away rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-6.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">Eric Alsobrook</h6>
-                              <p class="notification-text font-small-3 text-muted">
-                                We have project party this saturday night.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  class="media-meta text-muted"
-                                >
-                                  last month
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="dropdown-menu-footer">
-                        <a
-                          
-                          class="dropdown-item text-muted text-xs-center"
-                        >
-                          Read all messages
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="dropdown dropdown-user nav-item">
+                <li class="dropdown dropdown-user nav-item">
                     <a
                       href="#"
                       data-toggle="dropdown"
@@ -333,12 +89,12 @@ export class Header extends Component {
                     >
                       <span class="avatar avatar-online">
                         <img
-                          src="./assets/robust-assets/images/portrait/small/avatar-s-1.png"
+                         src={Variables.PHOTO_URL + students.studentImage}
                           alt="avatar"
                         />
                         <i></i>
                       </span>
-                      <span class="user-name">John Doe</span>
+                      <span class="user-name"> {students.studentMname} {students.studentFname}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                       <div class="dropdown-divider"></div>
@@ -432,11 +188,11 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="admin/viewAttendenceList"
+                      to="/student/viewAttendanceList"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
-                      View Attendence
+                      View Attendance
                     </Link>
                   </li>
                 </ul>
@@ -490,7 +246,7 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-             
+
               <li class=" navigation-header">
                 <span data-i18n="nav.category.layouts">TIMETABLE</span>
                 <i
@@ -538,7 +294,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/student/viewExamTimeTable"
+                      to="/student/viewExamttList"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
@@ -547,25 +303,7 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-              <li class=" nav-item">
-                <a href="#">
-                  <i class="icon-stack-2"></i>
-                  <span data-i18n="nav.page_layouts.main" class="menu-title">
-                    Result
-                  </span>
-                </a>
-                <ul class="menu-content">
-                  <li>
-                    <Link
-                      to="/viewStandardCard"
-                      data-i18n="nav.page_layouts.1_column"
-                      class="menu-item"
-                    >
-                      View Result
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+             
               <li class=" nav-item">
                 <a href="#">
                   <i class="icon-stack-2"></i>
@@ -682,7 +420,7 @@ export class Header extends Component {
               </li>
             </ul>
           </div>
-          
+
         </div>
       </div>
     );

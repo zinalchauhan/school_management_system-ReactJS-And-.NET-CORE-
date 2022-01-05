@@ -60,18 +60,18 @@ export class ViewQuePaper extends Component {
 
   render() {
 
-    const { 
-        quepapers,
-        mediums,
-        standards,
-        subjects,
-        modelTitle,
-        questionPaperIdPk,
-        mediumIdFk,
-        subjectIdFk,
-        standardIdFk,
-        academicYear,
-        } = this.state;
+    const {
+      quepapers,
+      mediums,
+      standards,
+      subjects,
+      modelTitle,
+      questionPaperIdPk,
+      mediumIdFk,
+      subjectIdFk,
+      standardIdFk,
+      academicYear,
+    } = this.state;
 
     return (
       <div>
@@ -154,30 +154,30 @@ export class ViewQuePaper extends Component {
                               </tr>
                             </thead>
                             <tbody>
-                            {quepapers.map((que, index) => (
+                              {quepapers.map((que, index) => (
                                 <tr key={index}>
                                   <td>{index + 1}</td>
                                   <td> {que.mediumName} </td>
                                   <td> {que.academicYear} </td>
                                   <td> {que.subjectName} </td>
-                                  <td> 
-                                  <Link to = {{ 
-                                    pathname: `/admin/edit-quePaperImage/${que.questionPaperIdPk}`,
-                                  }}>
-                                        Galary
-                                      </Link>{" "}  </td>
-                                  <td> 
-                                  <button class="btn btn-outline-primary edit-item-btn">
+                                  <td>
+                                    <Link to={{
+                                      pathname: `/admin/edit-quePaperImage/${que.questionPaperIdPk}`,
+                                    }}>
+                                      Galary
+                                    </Link>{" "}  </td>
+                                  <td>
+                                    <button class="btn btn-outline-primary edit-item-btn">
                                       <Link
                                         to={{
                                           pathname: `/admin/edit-quepaper/${que.questionPaperIdPk}`,
                                         }}
-                                      > 
+                                      >
                                         Edit
-                                      </Link>{" "} 
+                                      </Link>{" "}
                                     </button> </td>
-                                  <td> 
-                                  <button
+                                  <td>
+                                    <button
                                       type="button"
                                       onClick={() =>
                                         this.delete(que.questionPaperIdPk)
@@ -186,18 +186,17 @@ export class ViewQuePaper extends Component {
                                     >
                                       {" "}
                                       Delete{" "}
-                                    </button> </td> 
-                                  </tr>
-                            ))}
-                              </tbody>
+                                    </button> </td>
+                                </tr>
+                              ))}
+                            </tbody>
                             <tfoot>
                               <tr>
                                 <th>#</th>
                                 <th>Medium Name</th>
-                                <th>Title</th>
-                                <th>Details</th>
-                                <th>Date</th>
-                                <th>Image</th>
+                                <th>Paper Year</th>
+                                <th>Subject Name</th>
+                                <th>Paper Image</th>
                                 <th> Edit </th>
                                 <th>Delete</th>
                               </tr>

@@ -6,8 +6,89 @@ import { Variables } from "../Variables";
 
 export class AddFeedback extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      students: [],
+      feedback: [],
+      modelTitle: "",
+      feedbackIdPk: 0,
+      feedbackSubject: "",
+      feedbackDetail: "",
+      isActive: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.refreshList(sessionStorage.getItem("userId")?.toString());
+    //this.refreshList(sessionStorage.getItem("classId")?.toString());
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    //this.setState({ dept_name: event.target.departmentname.value });
+    if (this.state.feedbackIdPk !== 0) {
+      this.update();
+    } else {
+      this.insert();
+    }
+  };
+
+  refreshList(id) {
+    fetch(Variables.STUD_API_URL + "studentList/" + id)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ students: res.data });
+        }
+      });
+  }
+
+  changeSubject = (e) => {
+    this.setState({ feedbackSubject: e.target.value });
+  };
+
+  changeDetail = (e) => {
+    this.setState({ feedbackDetail: e.target.value });
+  };
+
+  insert(userId, classId) {
+    fetch(Variables.STUD_API_URL + "insertFeedbackList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userIdFk: sessionStorage.getItem("userId"),
+        userType: sessionStorage.getItem("userType"),
+        feedbackSubject: this.state.feedbackSubject,
+        feedbackDetail: this.state.feedbackDetail,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/student");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
   render() {
-    
+
+    const { feedback,
+      modelTitle,
+      feedbackIdPk,
+      feedbackSubject,
+      feedbackDetail,
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -73,7 +154,7 @@ export class AddFeedback extends Component {
                         <div className="card-block ">
                           <form
                             className="form-horizontal"
-                            // onSubmit={this.onSubmit.bind(this)}
+                            onSubmit={this.onSubmit.bind(this)}
                           >
                             <div className="row">
                               <div className="col-lg-6 col-md-12">
@@ -86,6 +167,8 @@ export class AddFeedback extends Component {
                                     <input
                                       type="text"
                                       name="subname"
+                                      value={feedbackSubject}
+                                      onChange={this.changeSubject}
                                       placeholder="Subject"
                                       className="form-control"
                                       required
@@ -104,7 +187,8 @@ export class AddFeedback extends Component {
                                   </h5>
                                   <div className="controls">
 
-                                    <textarea rows="5" cols="65" placeholder="Description"  data-validation-required-message="This field is required">
+                                    <textarea rows="5" cols="65" value={feedbackDetail}
+                                      onChange={this.changeDetail} placeholder="Description" data-validation-required-message="This field is required">
 
                                     </textarea>
                                   </div>
@@ -121,7 +205,7 @@ export class AddFeedback extends Component {
                               <button
                                 type="reset"
                                 className="btn btn-danger"
-                                // onClick={this.reset()}
+                              // onClick={this.reset()}
                               >
                                 Reset{" "}
                                 <i className="icon-refresh position-right"></i>

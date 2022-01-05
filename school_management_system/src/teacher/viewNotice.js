@@ -9,7 +9,7 @@ export class teacherViewNotice extends Component {
     return (
       <div>
           <Header></Header>
-            hii
+            
           <Footer></Footer>
       </div>
     );

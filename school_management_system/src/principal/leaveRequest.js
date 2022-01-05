@@ -4,117 +4,87 @@ import { Link } from "react-router-dom";
 import Header from "./includes/header";
 import Footer from "../admin/includes/footer";
 import { Variables } from "../Variables";
+import { data } from "jquery";
 
-export class teacherViewLeaveRequest extends Component {
+export class leaveRequest extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      reqs: [],
-      classes: [],
-      studs: [],
-      classid : 0,
-      status: "",
-      leaveRequestIdPk: 0,
-      classTeacherIdFk: 0
-    };
-  }
-
-  getClassTeacher(id){
-    fetch(Variables.TECH_API_URL + "checkClassTeacher/" + id,{
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(
-        (res) => {
-          console.log(res);
-          if (res.result === "success") {
-            this.setState({ classes: res.data });
-            console.log("teacherId : ", + res.data.teacherIdFk);
-            this.setState({ classid: res.data.classIdFk});
-            this.getLeaveRequests(res.data.classIdFk);
-          }
-        },
-        (error) => {
-          alert("Failed...");
-        }
-      );
-  }
-
-  
-  getLeaveRequests(classid) {
-    fetch(Variables.TECH_API_URL + "classLeaveList/" + classid, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(
-        (res) => {
-          console.log(res);
-          if (res.result === "success") {
-            this.setState({ reqs: res.data });
-          }
-          else{
-            this.setState({reqs: []});
-          }
-        },
-        (error) => {
-          alert("Failed");
-        }
-      );
-  }
-
-  componentDidMount() {
-    //this.getLeaveRequests();
-    this.getClassTeacher(sessionStorage.getItem("userId")?.toString());
-  }
-
-  update(leaveRequestIdPk,Status) {
-    fetch(Variables.PRINCIPAL_API_URL + "updateLeaveReqList", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        leaveRequestIdPk: leaveRequestIdPk,
-        Status: Status,
-      }),
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          this.getLeaveRequests(this.state.classid);
-          //this.props.history.push("/headOfDepartment/showLeaveRequest");
-        },
-        (error) => {
-          alert("Failed");
-        }
-      );
-  }
-
-  onClick(leaveRequestIdPk, Status)
-  {
-    console.log("ID: ",leaveRequestIdPk);
-    console.log("Status : ", Status);
-    this.update(leaveRequestIdPk,Status);
-  }
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          reqs: [],
+          status: "",
+          leaveRequestIdPk: 0,
+        };
+      }
+    
+      getLeaveRequests() {
+        fetch(Variables.PRINCIPAL_API_URL + "leaveRequestList/", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then(
+            (res) => {
+              console.log(res);
+              if (res.result === "success") {
+                this.setState({ reqs: res.data });
+              }
+            },
+            (error) => {
+              alert("Failed");
+            }
+          );
+      }
+    
+      componentDidMount() {
+        this.getLeaveRequests();
+      }
+    
+      update(leaveRequestIdPk,Status) {
+        fetch(Variables.PRINCIPAL_API_URL + "updateLeaveReqList", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            LeaveRequestIdPk: leaveRequestIdPk,
+            Status: Status,
+          }),
+        })
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              console.log(result);
+              this.getLeaveRequests();
+              //this.props.history.push("/headOfDepartment/showLeaveRequest");
+            },
+            (error) => {
+              alert("Failed");
+            }
+          );
+      }
+    
+      onClick(leaveRequestIdPk, Status)
+      {
+        console.log("ID: ",leaveRequestIdPk);
+        console.log("Status : ", Status);
+        this.update(leaveRequestIdPk,Status);
+      }
+    
 
   render() {
+
     const { reqs, leaveRequestIdPk, status } = this.state;
+
     return (
       <div>
-          <Header></Header>
-          <div className="robust-content content container-fluid">
+        <Header></Header>
+        <div className="robust-content content container-fluid">
           <div className="content-wrapper">
             <div className="content-header row">
               <div className="content-header-left col-md-6 col-xs-12">
@@ -176,7 +146,7 @@ export class teacherViewLeaveRequest extends Component {
                           <div class="msg-item">
                             <div class="col-xs-10">
                               <p class="title">Title: {r.leaveRequestTitle}</p>
-                              <p class="sent-by">From: {r.studentMname} </p>
+                              <p class="sent-by">From: {r.teacherName} </p>
                               <p class="msg-desc">
                                 Description: {r.leaveRequestDetail}
                               </p>
@@ -228,10 +198,10 @@ export class teacherViewLeaveRequest extends Component {
             </div>
           </div>
         </div>
-          <Footer></Footer>
+        <Footer></Footer>
       </div>
     );
   }
 }
 
-export default teacherViewLeaveRequest;
+export default leaveRequest;

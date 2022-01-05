@@ -15,6 +15,7 @@ export class studentIndex extends Component {
       studentMname: "",
       mediumIdFk: 0,
       classIdFk: 0,
+      studImg: [],
     }
   }
 
@@ -39,11 +40,13 @@ export class studentIndex extends Component {
             standardIdFk: result.data.standardIdPk,
             studentMname: result.data.studentMname,
             mediumIdFk: result.data.mediumIdFk,
+            studentImage: result.data.studentImage
           });
           sessionStorage.setItem("classId", result.data.classIdFk);
           sessionStorage.setItem("standardId", result.data.standardIdPk);
           sessionStorage.setItem("mname", result.data.studentMname);
           sessionStorage.setItem("medId", result.data.mediumIdFk);
+          sessionStorage.setItem("studImg", result.data.studentImage);
         },
         (error) => {
           alert("Failed");

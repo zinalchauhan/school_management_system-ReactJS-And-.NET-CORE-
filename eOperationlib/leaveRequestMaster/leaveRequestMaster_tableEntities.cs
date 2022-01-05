@@ -10,6 +10,8 @@ using System.Threading.Tasks;
         private int leaveRequestIdPk = 0;
         private int studentIdFk = 0;
         private string studentMname = "";
+    private string studentFName = "";
+    private string teacherName = "";
         private int classIdFk = 0;
         private string standardName = "";
         private string divisionName = "";
@@ -18,6 +20,7 @@ using System.Threading.Tasks;
         private string userType = "";
         private string leaveRequestTitle = "";
         private string leaveRequestDetail = "";
+    private int status = 0;
 
     public int LeaveRequestIdPk { get => leaveRequestIdPk; set => leaveRequestIdPk = value; }
     public int StudentIdFk { get => studentIdFk; set => studentIdFk = value; }
@@ -30,5 +33,8 @@ using System.Threading.Tasks;
     public string LeaveRequestTitle { get => leaveRequestTitle; set => leaveRequestTitle = value; }
     public string LeaveRequestDetail { get => leaveRequestDetail; set => leaveRequestDetail = value; }
     public string StudentMname { get => studentMname; set => studentMname = value; }
+    public int Status { get => status; set => status = value; }
+    public string StudentFName { get => studentFName; set => studentFName = value; }
+    public string TeacherName { get => teacherName; set => teacherName = value; }
 }
 

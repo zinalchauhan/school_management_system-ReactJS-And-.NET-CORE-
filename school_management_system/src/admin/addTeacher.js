@@ -195,7 +195,12 @@ export class AddTeacher extends Component {
     formData.append("cityIdFk", this.state.cityIdFk);
     formData.append("mediumIdFk", this.state.mediumIdFk);
     formData.append("sub", this.state.teacherSubject);
-    formData.append("file", this.state.file, this.state.file.name);
+    if (this.state.file != '') {
+      formData.append("file", this.state.file, this.state.file.name);
+    } else {
+
+      formData.append("teacherImage", this.state.teacherImage);
+    }
 
     fetch(Variables.API_URL + "insertTeacherList", {
       method: "POST",
@@ -205,7 +210,7 @@ export class AddTeacher extends Component {
       .then(
         (result) => {
           console.log(result);
-    //      this.props.history.push("/admin/viewTeacher");
+          this.props.history.push("/admin/viewTeacher");
         },
         (error) => {
           alert("Failed");
@@ -293,27 +298,27 @@ export class AddTeacher extends Component {
 
   render() {
 
-      const {
-        teachers: [],
-        states,
-        cities,
-        mediums,
-        subjects,
-        modelTitle,
-        teacherName,
-        teacherMobile,
-        teacherEmail,
-        teacherQualification,
-        teacherImage,
-        teacherAddress,
-        cityIdFk,
-        stateIdFk,
-        mediumIdFk,
-        subjectIdFk,
-        sub,
-        name,
-        file
-      } = this.state;
+    const {
+      teachers: [],
+      states,
+      cities,
+      mediums,
+      subjects,
+      modelTitle,
+      teacherName,
+      teacherMobile,
+      teacherEmail,
+      teacherQualification,
+      teacherImage,
+      teacherAddress,
+      cityIdFk,
+      stateIdFk,
+      mediumIdFk,
+      subjectIdFk,
+      sub,
+      name,
+      file
+    } = this.state;
 
     return (
       <div>
@@ -381,7 +386,7 @@ export class AddTeacher extends Component {
                           <form className="form-horizontal" novalidate onSubmit={this.onSubmit.bind(this)}>
                             <div className="row">
                               <div className="col-md-12">
-                              <div className="form-group">
+                                <div className="form-group">
                                   <h5>
                                     Select Medium :{" "}
                                     <span className="required"></span>
@@ -424,7 +429,7 @@ export class AddTeacher extends Component {
                                       name="name"
                                       placeholder="Teacher Name"
                                       value={teacherName}
-                                onChange={this.changeTechName}
+                                      onChange={this.changeTechName}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -440,7 +445,7 @@ export class AddTeacher extends Component {
                                       name="mobile"
                                       placeholder="Teacher Mobile"
                                       value={teacherMobile}
-                                onChange={this.changeMobile}
+                                      onChange={this.changeMobile}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -456,7 +461,7 @@ export class AddTeacher extends Component {
                                       name="email"
                                       placeholder="Teacher Email"
                                       value={teacherEmail}
-                                onChange={this.changeEmail}
+                                      onChange={this.changeEmail}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -471,7 +476,7 @@ export class AddTeacher extends Component {
                                       name="text"
                                       placeholder="Teacher Qualification"
                                       value={teacherQualification}
-                                onChange={this.changeQualification}
+                                      onChange={this.changeQualification}
                                       className="form-control"
                                       required
                                       data-validation-required-message="This field is required"
@@ -487,7 +492,7 @@ export class AddTeacher extends Component {
                                     <input
                                       type="file"
                                       name="img"
-                                      onChange={(e) => this.changeImage(e)}
+                                      onChange={(e) => this.setFile(e)}
                                       className="form-control"
                                       required
                                     />
@@ -508,7 +513,7 @@ export class AddTeacher extends Component {
                                       rows="7"
                                       class="form-control"
                                       value={this.teacherAddress}
-                                onChange={this.changeAddress}
+                                      onChange={this.changeAddress}
                                       required
                                       placeholder="Teacher Address"
                                     ></textarea>
@@ -525,23 +530,23 @@ export class AddTeacher extends Component {
                                       name="select"
                                       id="select"
                                       value={stateIdFk}
-                                onChange={this.loadCity}
+                                      onChange={this.loadCity}
                                       required
                                       className="form-control"
                                     >
                                       <option>Select State</option>
-                                {this.state.states.map((e, key) => {
-                                  //console.log(e);
-                                  return (
-                                    <option
-                                      key={key}
-                                      value={e.stateIdPk}
-                                      selected={stateIdFk === e.stateIdPk}
-                                    >
-                                      {e.stateName}{" "}
-                                    </option>
-                                  );
-                                })}
+                                      {this.state.states.map((e, key) => {
+                                        //console.log(e);
+                                        return (
+                                          <option
+                                            key={key}
+                                            value={e.stateIdPk}
+                                            selected={stateIdFk === e.stateIdPk}
+                                          >
+                                            {e.stateName}{" "}
+                                          </option>
+                                        );
+                                      })}
                                     </select>
                                   </div>
                                 </div>
@@ -559,17 +564,17 @@ export class AddTeacher extends Component {
                                       className="form-control"
                                     >
                                       <option>Select City</option>
-                                {this.state.cities.map((e, key) => {
-                                  return (
-                                    <option
-                                      key={key}
-                                      value={e.cityIdPk}
-                                      selected={cityIdFk === e.cityIdPk}
-                                    >
-                                      {e.cityName}
-                                    </option>
-                                  );
-                                })}
+                                      {this.state.cities.map((e, key) => {
+                                        return (
+                                          <option
+                                            key={key}
+                                            value={e.cityIdPk}
+                                            selected={cityIdFk === e.cityIdPk}
+                                          >
+                                            {e.cityName}
+                                          </option>
+                                        );
+                                      })}
                                     </select>
                                   </div>
                                 </div>
@@ -584,34 +589,34 @@ export class AddTeacher extends Component {
                                   </h5>{" "}
                                   <br />
                                   {subjects.map((sub, index) =>
-                                index % 2 === 0 ? (
-                                  <div className="col-md-6">
-                                    <input
-                                      type="checkbox"
-                                      id="checkid"
-                                      onChange={this.onSubjectCheck(
-                                        index,
-                                        sub.subjectIdPk
-                                      )} 
-                                      value="{sub.subjectIdPk}"
-                                    /> &nbsp;&nbsp;&nbsp;
-                                    {sub.subjectName}
-                                  </div>
-                                ) : (
-                                  <div className="col-md-6">
-                                    <input
-                                      type="checkbox"
-                                      id="checkid"
-                                      onChange={this.onSubjectCheck(
-                                        index,
-                                        sub.subjectIdPk
-                                      )}
-                                      value="{sub.subjectIdPk}"
-                                    />{" "} &nbsp;&nbsp;&nbsp;
-                                    {sub.subjectName}
-                                  </div>
-                                )
-                              )}
+                                    index % 2 === 0 ? (
+                                      <div className="col-md-6">
+                                        <input
+                                          type="checkbox"
+                                          id="checkid"
+                                          onChange={this.onSubjectCheck(
+                                            index,
+                                            sub.subjectIdPk
+                                          )}
+                                          value="{sub.subjectIdPk}"
+                                        /> &nbsp;&nbsp;&nbsp;
+                                        {sub.subjectName}
+                                      </div>
+                                    ) : (
+                                      <div className="col-md-6">
+                                        <input
+                                          type="checkbox"
+                                          id="checkid"
+                                          onChange={this.onSubjectCheck(
+                                            index,
+                                            sub.subjectIdPk
+                                          )}
+                                          value="{sub.subjectIdPk}"
+                                        />{" "} &nbsp;&nbsp;&nbsp;
+                                        {sub.subjectName}
+                                      </div>
+                                    )
+                                  )}
                                   {/* <div class="controls">
                                     <div className="col-md-4">
                                       <fieldset>

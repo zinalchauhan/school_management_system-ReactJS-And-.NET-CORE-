@@ -16,11 +16,13 @@ using System.Threading.Tasks;
         private string teacherAddress = "";
         private int cityIdFk = 0;
         private string cityName = "";
-        private string stateName = "";
+    private int sateIdFk = 0;
+    private string stateName = "";
         private string mediumName = "";
         private int mediumIdFk = 0;
         private string teacherSubject = "";
-        private int isActive = 0;
+    private string subjects = "";
+    private int isActive = 0;
 
     public int TeacherIdPk { get => teacherIdPk; set => teacherIdPk = value; }
     public string TeacherName { get => teacherName; set => teacherName = value; }
@@ -36,5 +38,7 @@ using System.Threading.Tasks;
     public int MediumIdFk { get => mediumIdFk; set => mediumIdFk = value; }
     public int IsActive { get => isActive; set => isActive = value; }
     public string TeacherSubject { get => teacherSubject; set => teacherSubject = value; }
+    public string Subjects { get => subjects; set => subjects = value; }
+    public int SateIdFk { get => sateIdFk; set => sateIdFk = value; }
 }
 

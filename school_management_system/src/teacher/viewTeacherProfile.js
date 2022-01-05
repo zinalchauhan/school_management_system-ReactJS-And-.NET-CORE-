@@ -14,7 +14,7 @@ export class viewTeacherProfile extends Component {
       teacherIdFk: 0,
       mediumIdFk: 0,
     }
-}
+    }
 
 refreshList(id) {
     fetch(Variables.TECH_API_URL + "teacherList/" + id)

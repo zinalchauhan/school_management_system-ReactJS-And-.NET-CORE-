@@ -6,8 +6,92 @@ import { Variables } from "../Variables";
 
 export class AddLeaveRequest extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      students: [],
+      leave: [],
+      modelTitle: "",
+      leaveRequestIdPk: 0,
+      leaveRequestTitle: "",
+      leaveRequestDetail: "",
+      classId: 0,
+      isActive: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.refreshList(sessionStorage.getItem("userId")?.toString());
+    //this.refreshList(sessionStorage.getItem("classId")?.toString());
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    //this.setState({ dept_name: event.target.departmentname.value });
+    if (this.state.leaveRequestIdPk !== 0) {
+      this.update();
+    } else {
+      this.insert();
+    }
+  };
+
+  refreshList(id) {
+    fetch(Variables.STUD_API_URL + "studentList/" + id)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ students: res.data });
+        }
+      });
+  }
+
+  changeTitle = (e) => {
+    this.setState({ leaveRequestTitle: e.target.value });
+  };
+
+  changeDetail = (e) => {
+    this.setState({ leaveRequestDetail: e.target.value });
+  };
+
+  insert(userId, classId) {
+    fetch(Variables.STUD_API_URL + "insertLeaveReqList", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        studentIdFk: sessionStorage.getItem("userId"),
+        classIdFk: sessionStorage.getItem("classId"),
+        userType: sessionStorage.getItem("userType"),
+        leaveRequestTitle: this.state.leaveRequestTitle,
+        leaveRequestDetail: this.state.leaveRequestDetail,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.props.history.push("/student/viewLeaveRequest");
+        },
+        (error) => {
+          alert("Failed");
+        }
+      );
+  }
+
+
   render() {
-    
+
+    const { leave,
+      modelTitle,
+      leaveRequestIdPk,
+      leaveRequestTitle,
+      leaveRequestDetail,
+      classId } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -20,7 +104,7 @@ export class AddLeaveRequest extends Component {
                   <div className="breadcrumb-wrapper col-xs-12">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
-                        <a href="index-2.html">Home</a>
+                        <a href="">Home</a>
                       </li>
                       <li className="breadcrumb-item active">Add LeaveRequest</li>
                     </ol>
@@ -73,7 +157,7 @@ export class AddLeaveRequest extends Component {
                         <div className="card-block ">
                           <form
                             className="form-horizontal"
-                            // onSubmit={this.onSubmit.bind(this)}
+                            onSubmit={this.onSubmit.bind(this)}
                           >
                             <div className="row">
                               <div className="col-lg-6 col-md-12">
@@ -85,7 +169,9 @@ export class AddLeaveRequest extends Component {
                                   <div className="controls">
                                     <input
                                       type="text"
-                                      name="subname"
+                                      name="leave"
+                                      value={leaveRequestTitle}
+                                      onChange={this.changeTitle}
                                       placeholder="Title"
                                       className="form-control"
                                       required
@@ -104,7 +190,7 @@ export class AddLeaveRequest extends Component {
                                   </h5>
                                   <div className="controls">
 
-                                    <textarea rows="5" cols="65" placeholder="Details"  data-validation-required-message="This field is required">
+                                    <textarea rows="5" cols="65" onChange={this.changeDetail} value={leaveRequestDetail} placeholder="Details" data-validation-required-message="This field is required">
 
                                     </textarea>
                                   </div>
@@ -121,7 +207,7 @@ export class AddLeaveRequest extends Component {
                               <button
                                 type="reset"
                                 className="btn btn-danger"
-                                // onClick={this.reset()}
+                              // onClick={this.reset()}
                               >
                                 Reset{" "}
                                 <i className="icon-refresh position-right"></i>

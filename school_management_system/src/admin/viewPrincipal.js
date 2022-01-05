@@ -186,7 +186,7 @@ export class ViewPrincipal extends Component {
                                   <td>
                                     {" "}
                                     <img
-                                      src="../assets/italy-pizza.jpg"
+                                      src="../assets/img.png"
                                       className="img"
                                     />{" "}
                                   </td>

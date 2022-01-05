@@ -257,7 +257,58 @@ public  class studentMaster_tableDB : clsDB_Operation
             }
         }
 
-        public List<studentMaster_tableEntities> OnGetListdt()
+    public List<studentMaster_tableEntities> classWiseStud(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<studentMaster_tableEntities> oList = new List<studentMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT s.*, m.mediumName , ct.categoryName, st.standardIdPk , st.standardName , d.divisionName
+                            FROM [studentMaster] s 
+                            JOIN [mediumMaster] m ON s.[mediumIdFk] = m.[mediumIdPk]
+                            JOIN [classMaster] cl ON s.[classIdFk] = cl.[classIdPk]
+                            JOIN [standardMaster] st ON cl.[standardIdFk] = st.[standardIdPk]
+                            JOIN [divisionMaster] d ON cl.[divisionIdFk] = d.[divisionIdPk]
+                            JOIN [categoryMaster] ct ON s.[categoryIdFk] = ct.[categoryIdPk]
+                            WHERE s.[classIdFk] = @classIdFk
+                            and s.[isActive] = 1";
+            OnClearParameter();
+            AddParameter("@classIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+
+    public List<studentMaster_tableEntities> OnGetListdt()
         {
             Exception exForce;
             //IDataReader oReader;

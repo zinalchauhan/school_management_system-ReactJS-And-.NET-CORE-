@@ -188,5 +188,55 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        [HttpPost("insertLeaveReqList")]
+
+        public JsonResult insertLeaveReqList(leaveRequestMaster_tableEntities leave)
+        {
+
+            int result = leaveObj.OnInsert(leave);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = leave });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+            }
+        }
+
+        [HttpGet("leaveRequestList/{studid}")]
+        public JsonResult leaveRequestList(int studid)
+        {
+
+            List<leaveRequestMaster_tableEntities> leave = leaveObj.getLeaveList(studid);
+
+            if (leave.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = leave });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpPost("insertFeedbackList")]
+
+        public JsonResult insertFeedbackList(feedbackMaster_tableEntities fb)
+        {
+
+            int result = feedbackObj.OnInsert(fb);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = fb });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+            }
+        }
+
     }
 }
