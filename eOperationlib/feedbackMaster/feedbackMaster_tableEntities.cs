@@ -14,6 +14,7 @@ using System.Threading.Tasks;
         private string feedbackDetail = "";
         private string reply = "";
         private string addedOn = "";
+    
         private int isActive = 0;
 
     public int FeedbackIdPk { get => feedbackIdPk; set => feedbackIdPk = value; }

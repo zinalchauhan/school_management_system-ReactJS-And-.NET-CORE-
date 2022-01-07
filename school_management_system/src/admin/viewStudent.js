@@ -152,13 +152,7 @@ export class ViewStudent extends Component {
                       </div>
                       <div className="card-body collapse in">
                         <div className="card-block card-dashboard">
-                          <button
-                            type="submit"
-                            className="btn btn-primary mr-1 inputs-submin"
-                          >
-                            <i className="icon-send-o"> </i>
-                            &nbsp; Update RollNo
-                          </button>
+                          
                           <br />
                           <br />
                           <table className="table table-striped table-bordered ">

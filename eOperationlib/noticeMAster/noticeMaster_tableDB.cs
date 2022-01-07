@@ -316,6 +316,54 @@ public  class noticeMaster_tableDB : clsDB_Operation
             //    DB_Config.OnStopConnection();
         }
     }
+
+    public List<noticeMaster_tableEntities> OnGetTeacherNoticeList(int med)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<noticeMaster_tableEntities> oList = new List<noticeMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT n.* , m.mediumName
+                            FROM [noticeMaster] n
+							JOIN [mediumMaster] m ON n.[mediumIdFk] = m.[mediumIdPk]
+							WHERE n.mediumIdFk = @mediumIdFk";
+
+            OnClearParameter();
+             
+            AddParameter("@mediumIdFk", SqlDbType.Int, 2, med, ParameterDirection.Input);
+
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
     public List<ComboboxItem> OnGetListForCombo()
         {
             Exception exForce;

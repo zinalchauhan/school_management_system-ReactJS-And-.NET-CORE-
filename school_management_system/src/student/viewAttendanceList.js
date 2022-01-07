@@ -11,30 +11,30 @@ export class viewAttendanceList extends Component {
         super(props);
 
         this.state = {
-            notices: [],
+            atts: [],
             isActive: 0,
         };
     }
 
     refreshList(std) {
-        fetch(Variables.STUD_API_URL + "noticeList/" + std)
+        fetch(Variables.STUD_API_URL + "attendenceList/" + std)
             .then((response) => response.json())
             .then((res) => {
                 if (res.result === "success") {
                     console.log(res);
-                    this.setState({ notices: res.data });
+                    this.setState({ atts: res.data });
                 }
             });
     }
 
     componentDidMount() {
-        this.refreshList(sessionStorage.getItem("standardId")?.toString());
+        this.refreshList(sessionStorage.getItem("userId")?.toString());
     }
 
     render() {
 
         const {
-            notices,
+            atts,
         }= this.state;
 
         return (
@@ -105,37 +105,14 @@ export class viewAttendanceList extends Component {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            
-                                                                <tr >
-                                                                    <td>1</td>
-                                                                    <td> 12-12-2021 </td>
-                                                                    <td> P </td>  
+                                                        {atts.map((a, index) => (
+                                                                <tr key={index}>
+                                                                <td>  {index+1} </td>
+                                                                <td> {a.attendenceDate} </td>
+                                                                <td> {a.attendenceStatus} </td>
                                                                 </tr>
-
-                                                                <tr >
-                                                                    <td>2</td>
-                                                                    <td> 13-12-2021 </td>
-                                                                    <td> P </td>  
-                                                                </tr>
-
-                                                                <tr >
-                                                                    <td>3</td>
-                                                                    <td> 14-12-2021 </td>
-                                                                    <td> A </td>  
-                                                                </tr>
-
-                                                                <tr >
-                                                                    <td>4</td>
-                                                                    <td> 15-12-2021 </td>
-                                                                    <td> P </td>  
-                                                                </tr>
-
-                                                                <tr >
-                                                                    <td>5</td>
-                                                                    <td> 16-12-2021 </td>
-                                                                    <td> P </td>  
-                                                                </tr>
-                                                           
+                                                            ))} 
+                                                        
                                                         </tbody>
                                                         <tfoot>
                                                         <tr>

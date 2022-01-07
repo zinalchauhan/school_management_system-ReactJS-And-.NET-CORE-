@@ -16,6 +16,8 @@ namespace schoolManagementSystemAPI.Controllers
         studentMaster_tableDB studentObj = new();
         attendenceMaster_tableDB attendenceObj = new();
         leaveRequestMaster_tableDB leaveObj = new();
+        noticeMaster_tableDB noticeObj = new();
+        remarkMaster_tableDB remarkObj = new();
 
         [HttpGet("teacherList/{id}")]
         public JsonResult teacherList(int id)
@@ -65,6 +67,23 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        [HttpPost("insertRemarkList")]
+
+        public JsonResult insertRemarkList(remarkMaster_tableEntities remark)
+        {
+
+            int result = remarkObj.OnInsert(remark);
+
+            if (result == 1)
+            {
+                return new JsonResult(new { result = "success", message = "Data Inserted", data = remark });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+            }
+        }
+
         [HttpGet("classLeaveList/{id}")]
         public JsonResult classLeaveList(int id)
         {
@@ -105,6 +124,22 @@ namespace schoolManagementSystemAPI.Controllers
             else
             {
                 return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("noticeList/{med}")]
+        public JsonResult noticeList(int med)
+        {
+
+            List<noticeMaster_tableEntities> notice = noticeObj.OnGetTeacherNoticeList(med);
+
+            if (notice.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = notice });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
             }
         }
     }

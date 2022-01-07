@@ -27,6 +27,9 @@ namespace schoolManagementSystemAPI.Controllers
         eventImageMaster_tableDB eimgObj = new();
         feedbackMaster_tableDB feedbackObj = new();
         leaveRequestMaster_tableDB leaveObj = new();
+        attendenceMaster_tableDB attObj = new();
+        examMaster_tableDB examObj = new();
+        examTimeTableMaster_tableDB exmttObj = new();
 
         [HttpGet("remarkList/{studentId}")]
         public JsonResult remarkList(int studentId)
@@ -235,6 +238,54 @@ namespace schoolManagementSystemAPI.Controllers
             else
             {
                 return new JsonResult(new { result = "failure", message = "Data Not Inserted" });
+            }
+        }
+
+        [HttpGet("attendenceList/{id}")]
+        public JsonResult attendenceList(int id)
+        {
+
+            List<attendenceMaster_tableEntities> att = attObj.studAttendance(id);
+
+            if (att.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = att });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("examList/{medId}")]
+        public JsonResult examList(int medId)
+        {
+
+            List<examMaster_tableEntities> exm = examObj.OnGetDataByMed(medId);
+
+            if (exm.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = exm });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
+        [HttpGet("examtimetableList/{std}/{exm}")]
+        public JsonResult examtimetableList(int std, int exm)
+        {
+
+            List<examTimeTableMaster_tableEntities> ett = exmttObj.examtimeTableList(std , exm);
+
+            if (ett.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = ett });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
             }
         }
 

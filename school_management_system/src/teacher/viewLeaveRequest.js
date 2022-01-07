@@ -175,20 +175,20 @@ export class teacherViewLeaveRequest extends Component {
                         {reqs.map((r, index) => (
                           <div class="msg-item">
                             <div class="col-xs-10">
-                              <p class="title">Title: {r.leaveRequestTitle}</p>
-                              <p class="sent-by">From: {r.studentMname} </p>
+                              <p class="title"><b>Title : </b>{r.leaveRequestTitle}</p>
+                              <p class="sent-by"><b>From : </b>{r.studentMname} </p>
                               <p class="msg-desc">
-                                Description: {r.leaveRequestDetail}
+                                <b>Description : </b>{r.leaveRequestDetail}
                               </p>
                               <p class="msg-desc">
-                                Status:{" "}
+                                <b>Status : </b>{" "}
                                 {r.status === 1
                                   ? "Accepted"
                                   : r.status === 2
                                   ? "Rejected"
                                   : "Waiting For Response"}
                               </p>
-                              <p class="timestamp">
+                              <p class="timestamp"> <b> Added On : </b>
                                 <i class="fa fa-clock-o"></i> <i>{r.addedOn}</i>
                               </p>
                               {r.status === 0 ? <p> 

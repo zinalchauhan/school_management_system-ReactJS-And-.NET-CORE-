@@ -1147,6 +1147,22 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        [HttpGet("classAttendenceList/{id}")]
+        public JsonResult classAttendenceList(int id)
+        {
+
+            List<attendenceMaster_tableEntities> attend = attendenceObj.classWiseAttendance(id);
+
+            if (attend.Count != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = attend });
+            }
+            else
+            {
+                return new JsonResult(new { result = "failure", message = "Data Not Found" });
+            }
+        }
+
 
         [HttpPost("insertAttendemceList")]
 

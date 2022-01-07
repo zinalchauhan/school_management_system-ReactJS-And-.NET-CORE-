@@ -168,7 +168,7 @@ export class ViewRemark extends Component {
                                       Delete{" "}
                                     </button>
                                   </td>
-                                  </tr>
+                                </tr>
                             ))}
                               </tbody>
                             <tfoot>

@@ -121,7 +121,6 @@ export class ViewStandard extends Component {
                               <tr>
                                 <th>#</th>
                                 <th>Standard Name</th>
-                                <th>Get Data</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -129,17 +128,6 @@ export class ViewStandard extends Component {
                               <tr key={index}>
                                 <td>{index + 1}</td>
                                   <td>{std.standardName}</td>
-                                  <td>
-                                  <button class="btn btn-outline-primary edit-item-btn">
-                                      {/* <Link
-                                        to={{
-                                          pathname: `/edit-subject/${sub.subjectIdPk}`,
-                                        }}
-                                      > */}
-                                        Get Data
-                                      {/* </Link>{" "} */}
-                                    </button>
-                                  </td>
                                 </tr>
                             ))}
                             </tbody>
@@ -147,7 +135,6 @@ export class ViewStandard extends Component {
                               <tr>
                                 <th>#</th>
                                 <th>Standard Name</th>
-                                <th>Get Data</th>
                               </tr>
                             </tfoot>
                           </table>

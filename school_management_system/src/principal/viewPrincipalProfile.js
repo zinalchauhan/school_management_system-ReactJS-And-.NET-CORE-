@@ -52,7 +52,8 @@ componentDidMount() {
                                             <div class="card-block">
                                                 <div className="row">
                                                         <img
-                                                            src={Variables.PHOTO_URL + prs.principalImage}
+                                                            //src={Variables.PHOTO_URL + prs.principalImage}
+                                                            src="../assets/img.png" 
                                                             className="img-thumbnail img-fluid profile"
                                                             height="300px"
                                                             width="300px"

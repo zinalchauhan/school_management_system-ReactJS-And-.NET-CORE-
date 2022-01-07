@@ -78,27 +78,27 @@ export class viewTimeTableList extends Component {
         var day = new Date();
         if(day.getDay() === 1)
         {
-          this.setState({ currentDay: "Monday" });
+          this.setState({ currentDay: "monday" });
         }
         if(day.getDay() === 2)
         {
-          this.setState({ currentDay: "Tuesday" });
+          this.setState({ currentDay: "tuesday" });
         }
         if(day.getDay() === 3)
         {
-          this.setState({ currentDay: "Wednesday" });
+          this.setState({ currentDay: "wednesday" });
         }
         if(day.getDay() === 4)
         {
-          this.setState({ currentDay: "Thursday" });
+          this.setState({ currentDay: "thursday" });
         }
         if(day.getDay() === 5)
         {
-          this.setState({ currentDay: "Friday" });
+          this.setState({ currentDay: "friday" });
         }
         if(day.getDay() === 6)
         {
-          this.setState({ currentDay: "Saturday" });
+          this.setState({ currentDay: "saturday" });
         }
       }
     
@@ -151,14 +151,14 @@ export class viewTimeTableList extends Component {
                                     </div>
                                 </div>
                             ))}
-                                
+                                <br/><br/><br/>
                                 <div class="col-xl-12 col-lg-6 col-xs-12">
                                     <div class="row" id="contingent">
 
                                         <div class="card-body collapse in">
 
                                             <div class="table-responsive">
-                                                <table class="table mb-0">
+                                              <br/><br/>                                                <table class="table mb-0">
                                                     <thead>
                                                         <tr>
                                                             <th>Period No.</th>
@@ -169,7 +169,7 @@ export class viewTimeTableList extends Component {
                                                     <tbody>
                                                         {tts.map((tt, index) => (
                                                             <tr >
-                                                                <td> {tt.periodNo} </td>
+                                                                <td> {index + 1}  </td>
                                                                 <td> {tt.subjectName} </td>
                                                                 <td> {tt.teacherName} </td>
                                                             </tr>

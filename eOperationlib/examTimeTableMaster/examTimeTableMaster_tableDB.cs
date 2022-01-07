@@ -71,7 +71,58 @@ public class examTimeTableMaster_tableDB : clsDB_Operation
         }
     }
 
+    public List<examTimeTableMaster_tableEntities> examtimeTableList(int std, int exm)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<examTimeTableMaster_tableEntities> oList = new List<examTimeTableMaster_tableEntities>();
+        string strQ = "";
 
+        try
+        {
+            strQ = @"SELECT et.* , e.examName , e.mediumIdFk , st.standardName , sb.subjectName , e.examStartDate , m.mediumName
+                            FROM [examTimeTableMaster] et 
+                            JOIN [examMaster] e ON et.[examIdFk] = e.[examIdPk]
+                            JOIN [mediumMaster] m ON e.[mediumIdFk] = m.[mediumIdPk]
+                            JOIN [standardMaster] st ON et.[standardIdFk] = st.[standardIdPk]
+                            JOIN [subjectMaster] sb ON et.[subjectIdFk] = sb.[subjectIdPk]
+                            WHERE et.standardIdFk = @standardIdFk
+							and et.examIdFk = @examIdFk
+                            and et.[isActive] = 1";
+
+            OnClearParameter();
+
+            AddParameter("@standardIdFk", SqlDbType.Int, 2, std, ParameterDirection.Input);
+            AddParameter("@examIdFk", SqlDbType.Int, 2, exm, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
 
     public int OnDelete(int ID)
     {

@@ -21,7 +21,7 @@ export class teacherIndex extends Component {
   }
 
   OnGetData(id) {
-    fetch(Variables.STUD_API_URL + "teacherList/" + id, {
+    fetch(Variables.TECH_API_URL + "teacherList/" + id, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -33,6 +33,7 @@ export class teacherIndex extends Component {
         (result) => {
           console.log(result);
           this.setState({
+            teachers: result.data,
             mediumIdFk: result.data.mediumIdFk,
           });
           sessionStorage.setItem("medId", result.data.mediumIdFk);
@@ -64,6 +65,21 @@ export class teacherIndex extends Component {
                     <div class="card-body">
                       <div class="card-block">
                         <div class="row">
+                        <img
+                                                            src={Variables.PHOTO_URL + teachers.teacherImage}
+                                                            className="img-thumbnail img-fluid profile"
+                                                            height="300px"
+                                                            width="300px"
+                                                            itemprop="thumbnail"
+                                                        />
+                                                        <br /> 
+                                                        <p><b> Name : </b> {teachers.teacherName} </p>
+                                                        <p><b> Email : </b> {teachers.teacherEmail} </p>
+                                                        <p><b> Mobile Number : </b> {teachers.teacherMobile} </p>
+                                                        <p><b> Address : </b> {teachers.teacherAddress} </p>
+                                                        <p><b> City : </b> {teachers.cityName} - {teachers.stateName} </p>
+                                                        <p><b> Medium : </b> {teachers.mediumName} </p>
+                                                        <p><b> Subjects : </b> {teachers.subjects} </p>
                         </div>
                       </div>
                     </div>

@@ -185,7 +185,7 @@ export class AddTeacher extends Component {
   };
 
   insert(e) {
-    alert("in");
+    
     const formData = new FormData();
     formData.append("teacherName", this.state.teacherName);
     formData.append("teacherEmail", this.state.teacherEmail);

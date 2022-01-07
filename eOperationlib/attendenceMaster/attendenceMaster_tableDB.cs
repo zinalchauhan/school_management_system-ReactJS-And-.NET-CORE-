@@ -95,7 +95,106 @@ public  class attendenceMaster_tableDB : clsDB_Operation
             }
         }
 
-        private attendenceMaster_tableEntities BuildEntities(DataRow drRow)
+    public List<attendenceMaster_tableEntities> classWiseAttendance(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<attendenceMaster_tableEntities> oList = new List<attendenceMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT a.* , s.studentMname , s.studentFname ,  t.teacherName , s.studentRollNo
+                            FROM [attendenceMaster] a 
+                            JOIN [studentMaster] s ON a.[studentIdFk] = s.[studentIdPk]
+                            JOIN [classMaster] cl ON a.[classIdFk] = cl.[classIdPk] 
+                            JOIN [classTeacherMaster] ct ON a.[classTeacherIdFk] = ct.[classTeacherIdPk]
+                            JOIN [teacherMaster] t ON ct.[teacherIdFk] = t.[teacherIdPk]
+                            WHERE a.[classIdFk] = @classIdFk
+                            and a.[isActive] = 1";
+            OnClearParameter();
+            AddParameter("@classIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+    public List<attendenceMaster_tableEntities> studAttendance(int ID)
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        List<attendenceMaster_tableEntities> oList = new List<attendenceMaster_tableEntities>();
+        string strQ = "";
+
+        try
+        {
+            strQ = @"SELECT a.* , s.studentMname , s.studentFname ,  t.teacherName , s.studentRollNo
+                            FROM [attendenceMaster] a 
+                            JOIN [studentMaster] s ON a.[studentIdFk] = s.[studentIdPk]
+                            JOIN [classMaster] cl ON a.[classIdFk] = cl.[classIdPk] 
+                            JOIN [classTeacherMaster] ct ON a.[classTeacherIdFk] = ct.[classTeacherIdPk]
+                            JOIN [teacherMaster] t ON ct.[teacherIdFk] = t.[teacherIdPk]
+                            WHERE a.[studentIdFk] = @studentIdFk
+                            and a.[isActive] = 1";
+            OnClearParameter();
+            AddParameter("@studentIdFk", SqlDbType.Int, 2, ID, ParameterDirection.Input);
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            int intRow = 0;
+            while (intRow < dtTable.Rows.Count)
+            {
+                oList.Add(BuildEntities(dtTable.Rows[intRow]));
+                intRow = intRow + 1;
+            }
+            return oList;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return null;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+
+
+    private attendenceMaster_tableEntities BuildEntities(DataRow drRow)
         {
 
             try
@@ -107,9 +206,9 @@ public  class attendenceMaster_tableDB : clsDB_Operation
                 obj.StudentIdFk = (drRow["studentIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentIdFk"];
                 obj.StudentMname = (drRow["studentMname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentMname"];
                 obj.ClassIdFk = (drRow["classIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classIdFk"];
-                obj.StandardName = (drRow["standardName"].Equals(DBNull.Value)) ? "" : (string)drRow["standardName"];
-                obj.DivisionName = (drRow["divisionName"].Equals(DBNull.Value)) ? "" : (string)drRow["divisionName"];
-                obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
+            obj.StudentFname = (drRow["studentFname"].Equals(DBNull.Value)) ? "" : (string)drRow["studentFname"];
+            obj.StudentRollNo = (drRow["studentRollNo"].Equals(DBNull.Value)) ? 0 : (int)drRow["studentRollNo"];
+            obj.TeacherName = (drRow["teacherName"].Equals(DBNull.Value)) ? "" : (string)drRow["teacherName"];
                 obj.ClassTeacherIdFk = (drRow["classTeacherIdFk"].Equals(DBNull.Value)) ? 0 : (int)drRow["classTeacherIdFk"];
                 obj.AttendenceDate = (drRow["attendenceDate"].Equals(DBNull.Value)) ? "" : (string)drRow["attendenceDate"];
                 obj.AttendenceStatus = (drRow["attendenceStatus"].Equals(DBNull.Value)) ? "" : (string)drRow["attendenceStatus"];

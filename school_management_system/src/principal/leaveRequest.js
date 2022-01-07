@@ -145,13 +145,13 @@ export class leaveRequest extends Component {
                         {reqs.map((r, index) => (
                           <div class="msg-item">
                             <div class="col-xs-10">
-                              <p class="title">Title: {r.leaveRequestTitle}</p>
-                              <p class="sent-by">From: {r.teacherName} </p>
+                              <p class="title"><b>Title : </b> {r.leaveRequestTitle}</p>
+                              <p class="sent-by"><b> From : </b>{r.teacherName} </p>
                               <p class="msg-desc">
-                                Description: {r.leaveRequestDetail}
+                                <b>Description : </b>{r.leaveRequestDetail}
                               </p>
                               <p class="msg-desc">
-                                Status:{" "}
+                                <b> Status : </b>{" "}
                                 {r.status === 1
                                   ? "Accepted"
                                   : r.status === 2

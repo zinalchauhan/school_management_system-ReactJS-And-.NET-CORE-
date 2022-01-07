@@ -13,7 +13,7 @@ export class Header extends Component {
     window.location.href = `/`;
   }
 
-  componentDidMount(){}
+  componentDidMount() { }
 
   render() {
     return (
@@ -62,283 +62,8 @@ export class Header extends Component {
                   </li>
                 </ul>
                 <ul className="nav navbar-nav float-xs-right">
-                  <li className="dropdown dropdown-notification nav-item">
-                    <a
-                      href="#"
-                      data-toggle="dropdown"
-                      className="nav-link nav-link-label"
-                    >
-                      <i className="ficon icon-bell4"></i>
-                      <span className="tag tag-pill tag-default tag-danger tag-default tag-up">
-                        5
-                      </span>
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                      <li className="dropdown-menu-header">
-                        <h6 className="dropdown-header m-0">
-                          <span className="grey darken-2">Notifications</span>
-                          <span className="notification-tag tag tag-default tag-danger float-xs-right m-0">
-                            5 New
-                          </span>
-                        </h6>
-                      </li>
-                      <li className="list-group scrollable-container">
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left valign-middle">
-                              <i className="icon-cart3 icon-bg-circle bg-cyan"></i>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading">You have new order!</h6>
-                              <p className="notification-text font-small-3 text-muted">
-                                Lorem ipsum dolor sit amet, consectetuer elit.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  30 minutes ago
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left valign-middle">
-                              <i className="icon-monitor3 icon-bg-circle bg-red bg-darken-1"></i>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading red darken-1">
-                                99% Server load
-                              </h6>
-                              <p className="notification-text font-small-3 text-muted">
-                                Aliquam tincidunt mauris eu risus.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  Five hour ago
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left valign-middle">
-                              <i className="icon-server2 icon-bg-circle bg-yellow bg-darken-3"></i>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading yellow darken-3">
-                                Warning notifixation
-                              </h6>
-                              <p className="notification-text font-small-3 text-muted">
-                                Vestibulum auctor dapibus neque.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  Today
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left valign-middle">
-                              <i className="icon-check2 icon-bg-circle bg-green bg-accent-3"></i>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading">Complete the task</h6>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  Last week
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left valign-middle">
-                              <i className="icon-bar-graph-2 icon-bg-circle bg-teal"></i>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading">
-                                Generate monthly report
-                              </h6>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  Last month
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li className="dropdown-menu-footer">
-                        <a
-                          
-                          className="dropdown-item text-muted text-xs-center"
-                        >
-                          Read all notifications
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="dropdown dropdown-notification nav-item">
-                    <a
-                      href="#"
-                      data-toggle="dropdown"
-                      className="nav-link nav-link-label"
-                    >
-                      <i className="ficon icon-mail6"></i>
-                      <span className="tag tag-pill tag-default tag-info tag-default tag-up">
-                        8
-                      </span>
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                      <li className="dropdown-menu-header">
-                        <h6 className="dropdown-header m-0">
-                          <span className="grey darken-2">Messages</span>
-                          <span className="notification-tag tag tag-default tag-info float-xs-right m-0">
-                            4 New
-                          </span>
-                        </h6>
-                      </li>
-                      <li className="list-group scrollable-container">
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left">
-                              <span className="avatar avatar-sm avatar-online rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-1.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading">Margaret Govan</h6>
-                              <p className="notification-text font-small-3 text-muted">
-                                I like your portfolio, let's start the project.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  Today
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left">
-                              <span className="avatar avatar-sm avatar-busy rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-2.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading">Bret Lezama</h6>
-                              <p className="notification-text font-small-3 text-muted">
-                                I have seen your work, there is
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  Tuesday
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left">
-                              <span className="avatar avatar-sm avatar-online rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-3.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading">Carie Berra</h6>
-                              <p className="notification-text font-small-3 text-muted">
-                                Can we have call in this week ?
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  Friday
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                        <a  className="list-group-item">
-                          <div className="media">
-                            <div className="media-left">
-                              <span className="avatar avatar-sm avatar-away rounded-circle">
-                                <img
-                                  src="./assets/robust-assets/images/portrait/small/avatar-s-6.png"
-                                  alt="avatar"
-                                />
-                                <i></i>
-                              </span>
-                            </div>
-                            <div className="media-body">
-                              <h6 className="media-heading">Eric Alsobrook</h6>
-                              <p className="notification-text font-small-3 text-muted">
-                                We have project party this saturday night.
-                              </p>
-                              <small>
-                                <time
-                                  dateTime="2015-06-11T18:29:20+08:00"
-                                  className="media-meta text-muted"
-                                >
-                                  last month
-                                </time>
-                              </small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li className="dropdown-menu-footer">
-                        <a
-                          
-                          className="dropdown-item text-muted text-xs-center"
-                        >
-                          Read all messages
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
+
+
                   <li className="dropdown dropdown-user nav-item">
                     <a
                       href="#"
@@ -347,7 +72,7 @@ export class Header extends Component {
                     >
                       <span className="avatar avatar-online">
                         <img
-                          src="./assets/robust-assets/images/portrait/small/avatar-s-1.png"
+                          src="./assets/robust-assets/images/portrait/small/logo1.png"
                           alt="avatar"
                         />
                         <i></i>
@@ -370,7 +95,7 @@ export class Header extends Component {
         {/* <!-- ////////////////////////////////////////////////////////////////////////////--> */}
 
         {/* <!-- main menu--> */}
-        <div style={{"position":"fixed"}} className="main-menu menu-dark menu-fixed menu-shadow menu-border menu-accordion">
+        <div style={{ "position": "fixed" }} className="main-menu menu-dark menu-fixed menu-shadow menu-border menu-accordion">
           {/* <!-- main menu header--> */}
           {/* <!-- / main menu header--> */}
           {/* <!-- main menu content--> */}
@@ -381,7 +106,7 @@ export class Header extends Component {
               className="navigation navigation-main"
             >
               <li className=" nav-item">
-                <Link to="/">
+                <Link to="/admin">
                   <i className="icon-home3"></i>
                   <span data-i18n="nav.dash.main" className="menu-title">
                     Dashboard
@@ -412,10 +137,10 @@ export class Header extends Component {
                       data-i18n="nav.page_layouts.1_column"
                       className="menu-item"
                     >
-                      Add Student 
+                      Add Student
                     </Link>
                   </li>
-                  
+
                   <li>
                     <Link
                       to="/admin/viewStudent"
@@ -425,7 +150,7 @@ export class Header extends Component {
                       View Student
                     </Link>
                   </li>
-                  
+
                 </ul>
               </li>
               <li className=" nav-item">
@@ -747,7 +472,7 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-             
+
               <li className=" nav-item">
                 <a href="#">
                   <i className="icon-stack-2"></i>
@@ -937,10 +662,10 @@ export class Header extends Component {
                   </li>
                 </ul>
               </li>
-             
+
             </ul>
           </div>
-          
+
         </div>
       </div>
     );

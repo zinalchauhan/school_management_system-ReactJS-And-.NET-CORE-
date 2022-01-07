@@ -110,7 +110,24 @@ public  class feedbackMaster_tableDB : clsDB_Operation
                 obj.Reply = (drRow["reply"].Equals(DBNull.Value)) ? "" : (string)drRow["reply"];
                 obj.AddedOn = (drRow["addedOn"].Equals(DBNull.Value)) ? "" : drRow["addedOn"].ToString();
                 obj.IsActive = (drRow["isActive"].Equals(DBNull.Value)) ? 0 : Int32.Parse(drRow["isActive"].ToString());
-
+            //if (obj.UserType == "student")
+            //{
+            //    studentMaster_tableDB objStud = new studentMaster_tableDB();
+            //    studentMaster_tableEntities student = objStud.OnGetData(obj.UserIdFk);
+            //    //obj. = (drRow["semName"].Equals(DBNull.Value)) ? "" : (string)drRow["semName"];
+            //    obj.us = student.StudentMname;
+            //    obj.StudentFname = student.StudentFname;
+            //}
+            //else if(obj.UserType == "teacher")
+            //{
+            //    teacherMaster_tableDB objTech = new teacherMaster_tableDB();
+            //    teacherMaster_tableEntities teacher = objTech.OnGetData(obj.UserIdFk);
+            //    obj.TeacherName = teacher.TeacherName;
+            //}
+            //else
+            //{
+            //    return obj;
+            //}
             //if (DateTime.TryParseExact((string)drRow["addon"], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdata))
             //{
             //    obj.Addon = dtdata;

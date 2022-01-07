@@ -9,6 +9,7 @@ export class studentIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
+            classIdFk: 0,
       students: [],
       studentIdFk: 0,
       standardIdFk: 0,
@@ -18,6 +19,17 @@ export class studentIndex extends Component {
       studImg: [],
     }
   }
+
+//   refreshList(id) {
+//     fetch(Variables.STUD_API_URL + "studentList/" + id)
+//         .then((response) => response.json())
+//         .then((res) => {
+//             if (res.result === "success") {
+//                 console.log(res);
+//                 this.setState({ students: res.data });
+//             }
+//         });
+// }
 
   componentDidMount() {
     this.OnGetData(sessionStorage.getItem("userId").toString());
@@ -36,6 +48,7 @@ export class studentIndex extends Component {
         (result) => {
           console.log(result);
           this.setState({
+            students: result.data ,
             classIdFk: result.data.classIdFk,
             standardIdFk: result.data.standardIdPk,
             studentMname: result.data.studentMname,
@@ -76,7 +89,29 @@ export class studentIndex extends Component {
                     <div class="card-body  collapse in">
                     <div class="card-block">
                       <div className="row">
-                      
+                      <img
+                                                            src={Variables.PHOTO_URL + students.studentImage}
+                                                            className="img-thumbnail img-fluid profile"
+                                                            height="300px"
+                                                            width="300px"
+                                                            itemprop="thumbnail"
+                                                        />
+                                                       
+                                                        <br /> 
+                                                        <h3><u>  Academic Information</u> </h3> <br /><br />
+                                                        <p><b>  Roll No. : </b> {students.studentRollNo} </p>
+                                                        <p><b> Gr No. : </b> {students.studentGrNo} </p>
+                                                        <p><b> Standard : </b> {students.standardName} </p>
+                                                        <p><b> Division : </b> {students.divisionName} </p>
+                                                        <p><b> Medium : </b> {students.mediumName} </p>
+                                                        <br />  <br />
+                                                        <h3><u>  Personal Information</u> </h3> <br /><br />
+                                                        <p><b> Name : </b> {students.studentFname} {students.studentMname} {students.studentLname} </p>
+
+                                                        <p><b> Gender : </b> {students.studentGender} </p>
+                                                        <p><b> Birth Date : </b> {students.studentDob} </p>
+                                                        <p><b> Mother Mobile Number : </b> {students.motherMobile} </p>
+                                                        <p><b> Father Mobile Number : </b> {students.fatherMobile} </p>
                       </div>
                       </div>
                     </div>

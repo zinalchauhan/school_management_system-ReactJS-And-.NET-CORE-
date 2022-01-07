@@ -3,9 +3,62 @@ import Header from "./includes/header";
 import Footer from "./includes/footer";
 import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
+import { Variables } from "../Variables";
 
 export class ViewFeedback extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fbs: [],
+      students: [],
+      teachers: [],
+      subjects: [],
+      modelTitle: "",
+      feedbackIdPk: 0,
+      isActive: 0,
+    };
+  }
+
+  refreshList() {
+    fetch(Variables.API_URL + "feedbackList")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ fbs: res.data });
+        }
+      });
+  }
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  delete(id) {
+    if (window.confirm("Are you sure?")) {
+      fetch(Variables.API_URL + "deleteFeebackList/" + id, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.result === "success") {
+            this.refreshList();
+          }
+        });
+    }
+  }
+
   render() {
+    const {
+      fbs
+    } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -73,115 +126,29 @@ export class ViewFeedback extends Component {
                               <tr>
                                 <th>#</th>
                                 <th>User Type</th>
-                                <th>Name</th>
-                                <th>Medium</th>
                                 <th>Subject</th>
                                 <th>Details</th>
-                                <th> Reply</th>
-                                <th>Delete</th>
+                                <th>Added On</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td> erteg </td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Reply
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
+                            {fbs.map((fb, index) => (
+                              <tr key={index}>
+                                <td> {index + 1} </td>
+                                <td> {fb.userType}</td>
+                                <td> {fb.feedbackSubject} </td>
+                                <td> {fb.feedbackDetail} </td>
+                                <td> {fb.addedOn} </td>
                               </tr>
-                              <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                <td>29</td>
-                                <td>2011/06/27</td>
-                                <td> sertyujmnv </td>
-
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Reply
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                <td>27</td>
-                                <td>2011/01/25</td>
-                                <td>tuyjkh </td>
-                                <td class="edit">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Reply
-                                  </a>
-                                </td>
-
-                                <td class="Delete">
-                                  <a
-                                    href=""
-                                    data-toggle="modal"
-                                    data-target="#iconFormDelete12"
-                                    class="btn btn-outline-danger remove-item-btn"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
+                            ))}
                             </tbody>
                             <tfoot>
                               <tr>
                                 <th>#</th>
                                 <th>User Type</th>
-                                <th>Name</th>
-                                <th>Medium</th>
                                 <th>Subject</th>
                                 <th>Details</th>
-                                <th> Reply</th>
-                                <th>Delete</th>
+                                <th>Added On</th>
                               </tr>
                             </tfoot>
                           </table>

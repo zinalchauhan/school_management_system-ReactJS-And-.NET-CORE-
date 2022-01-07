@@ -123,7 +123,7 @@ componentDidMount() {
               class="navigation navigation-main"
             >
               <li class=" nav-item">
-                <Link to="/">
+                <Link to="/student">
                   <i class="icon-home3"></i>
                   <span data-i18n="nav.dash.main" class="menu-title">
                     Dashboard

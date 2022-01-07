@@ -11,32 +11,74 @@ export class viewExamttList extends Component {
         super(props);
 
         this.state = {
-            quepapers: [],
-            isActive: 0,
+            exams: [],
+            examtts: [],
+            examId: 0,
         };
     }
 
-    refreshList(id) {
-        fetch(Variables.STUD_API_URL + "questionpaperList/" + id)
-            .then((response) => response.json())
-            .then((res) => {
-                if (res.result === "success") {
-                    console.log(res);
-                    this.setState({ quepapers: res.data });
-                }
-            });
-    }
+    getExam(id) {
+        fetch(Variables.STUD_API_URL + "examList/" + id, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then(
+            (res) => {
+              console.log(res);
+              if (res.result === "success") {
+                this.setState({ exams: res.data });
+                res.data.forEach(element => {
+                  
+                    console.log(sessionStorage.getItem("standardId")?.toString());
+                    console.log(element.settingIdPk);
+                    this.getExamTimeTable(sessionStorage.getItem("standardId")?.toString(), element.examIdPk);
+                 
+                });
+              }
+            },
+            (error) => {
+              alert("Failed");
+            }
+          );
+      }
+    
+      getExamTimeTable(id, eid,) {
+        console.log("ID::::"+id);
+        fetch(Variables.STUD_API_URL + "examtimetableList/" + id + "/" + eid, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then(
+            (res) => {
+              console.log(res);
+              if (res.result === "success") {
+                this.setState({ examtts: res.data });
+              }
+            },
+            (error) => {
+              alert("Failed");
+            }
+          );
+      }
+    
 
-    componentDidMount() {
-        console.log(sessionStorage.getItem("standardId")?.toString());
-        this.refreshList(sessionStorage.getItem("standardId")?.toString());
-    }
+      componentDidMount() {
+        this.getExam(sessionStorage.getItem("medId")?.toString());
+        //this.getTimeTable(sessionStorage.getItem("semId")?.toString());
+      }
 
-    render(){
+    
+    render() {
 
-        const {
-            quepapers,
-        } = this.state;
+        const { examtts, exams } = this.state;
 
         return (
             <div>
@@ -62,73 +104,21 @@ export class viewExamttList extends Component {
                         <section id="minimal-statistics-bg">
 
                             <div class="row">
-                            
-                                <div class="col-xl-3 col-lg-6 col-xs-12">
-                                    <div class="card bg-purple" >
-                                        <div class="card-body" className="timetable-item my-card">
-                                            <div class="card-block">
-                                                <div class="media">
-                                                    <div class="media-body white text-xs-center">
-                                                        <h3>Priliminary</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            {examtts.map((t, index) => (
                                 <div class="col-xl-2 col-lg-6 col-xs-12">
-                                    <div class="card bg-purple" >
-                                        <div class="card-body" className="timetable-item my-card">
+                                    <div className="timetable" onClick={() => this.getExamTimeTable(sessionStorage.getItem("standardId")?.toString(),t.examIdPk)}>
+                                        <div class="card-body" className={"timetable-item my-card"} style={{padding:"5px"}}>
                                             <div class="card-block">
                                                 <div class="media">
                                                     <div class="media-body white text-xs-center">
-                                                        <h3>SA - 1</h3>
+                                                        <h3>{t.examName}</h3>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-2 col-lg-6 col-xs-12">
-                                    <div class="card bg-purple" >
-                                        <div class="card-body" className="timetable-item my-card">
-                                            <div class="card-block">
-                                                <div class="media">
-                                                    <div class="media-body white text-xs-center">
-                                                        <h3>Unit Test</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-lg-6 col-xs-12">
-                                    <div class="card bg-purple" >
-                                        <div class="card-body" className="timetable-item my-card">
-                                            <div class="card-block">
-                                                <div class="media">
-                                                    <div class="media-body white text-xs-center">
-                                                        <h3>Formative</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-lg-6 col-xs-12">
-                                    <div class="card bg-purple" >
-                                        <div class="card-body" className="timetable-item my-card">
-                                            <div class="card-block">
-                                                <div class="media">
-                                                    <div class="media-body white text-xs-center">
-                                                        <h3>Final</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            
+                            ))}
                                 
                                 <div class="col-xl-12 col-lg-6 col-xs-12">
                                     <div class="row" id="contingent">
@@ -139,50 +129,18 @@ export class viewExamttList extends Component {
                                                 <table class="table mb-0">
                                                     <thead>
                                                         <tr>
-                                                            <th> # </th> 
-                                                            <th>Exam Date </th>
+                                                            <th> # </th>
+                                                            <th>Date</th>
                                                             <th>Subject</th>
-                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        
+                                                        {examtts.map((tt, index) => (
                                                             <tr >
-                                                                <td> 1 </td>
-                                                                <td> 12-12-2021 </td>
-                                                                <td>Gujarati </td>
+                                                                <td> {tt.examDate} </td>
+                                                                <td> {tt.subjectName} </td>
                                                             </tr>
-
-                                                            <tr >
-                                                                <td> 2 </td>
-                                                                <td> 13-12-2021 </td>
-                                                                <td>Hindi </td>
-                                                            </tr>
-
-                                                            <tr >
-                                                                <td> 3 </td>
-                                                                <td> 14-12-2021 </td>
-                                                                <td>English </td>
-                                                            </tr>
-
-                                                            <tr >
-                                                                <td> 4 </td>
-                                                                <td> 15-12-2021 </td>
-                                                                <td>Maths </td>
-                                                            </tr>
-
-                                                            <tr >
-                                                                <td> 5 </td>
-                                                                <td> 16-12-2021 </td>
-                                                                <td>Sanskrit </td>
-                                                            </tr>
-
-                                                            <tr >
-                                                                <td> 6 </td>
-                                                                <td> 17-12-2021 </td>
-                                                                <td>Science </td>
-                                                            </tr>
-                                                       
+                                                        ))}
                                                     </tbody>
                                                 </table>
                                             </div>

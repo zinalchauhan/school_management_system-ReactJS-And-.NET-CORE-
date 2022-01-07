@@ -469,7 +469,7 @@ export class Header extends Component {
                 <ul class="menu-content">
                   <li>
                     <Link
-                      to="/viewStandardCard"
+                      to="/principal/addNotice"
                       data-i18n="nav.page_layouts.1_column"
                       class="menu-item"
                     >
