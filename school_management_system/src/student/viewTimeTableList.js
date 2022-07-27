@@ -103,9 +103,14 @@ export class viewTimeTableList extends Component {
       }
     
       componentDidMount() {
+        console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
         this.getWeekDay();
         this.getTimeTableSetting(sessionStorage.getItem("medId")?.toString());
         //this.getTimeTable(sessionStorage.getItem("semId")?.toString());
+    }
       }
 
     render() {

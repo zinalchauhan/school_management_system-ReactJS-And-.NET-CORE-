@@ -41,10 +41,15 @@ export class viewPaperImage extends Component {
   }
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     if (this.props.match.params.id !== undefined) {
       this.setState({ questionPaperIdFk: this.props.match.params.id });
       this.onGetImages(this.props.match.params.id);
     }
+  }
   }
 
   delete(id) {

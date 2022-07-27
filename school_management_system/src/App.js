@@ -92,6 +92,8 @@ import viewPrincipalProfile from "./principal/viewPrincipalProfile";
 import addRemarkStud from "./principal/addRemarkStud";
 import leaveRequest from "./principal/leaveRequest";
 import addNotice from "./principal/addNotice";
+import ViewTeacherListPr from "./principal/viewTeacher";
+import ViewFeedbackPr from "./principal/feedback"
 
 function App() {
   return (
@@ -193,6 +195,8 @@ function App() {
         <Route path="/principal/addRemark" component={addRemarkStud} />
         <Route path="/principal/viewLeaveRequest" component={leaveRequest} />
         <Route path="/principal/addNotice" component={addNotice} />
+        <Route path="/principal/viewTeacherList" component={ViewTeacherListPr} />
+        <Route path="/principal/viewFeedback" component={ViewFeedbackPr} />
 
       </Switch>
     </BrowserRouter>

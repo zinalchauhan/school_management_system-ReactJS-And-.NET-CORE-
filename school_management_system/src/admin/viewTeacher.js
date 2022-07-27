@@ -42,7 +42,12 @@ export class ViewTeacher extends Component {
   }
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.refreshList();
+    }
   }
 
   delete(id) {

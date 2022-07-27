@@ -180,6 +180,10 @@ export class AddExamTimeTable extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.loadMedium();
     this.getStandardList();
     this.getSubjectList();
@@ -194,6 +198,7 @@ export class AddExamTimeTable extends Component {
       var today = date.getFullYear()+"-"+ (date.getMonth()+1)+"-"+date.getDate();
       state.dates[0]=today;
     });
+  }
   }
 
   loadMedium() {

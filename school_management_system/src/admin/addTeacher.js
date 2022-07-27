@@ -163,6 +163,10 @@ export class AddTeacher extends Component {
 
   componentDidMount() {
     //this.getProfessorList();
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.loadState();
     this.getMedium();
     this.getSubject();
@@ -172,6 +176,7 @@ export class AddTeacher extends Component {
     } else {
       this.setState({ emp_id: 0 });
     }
+  }
   }
 
   onSubmit = (event) => {

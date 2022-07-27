@@ -17,6 +17,9 @@ using System.Threading.Tasks;
         private string mediumName = "";
         private string standards = "";
         private int isActive = 0;
+    private int standardIdFk = 0;
+    private int fromUserType = 0;
+
 
     public int NoticeIdPk { get => noticeIdPk; set => noticeIdPk = value; }
     public string NoticeSubject { get => noticeSubject; set => noticeSubject = value; }
@@ -28,5 +31,7 @@ using System.Threading.Tasks;
     public string Standards { get => standards; set => standards = value; }
     public int IsActive { get => isActive; set => isActive = value; }
     public string MediumName { get => mediumName; set => mediumName = value; }
+    public int StandardIdFk { get => standardIdFk; set => standardIdFk = value; }
+    public int FromUserType { get => fromUserType; set => fromUserType = value; }
 }
 

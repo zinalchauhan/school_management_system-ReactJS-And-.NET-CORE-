@@ -63,6 +63,10 @@ export class AddEvent extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getMediumList();
     if (this.props.match.params.id !== undefined) {
       this.setState({ eventIdPk: this.props.match.params.id });
@@ -70,6 +74,7 @@ export class AddEvent extends Component {
     } else {
       this.setState({ eventIdPk: 0 });
     }
+  }
   }
 
   onSubmit = (event) => {

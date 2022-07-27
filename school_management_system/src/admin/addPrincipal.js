@@ -88,6 +88,10 @@ export class AddPrincipal extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getMediumList();
     this.getStandardList();
     if (this.props.match.params.id !== undefined) {
@@ -96,6 +100,7 @@ export class AddPrincipal extends Component {
     } else {
       this.setState({ principalIdPk: 0 });
     }
+  }
   }
 
   onSubmit = (event) => {

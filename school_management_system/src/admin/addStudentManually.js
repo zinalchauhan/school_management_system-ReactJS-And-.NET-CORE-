@@ -122,6 +122,10 @@ export class AddStudentManually extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getMediumList();
     this.getClassList();
     this.getCategoryList();
@@ -133,6 +137,7 @@ export class AddStudentManually extends Component {
     } else {
       this.setState({ studentIdPk: 0 });
     }
+  }
   }
 
   onSubmit = (event) => {

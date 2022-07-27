@@ -17,6 +17,11 @@ export class Header extends Component {
     }
 }
 
+logout() {
+  sessionStorage.clear();
+  window.location.href = `/`;
+}
+
 refreshList(id) {
     fetch(Variables.STUD_API_URL + "studentList/" + id)
         .then((response) => response.json())
@@ -98,7 +103,7 @@ componentDidMount() {
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                       <div class="dropdown-divider"></div>
-                      <a href="#" class="dropdown-item">
+                      <a onClick={() => this.logout()} class="dropdown-item">
                         <i class="icon-power3"></i> Logout
                       </a>
                     </div>
@@ -275,7 +280,7 @@ componentDidMount() {
                   </li>
                 </ul>
               </li>
-              <li class=" navigation-header">
+              {/* <li class=" navigation-header">
                 <span data-i18n="nav.category.layouts">EXAM & RESULT</span>
                 <i
                   data-toggle="tooltip"
@@ -302,7 +307,7 @@ componentDidMount() {
                     </Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
              
               <li class=" nav-item">
                 <a href="#">

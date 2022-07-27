@@ -86,6 +86,10 @@ export class AddQuePaper extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getMediumList();
     this.getStandardList();
     this.getSubjectList();
@@ -95,6 +99,7 @@ export class AddQuePaper extends Component {
     } else {
       this.setState({ questionPaperIdPk: 0 });
     }
+  }
   }
 
   onSubmit = (event) => {

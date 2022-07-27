@@ -16,8 +16,13 @@ export class principalIndex extends Component {
   }
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.OnGetData(sessionStorage.getItem("userId").toString());
     console.log(sessionStorage.getItem("userId").toString());
+    }
   }
 
   OnGetData(id) {
@@ -33,6 +38,7 @@ export class principalIndex extends Component {
         (result) => {
           console.log(result);
           this.setState({
+            prs: result.data,
             mediumIdFk: result.data.mediumIdFk,
           });
           sessionStorage.setItem("medId", result.data.mediumIdFk);
@@ -44,6 +50,10 @@ export class principalIndex extends Component {
   }
 
   render() {
+    const {
+      prs,
+      principalIdFk,
+  }= this.state;
     return (
       <div>
         <Header></Header>
@@ -57,7 +67,22 @@ export class principalIndex extends Component {
                     <div class="card-body">
                       <div class="card-block">
                         <div class="row">
-                          
+                        <img
+                                                            //src={Variables.PHOTO_URL + prs.principalImage}
+                                                            src="../assets/img.png" 
+                                                            className="img-thumbnail img-fluid profile"
+                                                            height="300px"
+                                                            width="300px"
+                                                            itemprop="thumbnail"
+                                                        />
+                                                        <br /> 
+                                                        <p><b> Name : </b> {prs.principalName} </p>
+                                                        <p><b> Email : </b> {prs.principalEmail} </p>
+                                                        <p><b> Mobile Number : </b> {prs.principalMobile} </p>
+                                                        <p><b> Address : </b> {prs.principalAddress} </p>
+                                                        <p><b> City : </b> {prs.cityName} - {prs.stateName} </p>
+                                                        <p><b> Medium : </b> {prs.mediumName} </p>
+                                                        <p><b> Standards : </b> {prs.standards} </p>
                         </div>
                       </div>
                     </div>

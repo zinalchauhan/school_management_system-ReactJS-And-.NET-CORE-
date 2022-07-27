@@ -41,7 +41,12 @@ export class leaveRequest extends Component {
       }
     
       componentDidMount() {
+        console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
         this.getLeaveRequests();
+    }
       }
     
       update(leaveRequestIdPk,Status) {
@@ -158,7 +163,7 @@ export class leaveRequest extends Component {
                                   ? "Rejected"
                                   : "Waiting For Response"}
                               </p>
-                              <p class="timestamp">
+                              <p class="timestamp"> <b> Added On : </b>
                                 <i class="fa fa-clock-o"></i> <i>{r.addedOn}</i>
                               </p>
                               {r.status === 0 ? <p> 

@@ -5,32 +5,45 @@ import { Component } from "react/cjs/react.production.min";
 import { Link } from "react-router-dom";
 import { Variables } from "../Variables";
 
-export class ViewSubject extends Component {
+export class ViewFeedbackPr extends Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
+      fbs: [],
+      students: [],
+      teachers: [],
       subjects: [],
       modelTitle: "",
-      subjectName: "",
-      subjectIdPk: 0,
+      feedbackIdPk: 0,
       isActive: 0,
     };
   }
 
   refreshList() {
-    fetch(Variables.API_URL + "subjectList")
+    fetch(Variables.API_URL + "feedbackList")
       .then((response) => response.json())
       .then((res) => {
-        if (res.result == "success") {
-          this.setState({ subjects: res.data });
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ fbs: res.data });
         }
       });
   }
 
+  componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
+    this.refreshList();
+    }
+  }
+
   delete(id) {
     if (window.confirm("Are you sure?")) {
-      fetch(Variables.API_URL + "deleteSubjectList/" + id, {
+      fetch(Variables.API_URL + "deleteFeebackList/" + id, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -46,17 +59,10 @@ export class ViewSubject extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(sessionStorage.getItem("isLogin"));
-    if (sessionStorage.getItem("isLogin") === null) {
-      window.location.href = `/`;
-    } else {
-    this.refreshList();
-    }
-  }
-
   render() {
-    const { subjects, modelTitle, subjectIdPk, subjectName } = this.state;
+    const {
+      fbs
+    } = this.state;
 
     return (
       <div>
@@ -65,14 +71,14 @@ export class ViewSubject extends Component {
           <div className="content-wrapper">
             <div className="content-header row">
               <div className="content-header-left col-md-6 col-xs-12">
-                <h2 className="content-header-title mb-0">Subject List</h2>
+                <h2 className="content-header-title mb-0">Feedback List</h2>
                 <div className="row breadcrumbs-top">
                   <div className="breadcrumb-wrapper col-xs-12">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
                         <Link to="/">Home</Link>
                       </li>
-                      <li className="breadcrumb-item active">Subject List</li>
+                      <li className="breadcrumb-item active">Feedback List</li>
                     </ol>
                   </div>
                 </div>
@@ -85,7 +91,7 @@ export class ViewSubject extends Component {
                   <div className="col-xs-12">
                     <div className="card">
                       <div className="card-header">
-                        <h4 className="card-title">Subject List</h4>
+                        <h4 className="card-title">Feedback List</h4>
                         <br />
                         <a className="heading-elements-toggle">
                           <i className="icon-ellipsis font-medium-3"></i>
@@ -124,35 +130,30 @@ export class ViewSubject extends Component {
                             <thead>
                               <tr>
                                 <th>#</th>
-                                <th>Subject Name</th>
-                                <th>Delete</th>
+                                <th>User Type</th>
+                                <th>Subject</th>
+                                <th>Details</th>
+                                <th>Added On</th>
                               </tr>
                             </thead>
                             <tbody>
-                              {subjects.map((sub, index) => (
-                                <tr key={index}>
-                                  <td>{index + 1}</td>
-                                  <td>{sub.subjectName}</td>
-                                  <td>
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        this.delete(sub.subjectIdPk)
-                                      }
-                                      class="btn btn-outline-danger remove-item-btn"
-                                    >
-                                      {" "}
-                                      Delete{" "}
-                                    </button>
-                                  </td>
-                                </tr>
-                              ))}
+                            {fbs.map((fb, index) => (
+                              <tr key={index}>
+                                <td> {index + 1} </td>
+                                <td> {fb.userType}</td>
+                                <td> {fb.feedbackSubject} </td>
+                                <td> {fb.feedbackDetail} </td>
+                                <td> {fb.addedOn} </td>
+                              </tr>
+                            ))}
                             </tbody>
                             <tfoot>
                               <tr>
                                 <th>#</th>
-                                <th>Subject Name</th>
-                                <th>Delete</th>
+                                <th>User Type</th>
+                                <th>Subject</th>
+                                <th>Details</th>
+                                <th>Added On</th>
                               </tr>
                             </tfoot>
                           </table>
@@ -172,4 +173,4 @@ export class ViewSubject extends Component {
   }
 }
 
-export default ViewSubject;
+export default ViewFeedbackPr;

@@ -28,8 +28,13 @@ export class viewQuePaperList extends Component {
     }
 
     componentDidMount() {
+        console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
         console.log(sessionStorage.getItem("standardId")?.toString());
         this.refreshList(sessionStorage.getItem("standardId")?.toString());
+    }
     }
 
     render(){

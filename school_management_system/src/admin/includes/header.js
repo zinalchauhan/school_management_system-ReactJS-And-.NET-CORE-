@@ -13,7 +13,9 @@ export class Header extends Component {
     window.location.href = `/`;
   }
 
-  componentDidMount() { }
+  componentDidMount() { 
+
+  }
 
   render() {
     return (
@@ -81,7 +83,7 @@ export class Header extends Component {
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                       <div class="dropdown-divider"></div>
-                      <a href="#" class="dropdown-item">
+                      <a onClick={() => this.logout()}  class="dropdown-item">
                         <i class="icon-power3"></i> Logout
                       </a>
                     </div>

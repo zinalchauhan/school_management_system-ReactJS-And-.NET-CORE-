@@ -72,12 +72,17 @@ export class AddExam extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getMediumList();
     if (this.props.match.params.id !== undefined) {
       this.setState({ examIdPk: this.props.match.params.id });
       this.onGetData(this.props.match.params.id);
     } else {
       this.setState({ examIdPk: 0 });
+    }
     }
   }
 

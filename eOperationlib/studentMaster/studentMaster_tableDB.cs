@@ -48,7 +48,48 @@ public  class studentMaster_tableDB : clsDB_Operation
             }
         }
 
-        public int OnUpdate(studentMaster_tableEntities obj)
+    public int studCount()
+    {
+        Exception exForce;
+        //IDataReader oReader;
+        DataTable dtTable;
+        int count = 0;
+        string strQ = "";
+
+        try
+        {
+            strQ = @"select count(studentIdPk) as tot
+                     from studentMaster
+                     where isActive = 1";
+            OnClearParameter();
+
+
+            dtTable = OnExecQuery(strQ, "list").Tables[0];
+
+
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                exForce = new Exception(ErrorNumber + ": " + ErrorMessage);
+                throw exForce;
+            }
+            if (dtTable.Rows.Count != 0)
+            {
+                count = Int32.Parse(dtTable.Rows[0].ItemArray[0].ToString());
+            }
+            return count;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            return 0;
+        }
+        finally
+        {
+            //    DB_Config.OnStopConnection();
+        }
+    }
+    public int OnUpdate(studentMaster_tableEntities obj)
         {
             string strQ = "";
             try

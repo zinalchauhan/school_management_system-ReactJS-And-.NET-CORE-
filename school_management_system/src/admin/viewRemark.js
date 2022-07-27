@@ -39,7 +39,12 @@ export class ViewRemark extends Component {
   }
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.refreshList();
+    }
   }
 
   delete(id) {
@@ -143,8 +148,7 @@ export class ViewRemark extends Component {
                                 <th>Subject</th>
                                 <th>Given By</th>
                                 <th>Details</th>
-                                <th> Date</th>
-                                <th>Delete</th>
+                                <th>Date</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -156,18 +160,7 @@ export class ViewRemark extends Component {
                                   <td> {rmk.teacherName} <br/> ({rmk.userType})</td>
                                   <td> {rmk.remarkDetail} </td>
                                   <td> {rmk.remarkDate} </td>
-                                  <td> 
-                                  <button
-                                      type="button"
-                                      onClick={() =>
-                                        this.delete(rmk.remarkIdPk)
-                                      }
-                                      class="btn btn-outline-danger remove-item-btn"
-                                    >
-                                      {" "}
-                                      Delete{" "}
-                                    </button>
-                                  </td>
+                                  
                                 </tr>
                             ))}
                               </tbody>
@@ -179,7 +172,6 @@ export class ViewRemark extends Component {
                                 <th>Given By</th>
                                 <th>Details</th>
                                 <th> Date</th>
-                                <th>Delete</th>
                               </tr>
                             </tfoot>
                           </table>

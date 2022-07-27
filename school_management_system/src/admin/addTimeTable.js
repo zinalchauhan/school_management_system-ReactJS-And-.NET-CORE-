@@ -101,6 +101,10 @@ export class AddTimeTable extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.loadMedium();
     this.getClassList();
     if (this.props.match.params.id !== undefined) {
@@ -112,6 +116,7 @@ export class AddTimeTable extends Component {
     this.setState((state)=>{
       state.periodNo[0]='1';
     });
+  }
   }
 
   loadMedium() {

@@ -17,62 +17,67 @@ export class viewExamttList extends Component {
         };
     }
 
-    getExam(id) {
-        fetch(Variables.STUD_API_URL + "examList/" + id, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then(
-            (res) => {
-              console.log(res);
-              if (res.result === "success") {
-                this.setState({ exams: res.data });
-                res.data.forEach(element => {
+    // getExam(id) {
+    //     fetch(Variables.STUD_API_URL + "examList/" + id, {
+    //       method: "GET",
+    //       headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //       },
+    //     })
+    //       .then((res) => res.json())
+    //       .then(
+    //         (res) => {
+    //           console.log(res);
+    //           if (res.result === "success") {
+    //             this.setState({ exams: res.data });
+    //             res.data.forEach(element => {
                   
-                    console.log(sessionStorage.getItem("standardId")?.toString());
-                    console.log(element.settingIdPk);
-                    this.getExamTimeTable(sessionStorage.getItem("standardId")?.toString(), element.examIdPk);
+    //                 console.log(sessionStorage.getItem("standardId")?.toString());
+    //                 console.log(element.settingIdPk);
+    //                 this.getExamTimeTable(sessionStorage.getItem("standardId")?.toString(), element.examIdPk);
                  
-                });
-              }
-            },
-            (error) => {
-              alert("Failed");
-            }
-          );
-      }
+    //             });
+    //           }
+    //         },
+    //         (error) => {
+    //           alert("Failed");
+    //         }
+    //       );
+    //   }
     
-      getExamTimeTable(id, eid,) {
-        console.log("ID::::"+id);
-        fetch(Variables.STUD_API_URL + "examtimetableList/" + id + "/" + eid, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then(
-            (res) => {
-              console.log(res);
-              if (res.result === "success") {
-                this.setState({ examtts: res.data });
-              }
-            },
-            (error) => {
-              alert("Failed");
-            }
-          );
-      }
+    //   getExamTimeTable(id, eid,) {
+    //     console.log("ID::::"+id);
+    //     fetch(Variables.STUD_API_URL + "examtimetableList/" + id + "/" + eid, {
+    //       method: "GET",
+    //       headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //       },
+    //     })
+    //       .then((res) => res.json())
+    //       .then(
+    //         (res) => {
+    //           console.log(res);
+    //           if (res.result === "success") {
+    //             this.setState({ examtts: res.data });
+    //           }
+    //         },
+    //         (error) => {
+    //           alert("Failed");
+    //         }
+    //       );
+    //   }
     
 
       componentDidMount() {
-        this.getExam(sessionStorage.getItem("medId")?.toString());
+        console.log(sessionStorage.getItem("isLogin"));
+        if (sessionStorage.getItem("isLogin") === null) {
+          window.location.href = `/`;
+        } else {
+        //this.getExam(sessionStorage.getItem("medId")?.toString());
         //this.getTimeTable(sessionStorage.getItem("semId")?.toString());
+        }
       }
 
     

@@ -77,6 +77,10 @@ export class AddTimeTableSetting extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getMediumList();
     if (this.props.match.params.id !== undefined) {
       this.setState({ settingIdPk: this.props.match.params.id });
@@ -84,6 +88,7 @@ export class AddTimeTableSetting extends Component {
     } else {
       this.setState({ settingIdPk: 0 });
     }
+  }
   }
 
   onSubmit = (event) => {

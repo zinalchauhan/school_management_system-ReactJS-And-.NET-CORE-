@@ -13,35 +13,65 @@ public  class noticeMaster_tableDB : clsDB_Operation
         {
         }
 
-        public int OnInsert(noticeMaster_tableEntities obj)
-        {
-            string strQ = "";
-            try
-            {
-                strQ = @"INSERT INTO [noticeMaster]
-                                   ([noticeSubject],[noticeDescription],[noticeImage],[fromUserIdFk],[toUserType],[mediumIdFk],[standards])
-                             VALUES
-                                   (@noticeSubject,@noticeDescription,@noticeImage,@fromUserIdFk,@toUserType,@mediumIdFk,@standards)";
+    //public int OnInsert(noticeMaster_tableEntities obj)
+    //{
+    //    string strQ = "";
+    //    try
+    //    {
+    //        strQ = @"INSERT INTO [noticeMaster]
+    //                           ([noticeSubject],[noticeDescription],[noticeImage],[fromUserIdFk],[toUserType],[mediumIdFk],[standards])
+    //                     VALUES
+    //                           (@noticeSubject,@noticeDescription,@noticeImage,@fromUserIdFk,@toUserType,@mediumIdFk,@standards)";
 
-                OnClearParameter();
-                AddParameter("@noticeSubject", SqlDbType.VarChar, 50, obj.NoticeSubject, ParameterDirection.Input);
-                AddParameter("@noticeDescription", SqlDbType.VarChar, 50, obj.NoticeDescription, ParameterDirection.Input);
-                AddParameter("@noticeImage", SqlDbType.VarChar, 50, obj.NoticeImage, ParameterDirection.Input);
-                AddParameter("@fromUserIdFk", SqlDbType.Int, 50, obj.FromUserIdFk, ParameterDirection.Input);
-                AddParameter("@toUserType", SqlDbType.VarChar, 50, obj.ToUserType, ParameterDirection.Input);
-                AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
-                AddParameter("@standards", SqlDbType.VarChar, 50, obj.Standards, ParameterDirection.Input);
+    //        OnClearParameter();
+    //        AddParameter("@noticeSubject", SqlDbType.VarChar, 50, obj.NoticeSubject, ParameterDirection.Input);
+    //        AddParameter("@noticeDescription", SqlDbType.VarChar, 50, obj.NoticeDescription, ParameterDirection.Input);
+    //        AddParameter("@noticeImage", SqlDbType.VarChar, 50, obj.NoticeImage, ParameterDirection.Input);
+    //        AddParameter("@fromUserIdFk", SqlDbType.Int, 50, obj.FromUserIdFk, ParameterDirection.Input);
+    //        AddParameter("@toUserType", SqlDbType.VarChar, 50, obj.ToUserType, ParameterDirection.Input);
+    //        AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
+    //        AddParameter("@standards", SqlDbType.VarChar, 50, obj.Standards, ParameterDirection.Input);
+
+    //    return OnExecNonQuery(strQ);
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+    //        throw ex;
+    //    }
+    //}
+
+    public int OnInsert(noticeMaster_tableEntities obj)
+    {
+        string strQ = "";
+        try
+        {
+            strQ = @"INSERT INTO [noticeMaster]
+                                   ([noticeSubject], [noticeDescription], [noticeImage], [fromUserIdfk], [fromUserType], [toUserType],[mediumIdFk], [standardIdFk])
+                             VALUES
+                                   (@noticeSubject, @noticeDescription, @noticeImage, @fromUserIdfk, @fromUserType, @toUserType, @mediumIdFk, @standardIdFk)";
+
+            OnClearParameter();
+            AddParameter("@noticeSubject", SqlDbType.VarChar, 50, obj.NoticeSubject, ParameterDirection.Input);
+            AddParameter("@noticeDescription", SqlDbType.VarChar, 50, obj.NoticeDescription, ParameterDirection.Input);
+            AddParameter("@noticeImage", SqlDbType.VarChar, 50, obj.NoticeImage, ParameterDirection.Input);
+            AddParameter("@fromUserIdFk", SqlDbType.Int, 50, obj.FromUserIdFk, ParameterDirection.Input);
+            AddParameter("@fromUserType", SqlDbType.VarChar, 50, obj.FromUserType, ParameterDirection.Input);
+            AddParameter("@toUserType", SqlDbType.VarChar, 50, obj.ToUserType, ParameterDirection.Input);
+            AddParameter("@mediumIdFk", SqlDbType.Int, 50, obj.MediumIdFk, ParameterDirection.Input);
+            AddParameter("@standardIdFk", SqlDbType.Int, 50, obj.StandardIdFk, ParameterDirection.Input);
+            //AddParameter("@addedOn", SqlDbType.VarChar, 50, obj.AddedOn, ParameterDirection.Input);
 
             return OnExecNonQuery(strQ);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
         }
+        catch (Exception ex)
+        {
 
-        public int OnUpdate(noticeMaster_tableEntities obj)
+            throw ex;
+        }
+    }
+
+    public int OnUpdate(noticeMaster_tableEntities obj)
         {
             string strQ = "";
             try

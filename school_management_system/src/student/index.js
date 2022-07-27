@@ -32,7 +32,17 @@ export class studentIndex extends Component {
 // }
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.OnGetData(sessionStorage.getItem("userId").toString());
+    }
+  }
   }
 
   OnGetData(id) {

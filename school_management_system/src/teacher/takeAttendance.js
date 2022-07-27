@@ -97,7 +97,12 @@ export class teacherTakeAttendance extends Component {
   // }
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.refreshList(sessionStorage.getItem("userId")?.toString());
+    }
   }
 
   insert(studid, classid, classtechid, status) {

@@ -2,14 +2,58 @@ import react from "react";
 import { Component } from "react";
 import Footer from "./includes/footer";
 import Header from "./includes/header";
+import { Variables } from "../Variables";
 
 export class Index extends Component {
 
-  componentDidMount() {
-    console.log("User Id :: ",sessionStorage.getItem("userId").toString());
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      cnt1: 0,
+      cnt2: 0,
+    };
   }
 
+  refreshList1() {
+    fetch(Variables.API_URL + "studentCount")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ cnt1: res.data });
+        }
+      });
+  }
+
+  refreshList2() {
+    fetch(Variables.API_URL + "teacherCount")
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === "success") {
+          console.log(res);
+          this.setState({ cnt2: res.data });
+        }
+      });
+  }
+
+  componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
+    console.log("User Id :: ",sessionStorage.getItem("userId").toString());
+    this.refreshList1();
+    this.refreshList2();
+    }
+  }
+
+
   render() {
+    const {
+      cnt1,
+      cnt2,
+    } = this.state;
     return (
       <div>
         <Header></Header>
@@ -31,7 +75,7 @@ export class Index extends Component {
                               </div>
                               <div className="media-body text-xs-right">
                                 <span className="font-large-2 text-bold-300 info">
-                                  4,704
+                                 {cnt1}
                                 </span>
                               </div>
                               <p className="text-muted">
@@ -59,7 +103,7 @@ export class Index extends Component {
                               </div>
                               <div className="media-body text-xs-right">
                                 <span className="font-large-2 text-bold-300 info">
-                                  194
+                                  {cnt2}
                                 </span>
                               </div>
                               <p className="text-muted" >

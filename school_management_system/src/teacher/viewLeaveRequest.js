@@ -74,7 +74,12 @@ export class teacherViewLeaveRequest extends Component {
 
   componentDidMount() {
     //this.getLeaveRequests();
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getClassTeacher(sessionStorage.getItem("userId")?.toString());
+    }
   }
 
   update(leaveRequestIdPk,Status) {

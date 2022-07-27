@@ -28,8 +28,13 @@ export class viewEventList extends Component {
     }
 
     componentDidMount() {
+        console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
         console.log(sessionStorage.getItem("medId")?.toString());
         this.refreshList(sessionStorage.getItem("medId")?.toString());
+    }
     }
 
     render(){

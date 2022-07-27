@@ -51,6 +51,10 @@ export class AddClass extends Component {
   };
 
   componentDidMount() {
+    console.log(sessionStorage.getItem("isLogin"));
+    if (sessionStorage.getItem("isLogin") === null) {
+      window.location.href = `/`;
+    } else {
     this.getStandardList();
     this.getDivisionList();
     if (this.props.match.params.id !== undefined) {
@@ -59,6 +63,7 @@ export class AddClass extends Component {
     } else {
       this.setState({ classIdPk: 0 });
     }
+  }
   }
 
   onSubmit = (event) => {

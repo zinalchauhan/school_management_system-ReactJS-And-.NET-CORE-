@@ -57,6 +57,36 @@ namespace schoolManagementSystemAPI.Controllers
             }
         }
 
+        //student count
+        [HttpGet("studentCount")]
+        public JsonResult studentCount()
+        {
+            int stud = studentObj.studCount();
+            if (stud != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = stud });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
+
+        //teacher count
+        [HttpGet("teacherCount")]
+        public JsonResult teacherCount()
+        {
+            int stud = teacherObj.techCount();
+            if (stud != 0)
+            {
+                return new JsonResult(new { result = "success", message = "Data Found", data = stud });
+            }
+            else
+            {
+                return new JsonResult(new { result = "faliure", message = "Data Not Found" });
+            }
+        }
+
         [HttpGet("stateList")]
         public JsonResult stateList()
         {
